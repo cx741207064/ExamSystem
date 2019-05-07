@@ -1,0 +1,36 @@
+http://www.jinglve.com/JLStudent/Home/Moni?PaperID=8e02b6f66250406498fda5eca48ac944&CourseSort=3&CourseID=1&ProvinceId=1&SortIndex=1&Sort_Name=%E4%BC%9A%E8%AE%A1%E7%94%B5%E7%AE%97%E5%8C%96#21
+https://ssl.jinglue.cn/index.aspx?SortId=513&CourseId=22&mobile=10802227584&identify=eb3ac3e163fe4138ac2b0c2e5a7c9520
+http://jluepracticecommongs.kjcytk.com/portal/index.aspx?userid=eb3ac3e163fe4138ac2b0c2e5a7c9520&username=jljyzjm&classid=9&courseid=11&sortid=603&questionId=2418&userquestionId=3784&CompanyId=36&rand=1524542387571
+
+
+考试系统用户同3个系统对接：（已知参数：身份证ID，准考证ID，证书ID，行业ID）
+1，跳转开始考试：	
+	1），会计网校 （考试ID和练习ID可以用同一个，页面做修改区分考试和练习）
+	2），报税     （考试ID和练习ID可以用同一个，页面做修改区分考试和练习）
+	3），电脑账   （怎么区分考试和练习？）
+	
+2，获取成绩：
+	1），会计网校
+	2），报税
+	3），电脑账
+
+1.报名系统中关于添加考生信息的时候会涉及到与会计网校中账号如何关联，有两种方式，第一种新开账号，第二种已有账号关联。
+2.和许超对接综合办会计实务的试卷展现功能，需要将试卷中的收藏、显示答案去掉，许超另外复制一张试卷页面，并且需要明确传递的参数值
+3.找王静雯讲电脑账的页面重新制作考试专用，去掉参考答案，账套评分，视频解析三个按钮，并且需要设置倒计时，然后倒计时时间一到或者考生点击交卷则关闭页面
+4.和徐群沟通关于报税页面的参数传递，并且也需要显示倒计时，然后倒计时时间一到或者考生点击交卷则关闭页面
+5.综合办会计实务、电脑账、报税的三个科目一经提交或者考试时间到，则无法再打开，需要有提示信息
+
+
+
+
+
+
+
+
+
+
+http://h.chanjet.com/
+18051119009
+18051119009**..123
+https://ssl.jinglue.cn/Question.ashx?action=30010&CourseId=521&pinzheng=45
+外贸商业企业电脑账  从39No.凭证开始错误，次序不一致；

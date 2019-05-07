@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>账号管理</title>
+	<meta name="Author" content="larry" />
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">	
+	<link rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="../../../common/frame/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/gobal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/animate.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/user.css" media="all">
+</head>
+<body>
+    <div class="layui-fluid larry-wrapper">
+        <div class="layui-row  animated bounceIn">
+    	    <div class="">
+    		    <fieldset class="layui-elem-field layui-field-title site-title">
+                    <legend><a name="color-design">机构管理</a></legend>
+                </fieldset>
+                <div class="layui-btn-group larry-group" id="larry_group" style="margin-left: 100px">
+                </div>
+    	    </div>
+
+            <div class="layui-form-item" style="margin-left: 100px; margin-right: 400px;">
+                <div class="layui-form-item" id="condes">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">机构名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn" id="btnquery" data-type="add"><i class="layui-icon">&#xe615;</i><cite>查询</cite></button>
+                    </div>
+                    <button class="layui-btn" id="btnadd" style="float:right" data-type="add"><i class="layui-icon">&#xe61f;</i><cite>添加机构</cite></button>
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-left:100px;margin-right:400px;">
+
+                <div class="user-tables">
+                    <table id="userTables" lay-filter="userTables"></table>
+                </div>
+                <div id="laypage"></div>  
+            </div>
+        </div>
+    </div>
+
+    <div id="notice1" style="display:none" class="layui-form">
+        <div class="layui-form-item" style="margin-top: 20px;margin-right: 20px;">
+            <label class="layui-form-label label1">登录名</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="text" name="Name" id="Name" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-right: 20px;" id="div_PWD">
+            <label class="layui-form-label label1">密码</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="password" name="Password" id="Password" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-right: 20px;">
+            <label class="layui-form-label label1">机构简称</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="text" name="AppName" id="AppName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-right: 20px;">
+            <label class="layui-form-label label1">机构ID</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="text" name="ClassId" id="ClassId" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-right: 20px;">
+            <label class="layui-form-label label1">机构url</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="text" name="Path" id="Path" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+         <div class="layui-form-item" style="margin-right: 20px;">
+            <label class="layui-form-label label1">描述</label>
+            <div class="layui-input-block layui-input-block1">
+                <input type="text" name="Describe" id="Describe" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-top:30px;">
+            <button class="layui-btn" style="float:right;margin-right:38px;" id="btnadd2" data-type="add"><i class="layui-icon">&#xe61f;</i><cite>添加</cite></button>
+        </div>
+    </div>
+
+    <script type="text/html" id="userbar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="shouquan">重置密码</a>
+      <!--<a class="layui-btn layui-btn-warm  layui-btn-mini" lay-event="disable">禁用</a>-->
+        <a class="layui-btn layui-btn-danger  layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <!-- 加载js文件 -->
+    <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script> 
+    <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.md5.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script> 
+    <script type="text/javascript" src="../../../common/common.js"></script> 
+    <script type="text/javascript" src="../../js/mark/organizamanager.js"></script> 
+</body>
+</html>

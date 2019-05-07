@@ -1,0 +1,85 @@
+[{
+	"id": "1",
+	"pid": "0",
+	"title": "",
+	"icon": "",
+	"url": "",
+	"spread": false,
+	"children": [{
+	"id": "2",
+	"pid": "0",
+	"title": "后台首页",
+	"icon": "&#xe697;",
+	"url": "/admin/index",
+	"spread": false
+},{
+		"id": "3",
+		"pid": "0",
+		"title": "账号管理",
+		"icon": "&#xe9b6;",
+		"url": "",
+		"spread": false,
+		"children": [{
+				"id": "7",
+				"pid": "6",
+				"title": "添加账号",
+				"icon": "&#xe61d;",
+				"url": "html/mark/manager.html",
+				"spread": false,
+				"children":[]
+			},{
+				"id": "7",
+				"pid": "6",
+				"title": "机构管理",
+				"icon": "&#xe61d;",
+				"url": "html/mark/organizamanager.html",
+				"spread": false,
+				"children":[]
+			}]
+	}, {
+		"id": "6",
+		"pid": "0",
+		"title": "证书管理",
+		"icon": "&#xe64b;",
+		"url": "",
+		"spread": false,
+		"children": [
+			{
+				"id": "8",
+				"pid": "6",
+				"title": "后台证书管理",
+				"icon": "&#xe621;",
+				"url": "html/certificate/backmanager.html",
+				"spread": false,
+				"children":[]
+			},
+			{
+				"id": "9",
+				"pid": "6",
+				"title": "后台课程管理",
+				"icon": "&#xe705;",
+				"url": "html/certificate/subjectmanager.html",
+				"spread": false,
+				"children":[]
+			}
+		]
+	}, {
+		"id": "6",
+		"pid": "0",
+		"title": "成绩阅卷",
+		"icon": "&#xe64b;",
+		"url": "",
+		"spread": false,
+		"children": [
+			{
+				"id": "7",
+				"pid": "6",
+				"title": "阅卷",
+				"icon": "&#xe61d;",
+				"url": "html/pagemark/diannaozhang.html",
+				"spread": false,
+				"children":[]
+			}
+		]
+	}]
+}]

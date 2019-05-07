@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Main", "JlueCertificate.Main\JlueCertificate.Main.csproj", "{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Logic", "JlueCertificate.Logic\JlueCertificate.Logic.csproj", "{A45C2770-F8C1-4826-89E0-BDD2FF28258F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Bll", "JlueCertificate.Bll\JlueCertificate.Bll.csproj", "{48DFB0E5-251B-481F-8629-540115F81F94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Dal", "JlueCertificate.Dal\JlueCertificate.Dal.csproj", "{8441CD8E-944C-4CDE-9772-326B69EF7A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Entity", "JlueCertificate.Entity\JlueCertificate.Entity.csproj", "{CFACFEE6-A3DE-494D-8030-FFFD1309446E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Untity", "JlueCertificate.Untity\JlueCertificate.Untity.csproj", "{41645E03-B246-46FB-955A-D78FC517607F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImportDll", "ImportDll", "{F79377F3-2429-4F1D-B43D-2246C893AD8D}"
+	ProjectSection(SolutionItems) = preProject
+		ImportDll\JlueLog.dll = ImportDll\JlueLog.dll
+		ImportDll\Newtonsoft.Json.dll = ImportDll\Newtonsoft.Json.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{A204EA4A-F592-4E5F-977F-37A36687AB89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Script", "SQL Script", "{22482031-3373-4385-BEAD-50823729BDC9}"
+	ProjectSection(SolutionItems) = preProject
+		BaseData.sql = BaseData.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Organiza", "JlueCertificate.Organiza\JlueCertificate.Organiza.csproj", "{9F27CF23-6338-4F93-A74B-9554B040B300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Mark", "JlueCertificate.Mark\JlueCertificate.Mark.csproj", "{CB6EBDF1-E4D2-4352-8A3F-81EA3C3A893F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45C2770-F8C1-4826-89E0-BDD2FF28258F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45C2770-F8C1-4826-89E0-BDD2FF28258F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45C2770-F8C1-4826-89E0-BDD2FF28258F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45C2770-F8C1-4826-89E0-BDD2FF28258F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48DFB0E5-251B-481F-8629-540115F81F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48DFB0E5-251B-481F-8629-540115F81F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48DFB0E5-251B-481F-8629-540115F81F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48DFB0E5-251B-481F-8629-540115F81F94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8441CD8E-944C-4CDE-9772-326B69EF7A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8441CD8E-944C-4CDE-9772-326B69EF7A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8441CD8E-944C-4CDE-9772-326B69EF7A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8441CD8E-944C-4CDE-9772-326B69EF7A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFACFEE6-A3DE-494D-8030-FFFD1309446E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFACFEE6-A3DE-494D-8030-FFFD1309446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFACFEE6-A3DE-494D-8030-FFFD1309446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFACFEE6-A3DE-494D-8030-FFFD1309446E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41645E03-B246-46FB-955A-D78FC517607F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41645E03-B246-46FB-955A-D78FC517607F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41645E03-B246-46FB-955A-D78FC517607F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41645E03-B246-46FB-955A-D78FC517607F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F27CF23-6338-4F93-A74B-9554B040B300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F27CF23-6338-4F93-A74B-9554B040B300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F27CF23-6338-4F93-A74B-9554B040B300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F27CF23-6338-4F93-A74B-9554B040B300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB6EBDF1-E4D2-4352-8A3F-81EA3C3A893F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB6EBDF1-E4D2-4352-8A3F-81EA3C3A893F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB6EBDF1-E4D2-4352-8A3F-81EA3C3A893F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB6EBDF1-E4D2-4352-8A3F-81EA3C3A893F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CFACFEE6-A3DE-494D-8030-FFFD1309446E} = {A204EA4A-F592-4E5F-977F-37A36687AB89}
+		{41645E03-B246-46FB-955A-D78FC517607F} = {A204EA4A-F592-4E5F-977F-37A36687AB89}
+		{8441CD8E-944C-4CDE-9772-326B69EF7A31} = {A204EA4A-F592-4E5F-977F-37A36687AB89}
+	EndGlobalSection
+EndGlobal

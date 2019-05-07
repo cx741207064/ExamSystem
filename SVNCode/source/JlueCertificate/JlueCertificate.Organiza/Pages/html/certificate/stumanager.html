@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>证书管理</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="LarryCMS Version:1.09" />
+    <meta name="Author" content="larry" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="../../../common/frame/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/gobal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/animate.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/user.css" media="all">
+    <style type="text/css">
+        .label1 {
+            width: 100px !important;
+        }
+
+        .label2 {
+            width: 30px !important;
+        }
+
+        .layui-input-block1 {
+            margin-left: 130px !important;
+        }
+
+        .layui-input-block2 {
+            margin-left: 60px !important;
+        }
+
+        .layui-form-select dl {
+            max-height: 200px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-fluid larry-wrapper">
+        <div class="layui-row  animated bounceIn">
+            <div class="">
+                <fieldset class="layui-elem-field layui-field-title site-title">
+                    <legend><a name="color-design">证书管理</a></legend>
+                </fieldset>
+            </div>
+
+            <div class="layui-form-item" style="margin-left: 100px">
+                <div class="layui-form-item" id="condes">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学籍号</label>
+                        <div class="layui-input-block">
+                            <input type="text" style="width: 300px" name="studentid" autocomplete="off" class="layui-input" value="20180426110603224">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn" id="btnquery" data-type="add"><i class="layui-icon">&#xe615;</i><cite>查询</cite></button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form layui-form-pane" style="margin-left: 100px; margin-right: 200px">
+
+                <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #d82525">
+                    <legend><a name="color-design" style="color: #d82525;">未取得证书</a></legend>
+                </fieldset>
+                <div class="layui-form-item">
+
+                    <div class="user-tables">
+                        <table id="Tables_certificate1" lay-filter="Tables_certificate1"></table>
+                    </div>
+                    <div id="laypage_certificate1"></div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #3f3492">
+                    <legend><a name="color-design" style="color: #3f3492;">待考证书</a></legend>
+                </fieldset>
+                <div class="layui-form-item" >
+                    <div class="user-tables">
+                        <table id="Tables_certificate2" lay-filter="Tables_certificate2"></table>
+                    </div>
+                    <div id="laypage_certificate2"></div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #28ab87">
+                    <legend><a name="color-design" style="color: #28ab87;">已取得证书</a></legend>
+                </fieldset>
+                <div class="layui-form-item">
+                    <div class="user-tables">
+                        <table id="Tables_certificate3" lay-filter="Tables_certificate3"></table>
+                    </div>
+                    <div id="laypage_certificate3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notice1" style="display: none" class="layui-form">
+        <div class="layui-form-item" style="margin-top: 20px; margin-bottom: 5px;">
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <label class="layui-form-label label1">学习平台地址</label>
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="platformurl" id="platformurl" autocomplete="off" class="layui-input" readonly="readonly" value="www.jinglve.com">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 380px">
+                    <label class="layui-form-label label1">报考证书类别</label>
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="CategoryName" id="CategoryName" autocomplete="off" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label label1">网校用户名</label>
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="username" id="username" required lay-verify="required" autocomplete="off" class="layui-input larry-input" placeholder="请输入您的用户名">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 380px">
+                    <label class="layui-form-label label1">报考级次</label>
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="ExamSubject" id="ExamSubject" autocomplete="off" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label label1">密码</label>
+                    <div class="layui-input-block layui-input-block1">
+                        <input onfocus="this.type='password'" name="password" id="password" required lay-verify="required|password" autocomplete="off" class="layui-input larry-input" placeholder="请输入您的登录密码">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form layui-form-pane" style="margin-left: 20px; margin-right: 20px">
+            <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #d82525">
+                <legend><a name="color-design" style="color: #d82525;">包含课程</a></legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <div class="user-tables">
+                    <table id="Tables_subjects" lay-filter="Tables_subjects"></table>
+                </div>
+                <div id="laypage_subjects"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notice3" style="display: none;background:url(../../images/print/certifi.png) no-repeat;width:520px;height:716px;" class="layui-form">
+        <div class="layui-form-item" style="margin-top: 20px; margin-bottom: 5px;">
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_zslb" id="zs_zslb" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_khkm" id="zs_khkm" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_name" id="zs_name" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_id" id="zs_id" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_num" id="zs_num" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_fzrq" id="zs_fzrq" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-item" style="width: 774px;">
+                    <div class="layui-input-block layui-input-block1">
+                        <input type="text" name="zs_fzjg" id="zs_fzjg" class="layui-input" style="background-color: transparent;border:none;border-bottom:1px solid black;" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/html" id="userbar_certificate1">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">报名</a>
+    </script>
+    <script type="text/html" id="userbar_certificate2">
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">打印</a>
+    </script>
+    <script type="text/html" id="userbar_certificate3">
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">打印</a>
+    </script>
+    <!-- 加载js文件 -->
+    <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../../common/common.js"></script>
+    <script type="text/javascript" src="../../js/certificate/stumanager.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../../../Scripts/layui/css/layui.css" rel="stylesheet" type="text/css" />
+    <link href="../../../Scripts/Examine/UserCenter/exam.css" rel="stylesheet" type="text/css" />
+    <script>
+        window.host = "http://jluepracticeautobookscore.kjcytk.com/";
+    </script>
+    <style type="text/css">
+        .active {
+            background: url(../../../images/zk.png) no-repeat !important
+        }
+    </style>
+</head>
+<body>
+    <div class="qgks-top" style="display: block;">
+        <div class="qgks-top-list fl">
+            <ul class="fl">
+                <li>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<span id="name"></span></li>
+                <li>准考证号：<span id="examid"></span></li>
+                <li>身份证号：<span id="cardid"></span></li>
+            </ul>
+
+            <button data-method="offset" data-type="auto" class="layui-btn" id="detail" style="margin-left: 20px; background-color: #009688;">详细信息</button>
+        </div>
+        <div class="qgks-top-listtitle fl" style="margin-left: 13%;">
+            <ul id="titlediv">
+                
+            </ul>
+        </div>
+        <div class="qgks-top-countdown fl">
+            <span>本科目剩余时间：</span>
+            <span class="ks-sysjtime" ><span id ="min">0</span>分<span id="sec">0</span>秒</span>
+            <input class="info_xx" name="交卷" value="交卷" type="button" id="examsub">
+        </div>
+        <div class="top_bar fr">
+            <div style="display: block;" id="top_ico">
+                <input name="隐藏" type="button">
+            </div>
+
+        </div>
+    </div>
+    <div id="ifcont">
+        <iframe id="ifContents" border="0" runat="server" width="102%" height="800" src=""></iframe>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="../../../Scripts/layui/layui.js"></script>
+<script type="text/javascript" src="../../../Scripts/common.js"></script>
+<script type="text/javascript" src="../../../Scripts/Examine/UserCenter/exam.js"></script>
+</html>

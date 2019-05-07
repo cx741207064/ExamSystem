@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>证书管理</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="LarryCMS Version:1.09" />
+    <meta name="Author" content="larry" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="../../../common/frame/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/gobal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/animate.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/user.css" media="all">
+    <style type="text/css">
+        .printinput {
+            width: 300px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-weight: bolder;
+        }
+
+        #CertifiName {
+            width: 300px;
+            height: 80px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-weight: bolder;
+            font-size: 33px;
+            resize: none;
+        }
+
+        .img {
+            width: 105px;
+            height: 133px;
+        }
+
+        .back {
+            background: url(../../images/print/certifi.jpg) no-repeat;
+        }
+
+        .backimg {
+            position: absolute;
+            margin: 0;
+            z-index: -1;
+        }
+
+        #qrcode {
+            width: 110px;
+            height: 110px;
+            margin-top: 405px;
+            margin-left: 455px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="btn_div">
+        <button class="layui-btn" style="float: right; margin-right: 38px;" id="btn_print" data-type="add"><cite>打印</cite></button>
+    </div>
+    <div id="print" style="width: 710px; height: 990px; position: absolute;">
+        <img src="../../images/print/certifi.jpg" class="backimg" alt="学员头像" />
+        <div style="margin-top: 110px; margin-left: 520px; position: absolute;">
+            <img class="img" id="HeaderUrl" alt="学员头像" />
+        </div>
+        <div class="Name" style="margin-top: 276px; margin-left: 540px; position: absolute;">
+            <input type="text" name="Name" id="Name" class="printinput" value="">
+        </div>
+        <div class="Sex" style="margin-top: 305px; margin-left: 540px; position: absolute;">
+            <input type="text" name="Sex" id="Sex" class="printinput" value="">
+        </div>
+        <div class="CardId" style="margin-top: 334px; margin-left: 540px; position: absolute;">
+            <input type="text" name="CardId" id="CardId" class="printinput" value="">
+        </div>
+        <div class="SerialNum" style="margin-top: 423px; margin-left: 160px; position: absolute;">
+            <input type="text" name="SerialNum" id="SerialNum" class="printinput" value="">
+        </div>
+        <div class="IssueDate" style="margin-top: 452px; margin-left: 160px; position: absolute;">
+            <input type="text" name="IssueDate" id="IssueDate" class="printinput" value="">
+        </div>
+
+        <div id="qrcode"></div>
+    </div>
+    <!-- 加载js文件 -->
+    <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../common/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../../common/common.js"></script>
+    <script type="text/javascript" src="../../js/certificate/certifiprint.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>证书管理</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="LarryCMS Version:1.09" />
+    <meta name="Author" content="larry" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="../../../common/frame/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/gobal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/animate.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/user.css" media="all">
+    <style type="text/css">
+        .printinput1 {
+            width: 50px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-size: 18px;
+        }
+
+        .printinput2 {
+            width: 100px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-size: 18px;
+        }
+
+        .printinput3 {
+            width: 200px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-size: 18px;
+        }
+
+        #CertifiName {
+            width: 115px;
+            height: 40px;
+            background-color: transparent;
+            border: none;
+            font-family: 宋体;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .inputdiv {
+            width: 280px;
+            height: 30px;
+        }
+
+        .inputdiv2 {
+            margin-top: 12px;
+        }
+
+        .inputdiv3 {
+            width: 280px;
+            height: 22px;
+        }
+
+        .img {
+            width: 117px;
+            height: 163px;
+        }
+
+        .back {
+            background: url(../../images/print/certifi.jpg) no-repeat;
+        }
+
+        .backimg {
+            position: absolute;
+            margin: 0;
+            z-index: -1;
+        }
+
+        #qrcode {
+            width: 120px;
+            height: 120px;
+            margin-top: 800px;
+            margin-left: 505px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="btn_div">
+        <button class="layui-btn" style="float: right; margin-right: 38px;" id="btn_print" data-type="add"><cite>打印</cite></button>
+    </div>
+    <div id="print" style="width: 710px; height: 990px; position: absolute;">
+        <img src="../../images/print/ticket.jpg" class="backimg" alt="学员头像" />
+        <div style="margin-top: 60px; margin-left: 230px; position: absolute;">
+            <textarea id="CertifiName" cols="8" rows="2">会计人才评价考试</textarea>
+        </div>
+        <div style="margin-top: 110px; margin-left: 361px; position: absolute;">
+            <img class="img" id="HeaderUrl" alt="学员头像" />
+        </div>
+        <div style="margin-top: 95px; margin-left: 262px; position: absolute;">
+            <input type="text" name="StartTime" id="StartTime" class="printinput2" value="">
+        </div>
+        <div style="margin-top: 127px; margin-left: 115px; position: absolute;">
+            <input type="text" name="Name" id="Name" class="printinput2" value="">
+        </div>
+        <div style="margin-top: 127px; margin-left: 235px; position: absolute;">
+            <input type="text" name="Sex" id="Sex" class="printinput2" value="">
+        </div>
+        <div style="margin-top: 162px; margin-left: 115px; position: absolute;">
+            <input type="text" name="TicketNum" id="TicketNum" class="printinput2" value="">
+        </div>
+        <div style="margin-top: 231px; margin-left: 115px; position: absolute;">
+            <div class="inputdiv">
+                <input type="text" name="CardId" id="CardId" class="printinput3" value="">
+            </div>
+            <div class="inputdiv">
+                <input type="text" name="ExamLevel" id="ExamLevel" class="printinput3" value="一星A级">
+            </div>
+            <div class="inputdiv">
+                <input type="text" name="ExamSchool" id="ExamSchool" class="printinput3" value="沙洲职业工学院">
+            </div>
+            <div class="inputdiv">
+                <input type="text" name="ExamAddress" id="ExamAddress" class="printinput3" value="张家港张扬公路">
+            </div>
+            <div class="inputdiv2">
+                <div class="inputdiv3">
+                    <input type="text" name="ExamHallName" id="CentreName" class="printinput3" value="信息楼108">
+                </div>
+                <div class="inputdiv3">
+                    <input type="text" name="ExamSubject" id="ExamSubject" class="printinput2" value="经济法基础">
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 430px; margin-left: 100px; position: absolute; text-align: left; width: 400px; height: 40px;">
+            <input type="text" name="ExamDate" id="ExamDate" class="printinput1" value="5.12">
+            <input type="text" name="ExamTime" id="ExamTime" class="printinput2" value="14:30-18:00">
+            <input type="text" name="ExamHallNum" id="ExamHallNum" class="printinput1" style="margin-left: 45px" value="003">
+            <input type="text" name="SeatNum" id="SeatNum" class="printinput1" style="margin-left: 35px" value="036">
+        </div>
+        <div style="margin-top: 498px; margin-left: 110px; position: absolute;">
+            <input type="text" name="WorkUnit" id="WorkUnit" class="printinput2" value="张家港国泰">
+        </div>
+        <div style="margin-top: 524px; margin-left: 180px; position: absolute;">
+            <input type="text" name="PublishDate" id="PublishDate" class="printinput2" value="6月10日前">
+        </div>
+        <div style="margin-top: 600px; margin-left: 172px; position: absolute;">
+            <input type="text" name="QueryLink" id="QueryLink" class="printinput3" value="www.jinglve.com">
+        </div>
+    </div>
+    <!-- 加载js文件 -->
+    <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../common/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../../common/common.js"></script>
+    <script type="text/javascript" src="../../js/certificate/ticketprint.js"></script>
+</body>
+</html>

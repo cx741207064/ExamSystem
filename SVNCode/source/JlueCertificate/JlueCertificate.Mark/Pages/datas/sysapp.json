@@ -1,0 +1,38 @@
+{
+	"code": 0,
+	"msg": "",
+	"count": 17,
+	"data": [{
+		"appid": 1,
+		"appname": "larry"
+	}, {
+		"appid": 2,
+		"appname": "admin"
+	}, {
+		"appid": 3,
+		"appname": "channel"
+	},{
+		"appid": 4,
+		"appname": "info",
+		"group":"信息发布员"
+	},{
+		"appid": 5,
+		"appname": "test"
+	}, {
+		"appid": 6,
+		"appname": "admin"
+	}, {
+		"appid": 7,
+		"appname": "channel"
+	},{
+		"appid": 8,
+		"appname": "info",
+		"group":"信息发布员"
+	},{
+		"appid": 9,
+		"appname": "test"
+	}, {
+		"appid": 10,
+		"appname": "admin"
+	}]
+}

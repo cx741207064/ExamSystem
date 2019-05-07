@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="applicable-device" content="pc,mobile" />
+    <title>人才评价考试-登录</title>
+
+    <style type="text/css">
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        ol,
+        dl,
+        dd,
+        form,
+        fieldset,
+        legend,
+        input,
+        select,
+        textarea,
+        button,
+        caption,
+        th,
+        td,
+        blockquote,
+        pre {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main-container {
+            width: 100%;
+            height: 100%;
+            font-family: 'Microsoft YaHei', 'Apple LiGothic Medium', Arial, sans-serif;
+            position: relative;
+            background: url(../../images/logo.jpg) center;
+            background-repeat: no-repeat;
+        }
+
+        .main-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .bg-text {
+            max-width: 800px;
+            max-height: 500px;
+            min-width: 650px;
+            min-height: 360px;
+            /*width: 60%;
+            height: 40%;*/
+            position: absolute;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            /*background: url(../../images/bg-text.png);
+            background-size: 100% auto;
+            background-repeat: no-repeat;*/
+        }
+
+        .bg-img {
+            width: 40%;
+            height: 100%;
+            left: 5%;
+            display:inline-block;
+            /*top: 10%;
+            
+            position: absolute;*/
+            /*background: url(../../images/bg-img.png);
+            background-size: 100% auto;
+            background-repeat: no-repeat;*/
+        }
+
+        .bg-logo {
+            width: 55%;
+            height:100%;
+            /*position: absolute;*/
+            display:inline-block;
+        }
+
+        .hp-head .hp-h3 {
+            font-size: 35px;
+            color: #0090ff;
+            padding: 0 20px;
+            padding-bottom: 20px;
+            line-height: 1;
+            display: inline-block;
+            width: 80%;
+            min-width:200px;
+            border-bottom: 1px solid #0090ff;
+            margin-top: 30px;
+            margin-left: 25px;
+        }
+
+        .reg-body-group {
+            line-height: 35px;
+            position: relative;
+            width: 290px;
+            height: 35px;
+            margin: 8px 0;
+            border: 1px solid #c4c4c4;
+            outline: none;
+            background-color: white;
+        }
+
+        .zhuce input, .zhuce optgroup, .zhuce option, .zhuce select, .zhuce textarea {
+            font-family: inherit;
+            font-size: 13px;
+            font-style: inherit;
+            font-weight: inherit;
+            outline: 0;
+        }
+
+        body {
+            font: normal 63% Verdana,Arial,sans-serif,\5b8b\4f53;
+            background-color: #f9f9f9;
+        }
+
+        .input-box {
+            margin: 0px 0 0px 0;
+            width: 97%;
+            min-width:370px;
+            margin-top: 10px;
+            font-size: 1.6em;
+            line-height: 1.5em;
+        }
+
+        .wInput {
+            width: calc(100% - 110px);
+            min-width:200px;
+            line-height: 47px;
+            height: 47px;
+            border: solid #a0a0a0 1px;
+            color: #555;
+            font-size: 1em;
+            -webkit-appearance: none;
+            display: inline-block;
+            _display: inline;
+            zoom: 1;
+            vertical-align: middle;
+            margin: 0;
+            padding: 5px;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            outline-width: 0px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .wInputvc {
+            width: calc(100% - 139px);
+            line-height: 47px;
+            height: 47px;
+            border: solid #a0a0a0 1px;
+            color: #555;
+            font-size: 1em;
+            -webkit-appearance: none;
+            display: inline-block;
+            _display: inline;
+            zoom: 1;
+            vertical-align: middle;
+            margin: 0;
+            padding: 5px;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            outline-width: 0px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            text-align: center;
+        }
+
+        .jq-button {
+            min-height: 38px;
+            _height: 38px;
+            line-height: 38px;
+            border: 0;
+            vertical-align: middle;
+            text-align: center;
+            background: #0090ff;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 0 2em;
+            _padding: 0 1em;
+            margin: 2px 0;
+            font-size: 1em;
+            font-weight: bold;
+            -webkit-border-radius: 0.2em;
+            border-radius: 25px;
+            outline: none;
+            display: inline-block;
+            margin: auto;
+            margin-bottom: 10px;
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #jq_submit2 {
+            color: #737373;
+            background: #bec7d2;
+        }
+
+            #jq_submit2:hover {
+                background: #0bb2ff;
+            }
+        .jq-button:hover {
+            background: #0bb2ff;
+        }
+
+        .lb {
+            width: 100px;
+            display: inline-block;
+        }
+
+        @media screen and (min-width: 700px){
+            .fadein-top {
+                margin:auto;
+                position:relative;
+                margin-top:11%;
+            }
+        }
+
+        @media screen and (min-width: 700px) and (max-width: 900px) {
+            .fadein-top {
+                margin: auto;
+                position: relative;
+                margin-top: 8%;
+            }
+        }
+
+        @media screen and (min-width: 900px) and (max-width: 1399px) {
+            .fadein-top {
+                margin: auto;
+                position: relative;
+                margin-top: 8%;
+            }
+        }
+
+        @media screen and (min-width: 1399px) {
+            .fadein-top {
+                margin: auto;
+                position: relative;
+                margin-top: 11%;
+            }
+        }
+        @media \0screen {
+            .fadein-top {
+                margin: auto;
+                position: relative;
+                margin-top: 9%;
+            }
+        }
+
+    </style>
+</head>
+
+<body id="temp1" class="main-container">
+    <table style=" width: 700px; margin: auto; top: 15%; position: relative">
+        <tr>
+            <td>
+                <span style="font-size: 54px; color: #fff;margin-left:21px">
+                    人才评价测试系统
+                </span>
+                <hr style="height:1px;border:none;border-top:1px solid #fff;" />
+            </td>
+        </tr>
+    </table>
+
+    <!--<span style=" width: 60%; margin: auto; text-align: center; font-size: 54px; color: #fff; position: absolute; top: 10%;">
+        <span> 会计网校实操在线考试系统 
+            <hr style="height:1px;border:none;border-top:1px solid #fff;" /></span>
+    </span>-->
+    <div class="">
+        <div class="bg-text  fadein-top">
+            <div class="bg-img fadein-left">
+                <img style="width:100%;height:100%;" src="../../images/bg-img.png" />
+            </div>
+            <div class="bg-logo fadein-right">
+                <div class="zhuce">
+                    <div class="hp-head">
+                        <div class="hp-title hp-cf">
+                            <div class="hp-left hp-back" style="display: none;">
+                                <span class="hp-icon hp-icon-arrow-left"></span>
+                            </div>
+                            <span class="hp-h3">
+                                欢 迎 登 录
+                            </span>
+                        </div>
+                    </div>
+                    <div id="loginForm" style="margin-top:30px;">
+                        <noscript>&amp;lt;div class="error-bar"&amp;gt;浏览器不支持或禁止了网页脚本，导致无法正常登录。&amp;lt;/div&amp;gt;</noscript>
+                        <div class="input-box">
+                            <label class="lb">准考证号：</label>
+                            <input type="text" placeholder="准考证号" name="examid" id="examid" maxlength="65" size="30" class="wInput" autocomplete="on">
+                        </div>
+                        <div class="input-box">
+                            <label class="lb">身份证号：</label>
+                            <input type="text" placeholder="身份证号" name="cardid" id="cardid" maxlength="32" size="30" class="wInput" autocomplete="on">
+                        </div>
+                        <div class="input-box">
+                            <label class="lb">验证码：</label>
+                            <div style="display: inline-block; width: calc(100% - 110px); min-width: 200px; ">
+
+                                <input type="text" name="vcode" id="vcode" maxlength="4" size="30" class="wInputvc" autocomplete="off">
+                                <div style="display:inline-block; margin-left:27px; _right: 0px; position: absolute; ">
+                                    <img id="captchaImage" title="看不清换一张" style="border: 1px solid #a0a0a0; width: 110px; height: 42px; cursor: pointer; " src="/Handler/verifycode.ashx" onclick="this.src=this.src+'?';">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-box" style="text-align: center; margin-top: 30px;">
+                            <button class="jq-button" id="jq_submit">登录</button>
+                            <button class="jq-button" style="margin-left:30px" id="jq_submit2">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="../../../Scripts/Layui/Layui.js"></script>
+    <script type="text/javascript" src="../../../Scripts/common.js"></script>
+    <script type="text/javascript" src="../../../Scripts/Examine/Login.js"></script>
+</body>
+
+</html>

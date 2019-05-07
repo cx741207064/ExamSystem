@@ -1,0 +1,44 @@
+报名时修改：
+1，保存网校账号，用户ID，用户名，密码，准考证号，classid，Mobile
+	1），网校账号，用户ID，用户名，密码 由许超接口验证，返回
+	2）,classid：配置在机构表
+	3），Mobile: 名时分配一个11位随机数，从mobile接口获取（罗老师）
+	----------4），电脑账UserId;(Guid生成，保存同mobile一起)
+2，证书绑定课程时，绑定许超接口的各种ID，另外绑定acc_courseid，CourseSort,CourseId
+	1),acc_courseid:电脑账转换后的courseid，对应关系找罗老师提供
+	2),CourseSort,CourseId,找罗老师提供  待讨论
+3，实训考试新增一个考试页面，只包括单元测试和章节练习
+	
+考试时参数注意事项：
+3，provinceid=29 (不需要了，暂定写死)
+4，PaperID=f0d49a4e9e054b018a05486547111568&Sort_Name=初级会计实务 （不再传）
+5，questionId=2418(写死)，
+6，courseid：课程接口的courseid,
+7，sortid：课程接口的sortid,
+8，CompanyId=36（写死）
+9，userquestionId=3784：（待定）·
+
+
+http://192.168.2.43:688/Member/GetCourse  该接口只返回我们会计网校的课程)
+http://192.168.2.43:688//Member/IsBuyAll?classid=xx&UserName=xx&ids=xx  (此处的classid不一定是9，是不同机构的机构id，我们机构表维护)
+http://192.168.2.43:688/Member/GetUserId?classid=9     (此处的classid不一定是9，是不同机构的机构id，我们机构表维护)
+
+
+http://www.jinglve.com/JLStudent/Home/Moni?PaperID=8e02b6f66250406498fda5eca48ac944&CourseSort=3&CourseID=1&ProvinceId=1&SortIndex=1&Sort_Name=%E4%BC%9A%E8%AE%A1%E7%94%B5%E7%AE%97%E5%8C%96#21
+
+
+http://192.168.2.43:8090/JLStudent/ChongCi/PaperActionCopy?username=jljyxc&password=123&ProvinceID=29&CourseSort=8&CourseID=2&PaperID=f0d49a4e9e054b018a05486547111568&Sort_Name=%E5%88%9D%E7%BA%A7%E4%BC%9A%E8%AE%A1%E5%AE%9E%E5%8A%A1
+https://ssl.jinglue.cn/index.aspx?SortId=513&CourseId=22&mobile=10802227584&identify=eb3ac3e163fe4138ac2b0c2e5a7c9520
+http://jluepracticecommongs.kjcytk.com/portal/index.aspx?userid=eb3ac3e163fe4138ac2b0c2e5a7c9520&username=jljyzjm&classid=9&courseid=11&sortid=603&questionId=2418&userquestionId=3784&CompanyId=36&rand=1524542387571
+http://192.168.1.72:8049/main.aspx?userid=xxx&username=jljyxq&classid=9&courseid=10&sortid=500&IsFree=0&type=0
+
+考试系统用户同3个系统对接：（已知参数：身份证ID，准考证ID，证书ID，行业ID）
+1，跳转开始考试：	
+	1），会计网校 （考试ID和练习ID可以用同一个，页面做修改区分考试和练习）
+	2），报税     （考试ID和练习ID可以用同一个，页面做修改区分考试和练习）
+	3），电脑账   （怎么区分考试和练习？）
+	
+2，获取成绩：
+	1），会计网校
+	2），报税
+	3），电脑账

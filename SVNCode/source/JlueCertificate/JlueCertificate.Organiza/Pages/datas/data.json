@@ -1,0 +1,40 @@
+[{
+	"id": "1",
+	"pid": "0",
+	"title": "",
+	"icon": "",
+	"url": "",
+	"spread": false,
+	"children": [{
+		"id": "2",
+		"pid": "0",
+		"title": "首页",
+		"icon": "&#xe79c;",
+		"url": "main.html",
+		"spread": false
+	}, {
+		"id": "3",
+		"pid": "0",
+		"title": "考生管理",
+		"icon": "&#xe9b6;",
+		"url": "html/exam/manager.html",
+		"spread": false,
+		"children": []
+	}, {
+		"id": "6",
+		"pid": "0",
+		"title": "证书管理",
+		"icon": "&#xe64b;",
+		"url": "html/certificate/stumanager.html",
+		"spread": false,
+		"children": []
+	}, {
+		"id": "11",
+		"pid": "0",
+		"title": "成绩查询",
+		"icon": "&#xe8a0;",
+		"url": "html/score/query.html",
+		"spread": false,
+		"children": []
+	}]
+}]
