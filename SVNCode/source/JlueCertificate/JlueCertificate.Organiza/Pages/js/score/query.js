@@ -117,9 +117,30 @@
             layer.open({
                 type: 2
                 , title: _title
-                , area: ['830px', '700px']
+                , area: ['730px', '500px']
                 , shade: 0
-                , content: ['querydetail.html?Id=' + data.Id + "&OLSchoolUserId" + data.OLSchoolUserId, 'no']
+                , content: ['querydetail.html?Id=' + data.Id + "&OLSchoolUserId=" + data.OLSchoolUserId, 'no']
+                , btn: []
+                , success: function (layero, index) {
+                    //getscoredetail(data.Id, data.OLSchoolUserId);
+                }
+                , yes: function () {
+
+                }
+                , end: function () {
+
+                }
+                , zIndex: layer.zIndex
+            });
+        }
+        else if (obj.event === 'del') {
+            var _title = "平时成绩";
+            layer.open({
+                type: 2
+                , title: _title
+                , area: ['730px', '500px']
+                , shade: 0
+                , content: ['querynormaldetail.html?Id=' + data.Id + "&OLSchoolUserId=" + data.OLSchoolUserId, 'no']
                 , btn: []
                 , success: function (layero, index) {
                     //getscoredetail(data.Id, data.OLSchoolUserId);

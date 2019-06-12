@@ -23,7 +23,7 @@
 	}, {
 		"id": "6",
 		"pid": "0",
-		"title": "证书管理",
+		"title": "证书报名",
 		"icon": "&#xe64b;",
 		"url": "html/certificate/stumanager.html",
 		"spread": false,

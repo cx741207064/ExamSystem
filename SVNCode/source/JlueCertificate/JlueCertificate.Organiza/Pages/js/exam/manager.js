@@ -17,7 +17,7 @@
       , accept: "images"
       , method: "POST"
       , done: function (res, index, upload) {
-          res = res || JSON.parse(res) ;
+          res = res || JSON.parse(res);
           if (res.Code == "0") {
               $("#uploadimg1_div").css("display", "none");
               $('#uploadimg1').css('background-image', 'url(' + res.Data + ')');
@@ -31,10 +31,34 @@
           }
       }
     });
+
+    //身份证上传
+    var uploadInst = upload.render({
+        elem: '#uploadimg2'
+      , url: "/Handler/BaseData.ashx?action=uploadheader"
+      , accept: "images"
+      , method: "POST"
+      , done: function (res, index, upload) {
+          top.layer.msg("上传成功！")
+          //res = res || JSON.parse(res);
+          //if (res.Code == "0") {
+          //    $("#uploadimg1_div").css("display", "none");
+          //    $('#uploadimg1').css('background-image', 'url(' + res.Data + ')');
+          //    $('#uploadimg1').attr('desc', res.Data);
+          //}
+          //else {
+          //    $("#uploadimg1_div").css("display", "");
+          //    $('#uploadimg1').css('background-image', "");
+          //    $('#uploadimg1').attr('desc', "");
+          //    top.layer.msg(res.Msg)
+          //}
+      }
+    });
+
     form.on('select(province)', function (data) {
         var _tags = data.elem.getElementsByTagName("option");
         $.each(_tags, function (i, m) {
-            if (m.value  == data.value) {
+            if (m.value == data.value) {
                 var _desc = $(m).attr("desc");
                 if (_desc) {
                     var _descJson = JSON.parse(_desc);
@@ -158,7 +182,7 @@
                 }
             }
         }
-        
+
         if ($("#post_province option")[0]) {
             $("#post_province option")[0].selected = true;
             var _desc = $($("#post_province option")[0]).attr("desc");
@@ -187,12 +211,12 @@
         var _data = {
             idnumber: $("#idnumber").val(),
             name: $("#name").val(),
-            headerurl :$('#uploadimg1').attr('desc'),
+            headerurl: $('#uploadimg1').attr('desc'),
             cardid: $("#cardid").val(),
-            sex:  $("#sex")[0].value,
+            sex: $("#sex")[0].value,
             telphone: $("#telphone").val(),
             provinceid: $("#province")[0].value,
-            cityid:  $("#city")[0].value,
+            cityid: $("#city")[0].value,
             zoneid: $("#zone")[0].value,
             postprovinceid: $("#post_province")[0].value,
             postcityid: $("#post_city")[0].value,
@@ -202,15 +226,15 @@
         }
         if (_data.name.length == 0) {
             top.layer.msg("姓名不能为空");
-            return 
+            return
         }
         if (_data.cardid.length == 0) {
             top.layer.msg("省份证号不能为空");
-            return 
+            return
         }
         if (_data.telphone.length == 0) {
             top.layer.msg("手机号不能为空");
-            return 
+            return
         }
         var _type = Number($("#btnadd2").attr("type"))
         if (_type == 1) {
@@ -236,7 +260,7 @@
             getstudent();
             setTimeout(function () {
                 layer.closeAll();
-            },1000)
+            }, 1000)
         }
         else {
             top.layer.msg(ret.Msg);
@@ -252,7 +276,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '710px']
+                , area: ['830px', '450px']
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
@@ -283,14 +307,14 @@
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { field: 'id',  title: '序号', align: 'center' },
-                    { field: 'idnumber',  title: '学籍号', align: 'center' },
-                    { field: 'name', title: '姓名', align: 'center' },
-                    { field: 'cardid',  title: '身份证号', align: 'left' },
-                    { field: 'telphone', title: '电话', align: 'left' },
-                    { field: 'sex',  title: '性别', align: 'left' },
-                    { field: 'createtime', title: '报名时间', align: 'left' },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
+                    { field: 'id', title: '序号', align: 'center', width: 30 },
+                    { field: 'idnumber', title: '学籍号', align: 'center', width: 200 },
+                    { field: 'name', title: '姓名', align: 'center', width: 100 },
+                    { field: 'cardid', title: '身份证号', align: 'left', width: 200 },
+                    { field: 'telphone', title: '电话', align: 'left', width: 150 },
+                    { field: 'olschoolusername', title: '网校', align: 'left', width: 100 },
+                    { field: 'createtime', title: '报名时间', align: 'left', width: 250 },
+                    { width: 300, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
                 ]],
                 data: _data,
                 page: false,
@@ -377,7 +401,7 @@
                 $('#uploadimg1').css('background-image', 'url(' + data.headerurl + ')');
                 $('#uploadimg1').attr('desc', data.headerurl);
             }
-            else{
+            else {
                 $("#uploadimg1_div").css("display", "");
                 $('#uploadimg1').css('background-image', "");
                 $('#uploadimg1').attr('desc', "");
@@ -391,7 +415,7 @@
             if (data.sex == "女") {
                 _sex = "2";
             }
-            $.each($("#sex option"),function(i,n){
+            $.each($("#sex option"), function (i, n) {
                 if (n.value == _sex) {
                     n.selected = true;
                 }
@@ -477,7 +501,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '710px']
+                , area: ['830px', '450px']
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
@@ -488,8 +512,19 @@
                 }
                 , zIndex: layer.zIndex
             });
-        } else if (obj.event === 'shouquan') {
-            layer.alert('授权行：<br>' + JSON.stringify(data))
+        } else if (obj.event === 'bangding') {
+            $("#olschoolusername").val("");
+            $("#olschoolpwd").val("");
+            $("#studentid").val(data.idnumber);
+            if (data.olschoolusername != null && data.olschoolusername != "") {
+                layer.confirm('此账号已绑定，确认修改绑定么?', { icon: 3, title: '提示' }, function (index) {
+                    showbangding();
+                    layer.close(index);
+                });
+            }
+            else {
+                showbangding();
+            }
         } else if (obj.event === 'disable') {
             layer.alert('禁用行：<br>' + JSON.stringify(data))
         } else if (obj.event === 'del') {
@@ -498,4 +533,54 @@
             });
         }
     });
+
+    function showbangding() {
+        var _title = "网校账号绑定";
+        layer.open({
+            type: 1
+            , title: _title
+            , area: ['830px', '200px']
+            , shade: 0
+            , content: $("#notice2")
+            , yes: function () {
+
+            }
+            , end: function () {
+
+            }
+            , zIndex: layer.zIndex
+        });
+    }
+
+    $("#btnbangding").on("click", function () {
+        var _data = {
+            olschoolusername: $("#olschoolusername").val(),
+            olschoolpwd: $("#olschoolpwd").val(),
+            studentid: $("#studentid").val(),
+        }
+        if (_data.olschoolusername.length == 0) {
+            top.layer.msg("网校用户名不能为空");
+            return
+        }
+        if (_data.olschoolpwd.length == 0) {
+            top.layer.msg("密码不能为空");
+            return
+        }
+        Params.Ajax("/Handler/ExamCenter.ashx?action=bangding", "post", _data, bangding_success, bangding_fail);
+    });
+    function bangding_success(ret) {
+        if (ret.Code == 0) {
+            top.layer.msg("绑定成功");
+            getstudent();
+            setTimeout(function () {
+                layer.closeAll();
+            }, 1000)
+        }
+        else {
+            top.layer.msg(ret.Msg);
+        }
+    }
+    function bangding_fail(ret) {
+        top.layer.msg("绑定失败");
+    }
 });

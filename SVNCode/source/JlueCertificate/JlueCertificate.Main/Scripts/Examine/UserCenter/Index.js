@@ -13,7 +13,7 @@ layui.use(['jquery','layer'], function () {
             }
             if (_nodeid == "1") {
                 //window.open("http://192.168.2.43:8090/JLStudent/ChongCi/PaperActionCopy?username=jljyxc&password=123&ProvinceID=29&CourseSort=8&CourseID=2&PaperID=f0d49a4e9e054b018a05486547111568&Sort_Name=%E5%88%9D%E7%BA%A7%E4%BC%9A%E8%AE%A1%E5%AE%9E%E5%8A%A1", _desc);
-                window.open("http://www.jinglve.com/JLStudent/ChongCi/PaperActionCopy?username=jljyzhongjivideo&password=123&ProvinceID=29&CourseSort=8&CourseID=2&PaperID=d1ef903218e74bb49e2eabe8a524a780&Sort_Name=%E5%88%9D%E7%BA%A7%E4%BC%9A%E8%AE%A1%E5%AE%9E%E5%8A%A1", _desc);
+                window.open("http://test.kjqx.com/JLStudent/ChongCi/PaperActionCopy?username=testzhc&password=123456&ProvinceID=29&CourseSort=8&CourseID=2&PaperID=d1ef903218e74bb49e2eabe8a524a780&Sort_Name=%E7%BB%BC%E5%90%88%E7%89%88%E4%BC%9A%E8%AE%A1%E5%AE%9E%E5%8A%A1", _desc);
             }
             layer.closeAll();
         });

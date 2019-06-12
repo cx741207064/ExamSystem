@@ -257,6 +257,7 @@
     <Content Include="Handler\VerifyCode.ashx" />
     <Content Include="Handler\Login.ashx" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\main.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

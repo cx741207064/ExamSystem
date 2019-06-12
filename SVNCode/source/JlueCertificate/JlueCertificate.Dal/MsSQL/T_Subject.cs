@@ -87,7 +87,8 @@ namespace JlueCertificate.Dal.MsSQL
             HelperMethod p = new HelperMethod();
             //string path = HelperAppSet.getAppSetting("olschoolpath");
             //string classid = HelperAppSet.getAppSetting("classid");
-            string fullpath = _orga.Path + "/Member/IsBuyAll?classid=" + _orga.ClassId + "&UserName=" + _username + "&Ids=" + _ids;
+            string path = HelperAppSet.getAppSetting("olschoolpath");
+            string fullpath = path + "/Member/IsBuyAll?classid=" + _orga.ClassId + "&UserName=" + _username + "&Ids=" + _ids;
             string json = p.Get(fullpath);
             Entity.Respose.GTXResult result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult>(json);
             if (HelperDataCvt.objToString(result.Data).Contains("未购买"))

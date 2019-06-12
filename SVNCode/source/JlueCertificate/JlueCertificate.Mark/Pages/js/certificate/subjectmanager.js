@@ -113,16 +113,12 @@
         var _data = {
             ID: $("#ID").val(),
             Name: $("#Name").val(),
-            Price: $("#Price").val(),
+            Price: "",
             Category: $("#Category").val(),
             Describe: $("#Describe").val(),
         };
         if (_data.Name.length == 0) {
             top.layer.msg("课程名称不能为空", { icon: 2 });
-            return
-        }
-        if (_data.Price.length == 0) {
-            top.layer.msg("价格不能为空", { icon: 2 });
             return
         }
         if (_data.Category.length == 0) {

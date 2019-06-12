@@ -31,7 +31,7 @@ namespace JlueCertificate.Bll.Organiz
                 Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
                 if (_orga == null)
                 {
-                    error = "系统不存在该身份证";
+                    error = "账号或者密码错误，请重新输入";
                 }
             }
             return 1;

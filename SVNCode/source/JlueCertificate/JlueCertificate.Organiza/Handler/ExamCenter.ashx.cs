@@ -60,7 +60,8 @@ namespace JlueCertificate.Organiza.Handler
                                 case "updatestudent": result = Logic.Organiz.ExamCenter.updatestudent(_uid, _pwd, postString); break;
                                 case "deletestudent": result = Logic.Organiz.ExamCenter.deletestudent(_uid, _pwd, postString); break;
                                 case "signup": result = Logic.Organiz.ExamCenter.signup(_uid, _pwd, postString); break;
-                               
+                                case "cancel": result = Logic.Organiz.ExamCenter.cancel(_uid, _pwd, postString); break;
+                                case "bangding": result = Logic.Organiz.ExamCenter.bangding(_uid, _pwd, postString); break;
                                 default:
                                     break;
                             }

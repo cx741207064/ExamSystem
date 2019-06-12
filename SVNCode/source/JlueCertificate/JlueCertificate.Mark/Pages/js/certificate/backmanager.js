@@ -27,7 +27,7 @@
         layer.open({
             type: 1
             , title: _title
-            , area: ['830px', '720px']
+            , area: ['830px', '520px']
             , shade: 0
             , content: $("#notice1")
             , btn: ['确认添加']
@@ -112,18 +112,18 @@
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { field: 'ID',  title: '序号', align: 'center' },
-                    { field: 'Name',  title: '课程名称', align: 'center' },
-                    { field: 'Category',  title: '类型', align: 'center' },
-                    { field: 'Price',  title: '购买价格', align: 'center' },
+                    { field: 'ID', title: '序号', align: 'center' },
+                    { field: 'Name', title: '课程名称', align: 'center' },
+                    { field: 'Category', title: '类型', align: 'center' },
+                    { field: 'ExamLength', title: '考试时长', align: 'center' },
                     {
-                        field: 'NormalResult',  title: '平时成绩比例', align: 'center',
+                        field: 'NormalResult', title: '平时成绩比例', align: 'center',
                         templet: function (d) {
                             return d.NormalResult + '%';
                         }
                     },
                     {
-                        field: 'ExamResult',  title: '考试成绩比例', align: 'center',
+                        field: 'ExamResult', title: '考试成绩比例', align: 'center',
                         templet: function (d) {
                             return d.ExamResult + '%';
                         }
@@ -264,7 +264,7 @@
             CertificateId: $("#Id").val()
         };
         if (_data.ExamLength.length == 0) {
-            top.layer.msg("考试时长不能为空", { icon: 2 });
+            _data.ExamLength = "0";
             return
         }
         var url = "/Handler/UserCenter.ashx?action=addcertifisubject";
@@ -277,9 +277,9 @@
         if (ret.Code == 0) {
             top.layer.msg("操作成功", { icon: 1 });
             getSubjectsByCertId();
-            setTimeout(function () {
-                layer.close(layer.index);
-            }, 1500)
+            //setTimeout(function () {
+            //    layer.close(layer.index);
+            //}, 1500)
         }
         else {
             top.layer.msg(ret.Msg, { icon: 5 });
@@ -306,18 +306,18 @@
                 cols: [[
                     { type: 'numbers' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'CategoryName',  title: '证书类别', align: 'center' },
+                    { field: 'CategoryName', title: '证书类别', align: 'center' },
                     { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'StartTime',  title: '本期考试开始时间', align: 'center' },
-                    { field: 'EndTime',  title: '本期考试结束时间', align: 'center' },
+                    { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
+                    { field: 'EndTime', title: '本期考试结束时间', align: 'center' },
                     {
-                        field: 'NormalResult',  title: '平时成绩', align: 'center',
+                        field: 'NormalResult', title: '平时成绩', align: 'center',
                         templet: function (d) {
                             return d.NormalResult + '%';
                         }
                     },
                     {
-                        field: 'ExamResult',  title: '考试成绩', align: 'center',
+                        field: 'ExamResult', title: '考试成绩', align: 'center',
                         templet: function (d) {
                             return d.ExamResult + '%';
                         }
@@ -360,7 +360,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '660px']
+                , area: ['830px', '560px']
                 , shade: 0
                 , content: $("#notice1")
                 , btn: ['确认修改']

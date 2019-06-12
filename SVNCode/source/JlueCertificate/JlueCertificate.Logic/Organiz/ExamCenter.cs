@@ -222,6 +222,54 @@ namespace JlueCertificate.Logic.Organiz
             return Untity.HelperJson.SerializeObject(result);
         }
 
+        public static string cancel(string _uid, string _pwd, string postString)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.cancel(_uid, _pwd, postString, ref error);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    result.Code = "-1";
+                    result.Msg = error;
+                }
+            }
+
+            return Untity.HelperJson.SerializeObject(result);
+        }
+
+        public static string bangding(string _uid, string _pwd, string postString)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.bangding(_uid, _pwd, postString, ref error);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    result.Code = "-1";
+                    result.Msg = error;
+                }
+            }
+
+            return Untity.HelperJson.SerializeObject(result);
+        }
+
         public static string getstudentcertifi(string _uid, string _pwd, string studentid)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();

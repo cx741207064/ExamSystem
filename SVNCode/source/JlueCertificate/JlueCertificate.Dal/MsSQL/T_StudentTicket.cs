@@ -73,7 +73,11 @@ namespace JlueCertificate.Dal.MsSQL
             //string fullpath = path + "/Member/GetUserId?classid=" + classid + "&OLSchoolUserId=" + _OLSchoolUserId + "&_subjectids=" + _subjectids;
             //string json = p.Get(fullpath);
             //Entity.Respose.GTXResult result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult>(json);
-            string resultjson = "[{'AOMid':'1038','NormalScore':'90','ExamScore':'90'},{'AOMid':'1036','NormalScore':'90','ExamScore':'90'}]";
+            string resultjson = "[{'AOMid':'1009','NormalScore':'90','ExamScore':'0'},{'AOMid':'1092','NormalScore':'80','ExamScore':'90'},{'AOMid':'1013','NormalScore':'90','ExamScore':'80'},{'AOMid':'1135','NormalScore':'70','ExamScore':'80'}]";
+            if (_OLSchoolUserId.EndsWith("2"))
+            {
+                resultjson = "[{'AOMid':'1009','NormalScore':'95','ExamScore':'0'},{'AOMid':'1092','NormalScore':'80','ExamScore':'95'},{'AOMid':'1013','NormalScore':'90','ExamScore':'80'},{'AOMid':'1135','NormalScore':'70','ExamScore':'85'}]";
+            }
             List<Entity.Respose.scoredetail> scdetaillist = Untity.HelperJson.DeserializeObject<List<Entity.Respose.scoredetail>>(Untity.HelperDataCvt.objToString(resultjson));
             if (scdetaillist == null || scdetaillist.Count == 0)
             {
@@ -185,6 +189,12 @@ namespace JlueCertificate.Dal.MsSQL
             {
                 return list.FirstOrDefault();
             }
+        }
+
+        public static void Delete(string ticketnum)
+        {
+            string sql = string.Format("UPDATE dbo.T_StudentTicket SET IsDel = 1 WHERE TicketNum = '{0}' ", ticketnum);
+            Untity.HelperMsSQL.ExecuteQuery(sql);
         }
     }
 }

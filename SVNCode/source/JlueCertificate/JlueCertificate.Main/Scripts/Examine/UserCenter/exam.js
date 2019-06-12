@@ -90,12 +90,12 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
         if (ret.Code == "0") {
             window.nodeid = Params.getParamsFormUrl("nodeid");
             if (window.nodeid == "2") {
-                $("#ifContents")[0].src = "https://ssl.jinglue.cn/DefaultIndex.aspx?SortId=513&CourseId=22&mobile=10802082998&identify=3e99c17c5dc24d168f503672a90da5bc";
+                $("#ifContents")[0].src = "https://ssl.jinglue.cn/DefaultIndex.aspx?SortId=524&CourseId=22&mobile=10905098704&identify=b6958fd846174f2aaa10dadfd374147e";
             }
             if (window.nodeid == "3") {
                 //$("#ifContents")[0].src = "http://192.168.1.72:8049/main.aspx?userid=xxx&username=jljyxq&classid=9&courseid=10&sortid=500&IsFree=0&type=0"
 
-                $("#ifContents")[0].src = "http://jluepracticecommongs.kjcytk.com/portal/index_new.aspx?userid=f083b5f5d75d4e0bb3f983e6e125606a&username=jljyZHC&classid=9&courseid=11&sortid=603&questionId=2418&userquestionId=8348&CompanyId=36&rand=1548311108557";
+                $("#ifContents")[0].src = "http://47.97.29.32:8099/QuestionMain.aspx?userid=testzhc&username=testzhc&classid=9&courseid=11&sortid=600";
                 //$("#ifContents")[0].src = "http://192.168.1.72:8011/portal/index.aspx?userid=bbc4630ef2dc469d805467162cdeda6c&username=%C3%A6%C2%B5%C2%8B%C3%A8%C2%AF%C2%95%C3%A4%C2%BA%C2%BA%C3%A5%C2%91%C2%98&classid=9&courseid=10&sortid=500&questionId=338&userquestionId=3967&CompanyId=6&rand=1527126740057";
             }
         }
@@ -118,21 +118,19 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
     }
     function refreshEaxm_success(ret) {
         if (ret.Code == "0") {
-            $("#name").html("Mike牛");
-            $("#examid").html("20180101020034001");
-            $("#cardid").html("411322199012018869");
+            $("#examid").html(Params.getCookieDis("examid"));
+            $("#cardid").html(Params.getCookieDis("cardid"));
             if (window.nodeid == "1") {
-                $("#titlediv").html('<li>行业会计能力证书考试平台</li><li>综合版会计实务</li>');
+                $("#titlediv").html('<li>人才评价考试平台</li><li>综合版会计实务</li>');
             }
             if (window.nodeid == "2") {
                 document.title = "电脑账考试-商业";
-                $("#titlediv").html('<li>行业会计能力证书考试平台</li><li>电脑账</li>');
+                $("#titlediv").html('<li>人才评价考试平台</li><li>电脑账</li>');
             }
             if (window.nodeid == "3") {
                 document.title = "报税考试-国税";
-                $("#titlediv").html('<li>行业会计能力证书考试平台</li><li>报税</li>');
+                $("#titlediv").html('<li>人才评价考试平台</li><li>报税</li>');
             }
-            //$("#timer").html("");
             window.eaxmTimer = 7200;
             var min = parseInt(window.eaxmTimer / 60);
             var sec = parseInt(window.eaxmTimer % 60);
@@ -175,25 +173,28 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
         }
     }
     function CloseWebPage() {
-        window.onbeforeunload = null;
-        if (navigator.userAgent.indexOf("MSIE") > 0) {
-            if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
-                window.opener = null; window.close();
-            }
-            else {
-                window.open('', '_top'); window.top.close();
-            }
-        }
-        else if (navigator.userAgent.indexOf("Firefox") > 0 || navigator.userAgent.indexOf("Chrome")  > 0) {
-            window.location.href = 'about:blank ';
-            //window.history.go(-2);     
-        }
-        else {
-            window.opener = null;
-            window.open('', '_self');
-            window.close();
-            window.location.href = 'about:blank ';
-        }
+        var opened = window.open('about:blank', '_self');
+        opened.opener = null;
+        opened.close();
+        //window.onbeforeunload = null;
+        //if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //    if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+        //        window.opener = null; window.close();
+        //    }
+        //    else {
+        //        window.open('', '_top'); window.top.close();
+        //    }
+        //}
+        //else if (navigator.userAgent.indexOf("Firefox") > 0 || navigator.userAgent.indexOf("Chrome")  > 0) {
+        //    window.location.href = 'about:blank ';
+        //    //window.history.go(-2);     
+        //}
+        //else {
+        //    window.opener = null;
+        //    window.open('', '_self');
+        //    window.close();
+        //    window.location.href = 'about:blank ';
+        //}
     }
     function refreshTimer() {
         if (window.eaxmTimer <= 0) {

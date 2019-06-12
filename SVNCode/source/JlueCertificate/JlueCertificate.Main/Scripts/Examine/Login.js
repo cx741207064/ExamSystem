@@ -6,6 +6,12 @@ layui.use(['jquery', 'layer'], function () {
         form = layui.form;
 
     $("#jq_submit").on("click", function (e) {
+        //if ($("#examtype").val() == "") {
+        //    layer.tips('请选择考试科目', $('#examtype'), {
+        //        tips: [3, '#FF5722']
+        //    });
+        //    return;
+        //}
         if ($("#examid").val().length <= 0) {
             layer.tips('请输入准考证号', $('#examid'), {
                 tips: [3, '#FF5722']
@@ -38,7 +44,7 @@ layui.use(['jquery', 'layer'], function () {
             layer.msg('登录成功', { icon: 1, time: 1000 });
             setTimeout(function () {
                 window.parent.location.href = "UserCenter/Index.html";
-            },2000)
+            }, 2000)
         }
         else {
             layer.msg(ret.Msg, { icon: 1, time: 1000 });

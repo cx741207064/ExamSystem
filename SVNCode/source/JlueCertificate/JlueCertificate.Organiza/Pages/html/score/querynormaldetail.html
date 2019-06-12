@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>成绩管理</title>
+    <title>平时成绩</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />
@@ -43,51 +43,15 @@
 </head>
 <body>
     <div class="layui-fluid larry-wrapper">
-        <div class="layui-form-item" style="width: 100%; margin-top: 10px; margin-bottom: 5px;">
-            <div class="layui-inline" style="width: 20%;">
-                <div class="layui-form-item" style="text-align: center;">
-                    <label style="font-size: 25px;">总成绩</label>
-                </div>
-            </div>
-            <div class="layui-inline" style="width: 20%;">
-                <div class="layui-form-item" style="text-align: center;">
-                    <label style="font-size: 25px;" id="scoresum"></label>
-                </div>
-            </div>
-            <div class="layui-inline" style="width: 20%;">
-                <div class="layui-form-item" style="text-align: center;">
-                    <label style="font-size: 25px;">考核结果</label>
-                </div>
-            </div>
-            <div class="layui-inline" style="width: 20%;">
-                <div class="layui-form-item" style="text-align: center;">
-                    <label style="font-size: 25px;" id="examresult">优秀</label>
-                </div>
-            </div>
-        </div>
         <div class="layui-form layui-form-pane" style="margin-left: 20px; margin-right: 20px">
             <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #d82525">
-                <legend><a name="color-design" style="color: #d82525;">课程成绩</a></legend>
+                <legend><a name="color-design" style="color: #d82525;">平时成绩</a></legend>
             </fieldset>
             <div class="layui-form-item">
                 <div class="user-tables">
                     <table id="Tables_subjectcore" lay-filter="Tables_subjectcore"></table>
                 </div>
                 <div id="laypage_subjectcore"></div>
-            </div>
-        </div>
-        <div class="layui-form-item" style="margin-top: 10px; margin-bottom: 5px;">
-            <div style="margin-left: 20px; margin-right: 20px">
-                <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #3f3492">
-                    <legend><a name="color-design" style="color: #3f3492;">计算方式</a></legend>
-                </fieldset>
-                <span id="accountform"></span>
-            </div>
-            <div style="margin-left: 20px; margin-right: 20px">
-                <fieldset class="layui-elem-field layui-field-title site-title" style="border-top-color: #28ab87">
-                    <legend><a name="color-design" style="color: #28ab87;">结果标准</a></legend>
-                </fieldset>
-                <span id="resultstd">100-90优秀，90-80良好，80-60及格，60以下不及格</span>
             </div>
         </div>
     </div>
@@ -99,6 +63,6 @@
     <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../../common/common.js"></script>
-    <script type="text/javascript" src="../../js/score/querydetail.js"></script>
+    <script type="text/javascript" src="../../js/score/querynormaldetail.js"></script>
 </body>
 </html>

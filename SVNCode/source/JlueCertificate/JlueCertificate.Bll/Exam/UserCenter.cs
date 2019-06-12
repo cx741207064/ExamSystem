@@ -28,20 +28,20 @@ namespace JlueCertificate.Bll.Exam
             }
             else
             {
-                //Entity.MsSQL.T_Student _student = Dal.MsSQL.T_Student.GetModelByCardId(_cardid);
-                //if (_student == null)
-                //{
-                //    error = "系统不存在该身份证";
-                //}
-                //else
-                //{
-                //    List<Entity.MsSQL.T_StudentTicket> _tickets = Dal.MsSQL.T_StudentTicket.GetList(_student.Id.ToString());
-                //    Entity.MsSQL.T_StudentTicket _ticket = _tickets.Where(ii => ii.TicketNum == _examid).FirstOrDefault();
-                //    if (_ticket == null)
-                //    {
-                //        error = "系统不存在该准考证";
-                //    }
-                //}
+                Entity.MsSQL.T_Student _student = Dal.MsSQL.T_Student.GetModelByCardId(_cardid);
+                if (_student == null)
+                {
+                    error = "系统不存在该身份证";
+                }
+                else
+                {
+                    List<Entity.MsSQL.T_StudentTicket> _tickets = Dal.MsSQL.T_StudentTicket.GetList(_student.Id.ToString());
+                    Entity.MsSQL.T_StudentTicket _ticket = _tickets.Where(ii => ii.TicketNum == _examid).FirstOrDefault();
+                    if (_ticket == null)
+                    {
+                        error = "系统不存在该准考证";
+                    }
+                }
             }
             return 1;
         }

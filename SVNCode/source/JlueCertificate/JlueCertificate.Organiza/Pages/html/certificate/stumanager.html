@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>证书管理</title>
+    <title>证书报名</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />
@@ -46,7 +46,7 @@
         <div class="layui-row  animated bounceIn">
             <div class="">
                 <fieldset class="layui-elem-field layui-field-title site-title">
-                    <legend><a name="color-design">证书管理</a></legend>
+                    <legend><a name="color-design">证书报名</a></legend>
                 </fieldset>
             </div>
 
@@ -55,7 +55,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">学籍号</label>
                         <div class="layui-input-block">
-                            <input type="text" style="width: 300px" name="studentid" autocomplete="off" class="layui-input" value="20180426110603224">
+                            <input type="text" style="width: 300px" name="studentid" autocomplete="off" class="layui-input" value="">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -116,24 +116,12 @@
                         <input type="text" name="CategoryName" id="CategoryName" autocomplete="off" class="layui-input" readonly="readonly">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label label1">网校用户名</label>
-                    <div class="layui-input-block layui-input-block1">
-                        <input type="text" name="username" id="username" required lay-verify="required" autocomplete="off" class="layui-input larry-input" placeholder="请输入您的用户名">
-                    </div>
-                </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-form-item" style="width: 380px">
                     <label class="layui-form-label label1">报考级次</label>
                     <div class="layui-input-block layui-input-block1">
                         <input type="text" name="ExamSubject" id="ExamSubject" autocomplete="off" class="layui-input" readonly="readonly">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label label1">密码</label>
-                    <div class="layui-input-block layui-input-block1">
-                        <input onfocus="this.type='password'" name="password" id="password" required lay-verify="required|password" autocomplete="off" class="layui-input larry-input" placeholder="请输入您的登录密码">
                     </div>
                 </div>
             </div>
@@ -211,6 +199,7 @@
     </script>
     <script type="text/html" id="userbar_certificate2">
         <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">打印</a>
+        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">取消报名</a>
     </script>
     <script type="text/html" id="userbar_certificate3">
         <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">打印</a>

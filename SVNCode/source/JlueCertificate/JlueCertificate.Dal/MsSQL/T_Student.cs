@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JlueCertificate.Untity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -233,7 +234,8 @@ namespace JlueCertificate.Dal.MsSQL
         public static Entity.Respose.OLUserResponse getOLSchoolUserId(Entity.MsSQL.T_Organiza _orga, string _username, string _password)
         {
             Untity.HelperMethod p = new Untity.HelperMethod();
-            string fullpath = _orga.Path + "/Member/GetUserId?classid=" + _orga.ClassId + "&UserName=" + _username + "&PWD=" + _password;
+            string path = HelperAppSet.getAppSetting("olschoolpath");
+            string fullpath = path + "/Member/GetUserId?classid=" + _orga.ClassId + "&UserName=" + _username + "&PWD=" + _password;
             string json = p.Get(fullpath);
             Entity.Respose.GTXResult result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult>(json);
             Entity.Respose.OLUserResponse rep = Untity.HelperJson.DeserializeObject<Entity.Respose.OLUserResponse>(Untity.HelperDataCvt.objToString(result.Data));

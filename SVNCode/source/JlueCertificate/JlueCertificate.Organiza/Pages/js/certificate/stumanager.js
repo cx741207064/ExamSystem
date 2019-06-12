@@ -8,6 +8,8 @@
 		common = layui.common;
     var curnum = 1;
     var limitcount = 10;
+
+    var signstate = true;
     getCertificate();
 
     $("#btnquery").on("click", function () {
@@ -26,7 +28,6 @@
                 top.layer.msg(ret.Msg);
             }
             //初始化学员网校userid
-            $("#username").val(ret.Data.username);
             var _data = ret.Data.unsignup;
             table.render({
                 elem: '#Tables_certificate1',
@@ -37,9 +38,9 @@
                     { type: 'numbers' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
                     { field: 'CategoryName', title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject',title: '考核级次', align: 'center' },
+                    { field: 'ExamSubject', title: '考核级次', align: 'center' },
                     { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
-                    { field: 'EndTime',  title: '本期考试结束时间', align: 'center' },
+                    { field: 'EndTime', title: '本期考试结束时间', align: 'center' },
                     { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar_certificate1', fixed: "right" }
                 ]],
                 data: _data,
@@ -55,7 +56,7 @@
                 cols: [[
                     { type: 'numbers' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'TicketNum',  title: '准考证号', align: 'center' },
+                    { field: 'TicketNum', title: '准考证号', align: 'center' },
                     { field: 'CategoryName', title: '证书类别', align: 'center' },
                     { field: 'ExamSubject', title: '考核级次', align: 'center' },
                     { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
@@ -74,12 +75,12 @@
                 cols: [[
                     { type: 'numbers' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'SerialNum',  title: '证书编号', align: 'center' },
-                    { field: 'CategoryName',  title: '证书类别', align: 'center' },
+                    { field: 'SerialNum', title: '证书编号', align: 'center' },
+                    { field: 'CategoryName', title: '证书类别', align: 'center' },
                     { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'IssueDate',  title: '获取日期', align: 'center' },
+                    { field: 'IssueDate', title: '获取日期', align: 'center' },
                     {
-                        field: 'CertState',  title: '发放状态', align: 'center',
+                        field: 'CertState', title: '发放状态', align: 'center',
                         templet: '<div>已发放</div>'
                     },
                     { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar_certificate3', fixed: "right" }
@@ -109,7 +110,6 @@
                 , success: function (layero, index) {
                     $("#CategoryName").val(data.CategoryName);
                     $("#ExamSubject").val(data.ExamSubject);
-                    $("#password").val("");
                     getSubjects(data.Subject);
                 }
                 , yes: function () {
@@ -124,14 +124,18 @@
     });
 
     function signup(certificateid) {
-        var _data = {
-            studentid: $("#condes input[name='studentid']").val(),
-            username: $("#username").val(),
-            password: $("#password").val(),
-            certificateid: certificateid
-        };
-        var url = "/Handler/ExamCenter.ashx?action=signup";
-        Params.Ajax(url, "post", _data, signup_success, signup_fail);
+        if (signstate) {
+            var _data = {
+                studentid: $("#condes input[name='studentid']").val(),
+                certificateid: certificateid
+            };
+            signstate = false;
+            var url = "/Handler/ExamCenter.ashx?action=signup";
+            Params.Ajax(url, "post", _data, signup_success, signup_fail);
+        }
+        else {
+            top.layer.msg("报考中请勿重复操作！", { icon: 5 });
+        }
     }
 
     function signup_success(ret) {
@@ -145,10 +149,12 @@
         else {
             top.layer.msg(ret.Msg, { icon: 5 });
         }
+        signstate = true;
     }
 
     function signup_fail() {
         top.layer.msg("报名失败", { icon: 5 });
+        signstate = true;
     }
 
     function getSubjects(_data) {
@@ -175,8 +181,28 @@
         if (obj.event === 'edit') {
             window.open('ticketprint.html?TicketNum=' + escape(data.TicketNum));
         }
+        if (obj.event === 'del') {
+            layer.confirm('确定取消报名么', function (index) {
+                Params.Ajax("/Handler/ExamCenter.ashx?action=cancel", "post", data, cancel_success, cancel_fail);
+            });
+        }
     });
 
+    function cancel_success(ret) {
+        if (ret.Code == 0) {
+            top.layer.msg("取消成功", { icon: 1 });
+            getCertificate();
+            setTimeout(function () {
+                layer.closeAll();
+            }, 1000)
+        }
+        else {
+            top.layer.msg(ret.Msg);
+        }
+    }
+    function cancel_fail(ret) {
+        top.layer.msg("取消失败", { icon: 5 });
+    }
     table.on('tool(Tables_certificate3)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {

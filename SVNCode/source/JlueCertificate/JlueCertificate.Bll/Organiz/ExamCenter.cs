@@ -43,7 +43,8 @@ namespace JlueCertificate.Bll.Organiz
                     sex = Untity.HelperDataCvt.objToString(ii.Sex) == "1" ? "男" : "女",
                     telphone = Untity.HelperDataCvt.objToString(ii.TelPhone),
                     zoneid = Untity.HelperDataCvt.objToString(ii.ZoneId),
-                    createtime = ii.CreateTime.ToString("yyyy-MM-dd")
+                    createtime = ii.CreateTime.ToString("yyyy-MM-dd"),
+                    olschoolusername = ii.OLSchoolUserName
                 });
             });
             return result;
@@ -289,25 +290,11 @@ namespace JlueCertificate.Bll.Organiz
                         error = "已报名，请误重复报名";
                         return tccount;
                     }
-                    //判定当前网校账号是否已经绑定现有学生账号
-                    long olcount = Dal.MsSQL.T_Student.GetOLSchoolUserCount(_student.Id, _signup.username, Untity.HelperDataCvt.objToString(_orga.Id));
-                    if (olcount > 0)
-                    {
-                        error = "此网校账号已经被其他学员绑定，无法报名";
-                        return olcount;
-                    }
                     //验证账号合法性
-                    Entity.Respose.OLUserResponse oluser = Dal.MsSQL.T_Student.getOLSchoolUserId(_orga, _signup.username, _signup.password);
-                    if (string.IsNullOrEmpty(oluser.id))
+                    if (string.IsNullOrEmpty(_student.OLSchoolUserId))
                     {
-                        error = oluser.msg + "，无法报名";
+                        error = "尚未绑定网校账号，无法报名";
                         return "-1";
-                    }
-                    //第一次绑定或修改绑定
-                    if (string.IsNullOrEmpty(_student.OLSchoolUserId)
-                        || Untity.HelperDataCvt.objToString(_student.OLSchoolUserId) != oluser.id)
-                    {
-                        Dal.MsSQL.T_Student.updateOLSchoolUserId(oluser.id, _signup.username, _signup.password, _student.Id);
                     }
                     //判断当前课程是否全部购买
                     Entity.MsSQL.T_Certificate _certificate = Dal.MsSQL.T_Certificate.GetModel(_signup.certificateid);
@@ -321,7 +308,7 @@ namespace JlueCertificate.Bll.Organiz
                             error = error + ",无法报名";
                             return "-1";
                         }
-                        string OLMobile = Dal.MsSQL.T_StudentTicket.GetOLMobile(oluser.id);
+                        string OLMobile = Dal.MsSQL.T_StudentTicket.GetOLMobile(_student.OLSchoolUserId);
                         if (string.IsNullOrEmpty(OLMobile))
                         {
                             error = "未能正常生成参数,无法报名";
@@ -354,6 +341,66 @@ namespace JlueCertificate.Bll.Organiz
                 return "-1";
             }
         }
+
+        public static object cancel(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Respose.studentcertifi _cancel = Untity.HelperJson.DeserializeObject<Entity.Respose.studentcertifi>(postString);
+                Dal.MsSQL.T_StudentTicket.Delete(_cancel.TicketNum);
+                return "1";
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+
+        public static object bangding(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.bangding _bangding = Untity.HelperJson.DeserializeObject<Entity.Request.bangding>(postString);
+                Entity.MsSQL.T_Student _student = Dal.MsSQL.T_Student.GetModel(_bangding.studentid);
+                if (_student != null)
+                {
+                    //判定当前网校账号是否已经绑定现有学生账号
+                    long olcount = Dal.MsSQL.T_Student.GetOLSchoolUserCount(_student.Id, _bangding.olschoolusername, Untity.HelperDataCvt.objToString(_orga.Id));
+                    if (olcount > 0)
+                    {
+                        error = "此网校账号已经被其他学员绑定，无法报名";
+                        return olcount;
+                    }
+                    //验证账号合法性
+                    Entity.Respose.OLUserResponse oluser = Dal.MsSQL.T_Student.getOLSchoolUserId(_orga, _bangding.olschoolusername, _bangding.olschoolpwd);
+                    if (string.IsNullOrEmpty(oluser.id))
+                    {
+                        error = oluser.msg + "，无法报名";
+                        return "-1";
+                    }
+                    //第一次绑定或修改绑定
+                    if (string.IsNullOrEmpty(_student.OLSchoolUserId)
+                        || Untity.HelperDataCvt.objToString(_student.OLSchoolUserId) != oluser.id)
+                    {
+                        Dal.MsSQL.T_Student.updateOLSchoolUserId(oluser.id, _bangding.olschoolusername, _bangding.olschoolpwd, _student.Id);
+                    }
+                }
+                else
+                {
+                    error = "学员不存在，请核对信息是否正确";
+                }
+                return "1";
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+
 
         public static object getstudentcertifi(string _uid, string _pwd, string studentid, ref string error)
         {
