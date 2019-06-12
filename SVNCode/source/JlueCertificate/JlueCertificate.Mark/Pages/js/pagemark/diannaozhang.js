@@ -7,8 +7,26 @@
 		common = layui.common,
         laydate = layui.laydate;
     $(".site-doc-icon").on("click", "li", function () {
-        window.open("http://jluepracticeautobookscore.kjcytk.com//Pages/Electronic/index.html?CourseId=16&identify=eb3ac3e163fe4138ac2b0c2e5a7c9520&token=" + getToken() + "&isexam=1", "diannaozhang");
-        //window.open("http://192.168.10.126:8006/Pages/Electronic/index.html?identify=FA685863FE954C629C085FF65A216F28&courseid=117&isexam=1", "diannaozhang")
+            layer.open({
+              type: 1
+              ,title: '选择' //不显示标题栏
+              ,area: '400px;'
+              ,shade: 0
+              ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+              ,btn: ['综合版会计实务', '电脑账', '报税']
+              ,btnAlign: 'c'
+              ,moveType: 1 //拖拽模式，0或者1
+              ,content: $("#check-select")
+              ,success: function(layero){
+                 var url="http://jluepracticeautobookscore.kjcytk.com//Pages/Electronic/index.html?CourseId=16&identify=eb3ac3e163fe4138ac2b0c2e5a7c9520&token=" + getToken() + "&isexam=1";
+                var btn = layero.find('.layui-layer-btn');
+                btn.find('.layui-layer-btn1').attr({
+                  href: url
+                  ,target: '_blank'
+                });
+              }
+            });
+        //window.open("http://jluepracticeautobookscore.kjcytk.com//Pages/Electronic/index.html?CourseId=16&identify=eb3ac3e163fe4138ac2b0c2e5a7c9520&token=" + getToken() + "&isexam=1", "diannaozhang");
     })
     function getToken() {
         var d1 = new Date().getDate();

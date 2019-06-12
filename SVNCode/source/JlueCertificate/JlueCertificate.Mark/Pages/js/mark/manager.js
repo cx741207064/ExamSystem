@@ -173,7 +173,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['750px', '530px']
+                , area: ['850px', '530px']
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
