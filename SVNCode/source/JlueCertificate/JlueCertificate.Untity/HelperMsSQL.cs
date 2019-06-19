@@ -11,7 +11,7 @@ namespace JlueCertificate.Untity
 {
     public class HelperMsSQL
     {
-        static string connStr = "";
+        public static string connStr = "";
 
         static HelperMsSQL()
         {

@@ -75,7 +75,10 @@ namespace JlueCertificate.Bll.Mark
                     Level = Untity.HelperDataCvt.objToString(_markuser.level),
                     Password = Untity.HelperDataCvt.objToString(_markuser.pwd),
                 };
-                return Dal.MsSQL.T_MarkUser.Add(_model).ToString();
+                object obj = Dal.MsSQL.T_MarkUser.Add(_model).ToString();
+                _markuser.id = obj.ToString();
+                Dal.MsSQL.T_MarkUserCertificate.Certificate(_markuser);
+                return obj;
             }
             else
             {
@@ -98,6 +101,7 @@ namespace JlueCertificate.Bll.Mark
                     Password = Untity.HelperDataCvt.objToString(_markuser.pwd),
                 };
                 Dal.MsSQL.T_MarkUser.Update(_model).ToString();
+                Dal.MsSQL.T_MarkUserCertificate.Certificate(_markuser);
                 return "1";
             }
             else
@@ -147,6 +151,7 @@ namespace JlueCertificate.Bll.Mark
             {
                 Entity.Respose.getmarkuser _markuser = Untity.HelperJson.DeserializeObject<Entity.Respose.getmarkuser>(postString);
                 Dal.MsSQL.T_MarkUser.Delete(Untity.HelperDataCvt.objToString(_markuser.id));
+                Dal.MsSQL.T_MarkUserCertificate.deleteMarkUserCertificate(_markuser);
                 return "1";
             }
             else
@@ -599,5 +604,22 @@ namespace JlueCertificate.Bll.Mark
                 return "-1";
             }
         }
+
+        public static object getCertificate(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
+            if (_user != null)
+            {
+                Entity.Request.addmarkuser _markuser = Untity.HelperJson.DeserializeObject<Entity.Request.addmarkuser>(postString);
+
+                return Dal.MsSQL.T_MarkUserCertificate.getCertificate(_markuser.id);
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+
     }
 }

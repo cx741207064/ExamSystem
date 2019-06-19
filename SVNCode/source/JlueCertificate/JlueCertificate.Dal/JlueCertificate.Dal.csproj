@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SqlSugar, Version=4.9.9.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ImportDll\SqlSugar.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +51,7 @@
     <Compile Include="MsSQL\T_Certificate.cs" />
     <Compile Include="MsSQL\T_CertifiSerial.cs" />
     <Compile Include="MsSQL\T_CertifiSubject.cs" />
+    <Compile Include="MsSQL\T_MarkUserCertificate.cs" />
     <Compile Include="MsSQL\T_Subject.cs" />
     <Compile Include="MsSQL\T_MarkUser.cs" />
     <Compile Include="MsSQL\T_Organiza.cs" />
@@ -61,6 +70,10 @@
       <Project>{41645e03-b246-46fb-955a-d78fc517607f}</Project>
       <Name>JlueCertificate.Untity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

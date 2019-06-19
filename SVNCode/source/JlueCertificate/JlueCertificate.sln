@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Main", "JlueCertificate.Main\JlueCertificate.Main.csproj", "{3D5BAE98-BC27-4E5D-B9FB-2D1B296D9C48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JlueCertificate.Logic", "JlueCertificate.Logic\JlueCertificate.Logic.csproj", "{A45C2770-F8C1-4826-89E0-BDD2FF28258F}"
@@ -17,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImportDll", "ImportDll", "{
 	ProjectSection(SolutionItems) = preProject
 		ImportDll\JlueLog.dll = ImportDll\JlueLog.dll
 		ImportDll\Newtonsoft.Json.dll = ImportDll\Newtonsoft.Json.dll
+		ImportDll\SqlSugar.dll = ImportDll\SqlSugar.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{A204EA4A-F592-4E5F-977F-37A36687AB89}"

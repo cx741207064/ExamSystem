@@ -1,12 +1,15 @@
-﻿layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload'], function () {
+﻿layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], function () {
     var layer = layui.layer,
 		form = layui.form,
 		table = layui.table,
         upload = layui.upload,
         laypage = layui.laypage,
-		common = layui.common;
+        common = layui.common,
+        element=layui.element;
     var curnum = 1;
     var limitcount = 10;
+    var width="850px";
+
     getUser();
     $("#btnquery").on("click", function () {
         getUser();
@@ -18,10 +21,14 @@
         $("#btnadd2").attr("type", "1")
         $("#btnadd2 cite").html("新增")
         var _title = "添加账号";
+
+        var data={"id":""}
+        getCertificate(data)
+
         layer.open({
             type: 1
             , title: _title
-            , area: ['750px', '530px']
+            , area: [width, '530px']
             , shade: 0
             , content: $("#notice1")
             , yes: function () {
@@ -46,6 +53,14 @@
             layer.msg("密码不能为空");
             return 
         }
+
+        var markUserCertificate=[]
+        $("#notice1 input[type='checkbox']").each(function(index,item){
+            if(item.checked==true){
+                markUserCertificate.push(item.value)
+            }
+        })
+        _data.certificate=markUserCertificate
 
         _data.id = Number($("#btnadd2").attr("dataid"))
         var _type = Number($("#btnadd2").attr("type"))
@@ -173,7 +188,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['850px', '530px']
+                , area: [width, '530px']
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
@@ -184,6 +199,10 @@
                 }
                 , zIndex: layer.zIndex
             });
+
+            var data={"id":data.id}
+            getCertificate(data)
+    
         } else if (obj.event === 'shouquan') {
             layer.prompt({
                 formType: 1,
@@ -208,4 +227,31 @@
             });
         }
     });
+
+    function getCertificate(data){
+        $.when($.ajax({
+            url:"/Handler/UserCenter.ashx?action=getCertificate",
+            type:"post",
+            dataType:"json",
+            data:JSON.stringify(data)
+        })).then(function(d){
+            Vue1.certificates=d.Data
+        })
+    }
+
+    var Vue1=new Vue({
+        el: '#vue1',
+        data: {
+            certificates: [
+          ],
+        },
+        updated:function(){
+            form.render()
+        },
+        methods: {
+            check: function (event) {
+            }
+          }
+    })
+
 });

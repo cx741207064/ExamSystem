@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,8 @@ namespace JlueCertificate.Entity.Request
         public string name { get; set; }
         public string pwd { get; set; }
         public string level { get; set; }
+
+        public JArray certificate { get; set; }
+
     }
 }

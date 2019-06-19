@@ -9,6 +9,28 @@ namespace JlueCertificate.Dal.MsSQL
 {
     public class T_Certificate
     {
+        public string Id { get; set; }
+
+        public string CategoryName { get; set; }
+
+        public string ExamSubject { get; set; }
+
+        public string StartTime { get; set; }
+
+        public string EndTime { get; set; }
+
+        public string NormalResult { get; set; }
+
+        public string ExamResult { get; set; }
+
+        public string Rule { get; set; }
+
+        public string Describe { get; set; }
+
+        public string IsDel { get; set; }
+
+        public string CreateTime { get; set; }
+
         public static Entity.MsSQL.T_Certificate GetModel(long Id)
         {
 

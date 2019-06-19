@@ -660,5 +660,30 @@ namespace JlueCertificate.Logic.Mark
             }
             return Untity.HelperJson.SerializeObject(result);
         }
+
+        public static string getCertificate(string _uid, string _pwd, string postString)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Mark.UserCenter.getCertificate(_uid, _pwd, postString, ref error);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    result.Code = "-1";
+                    result.Msg = error;
+                }
+            }
+
+            return Untity.HelperJson.SerializeObject(result);
+        }
+
     }
 }
