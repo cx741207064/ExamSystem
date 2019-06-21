@@ -9,6 +9,24 @@ namespace JlueCertificate.Dal.MsSQL
 {
     public class T_StudentTicket
     {
+        public int Id { get; set; }
+
+        public string CertificateId { get; set; }
+
+        public int OrgaizId { get; set; }
+
+        public string StudentId { get; set; }
+
+        public string TicketNum { get; set; }
+
+        public string SerialNum { get; set; }
+
+        public int OLMobile { get; set; }
+
+        public string IsDel { get; set; }
+
+        public string CreateTime { get; set; }
+
         public static Entity.MsSQL.T_StudentTicket GetModel(string _ticketid)
         {
             string sql = "SELECT * FROM dbo.T_StudentTicket WHERE 1=1 ";

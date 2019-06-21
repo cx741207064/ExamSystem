@@ -46,7 +46,8 @@ namespace JlueCertificate.Logic.Exam
             string error = string.Empty;
             try
             {
-                result.Data = Bll.Exam.UserCenter.userinfo(_examid, _cardid, ref error);
+                //result.Data = Bll.Exam.UserCenter.userinfo(_examid, _cardid, ref error);
+                result.Data = Bll.Exam.UserCenter.userinfo(_examid, out error);
             }
             catch (Exception ex)
             {

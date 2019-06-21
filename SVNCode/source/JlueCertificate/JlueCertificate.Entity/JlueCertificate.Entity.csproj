@@ -76,6 +76,7 @@
     <Compile Include="Respose\ExamSubjectInfo.cs" />
     <Compile Include="Respose\Markgetallcertificate.cs" />
     <Compile Include="Respose\Markgetorganiza.cs" />
+    <Compile Include="Respose\UserExamInfo.cs" />
     <Compile Include="Respose\UserInfo.cs" />
     <Compile Include="Respose\getsubjects.cs" />
     <Compile Include="Respose\getcertifisubjects.cs" />

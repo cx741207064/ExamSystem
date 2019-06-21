@@ -1,6 +1,7 @@
 ﻿using JlueCertificate.Untity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,6 +11,49 @@ namespace JlueCertificate.Dal.MsSQL
 {
     public class T_Subject
     {
+        public long ID { get; set; }
+
+        [StringLength(200)]
+        public string Name { get; set; }
+
+        [StringLength(200)]
+        public string Category { get; set; }
+
+        [StringLength(50)]
+        public string Price { get; set; }
+
+        [StringLength(500)]
+        public string Describe { get; set; }
+
+        [StringLength(100)]
+        public string OLSchoolId { get; set; }
+
+        [StringLength(200)]
+        public string OLSchoolName { get; set; }
+
+        [StringLength(10)]
+        public string OLSchoolProvinceId { get; set; }
+
+        [StringLength(10)]
+        public string OLSchoolCourseId { get; set; }
+
+        [StringLength(10)]
+        public string OLSchoolQuestionNum { get; set; }
+
+        [StringLength(10)]
+        public string OLSchoolAOMid { get; set; }
+
+        [StringLength(10)]
+        public string OLSchoolMasterTypeId { get; set; }
+
+        [StringLength(10)]
+        public string OLAccCourseId { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string IsDel { get; set; }
+
+        public DateTime CreateTime { get; set; }
 
         public static Entity.MsSQL.T_Subject GetModel(long _subjectid)
         {

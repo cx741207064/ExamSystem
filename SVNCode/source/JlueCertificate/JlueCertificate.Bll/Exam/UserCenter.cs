@@ -1,4 +1,7 @@
-﻿using System;
+﻿using JlueCertificate.Dal.MsSQL;
+using JlueCertificate.Entity.Respose;
+using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +10,21 @@ namespace JlueCertificate.Bll.Exam
 {
     public class UserCenter
     {
+        private static SqlSugarClient db
+        {
+            get
+            {
+                ConnectionConfig connectionConfig = new ConnectionConfig()
+                {
+                    ConnectionString = Untity.HelperMsSQL.connStr,
+                    DbType = DbType.SqlServer,//设置数据库类型
+                    IsAutoCloseConnection = true,//自动释放数据务，如果存在事务，在事务结束后释放
+                    InitKeyType = InitKeyType.Attribute //从实体特性中读取主键自增列信息
+                };
+                return new SqlSugarClient(connectionConfig);
+            }
+        }
+
         /// <summary>
         /// 登陆
         /// </summary>
@@ -55,7 +73,7 @@ namespace JlueCertificate.Bll.Exam
         /// <returns></returns>
         public static object userinfo(string _examid, string _cardid, ref string error)
         {
-            return new Entity.Respose.UserInfo();
+            //return new Entity.Respose.UserInfo();
             Entity.MsSQL.T_Student _student = Dal.MsSQL.T_Student.GetModelByCardId(_cardid);
             if (_student == null)
             {
@@ -105,6 +123,28 @@ namespace JlueCertificate.Bll.Exam
                     name = item.Name
                 });
             }
+            return result;
+        }
+
+        public static object userinfo(string _examid, out string error)
+        {
+            error = "";
+            Entity.Respose.UserExamInfo result = new Entity.Respose.UserExamInfo();
+            string Deleted = "1";
+            string NeedExam = "1";
+            var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Certificate, T_CertifiSubject, T_Subject>((t1, t2, t3, t4, t5) => new object[] { JoinType.Left, t1.StudentId == t2.Id, JoinType.Left, t1.CertificateId == t3.Id, JoinType.Left, t3.Id == t4.CertificateId, JoinType.Left, t4.SubjectId == t5.ID.ToString() }).Where((t1, t2, t3, t4, t5) => t1.TicketNum == _examid && t1.IsDel != Deleted && t3.IsDel != Deleted && t4.IsNeedExam == NeedExam && t5.IsDel != Deleted).Select((t1, t2, t3, t4, t5) => new { studentId = t2.Id, studentName = t2.Name, certificateId = t3.Id, t3.CategoryName, t3.ExamSubject, t3.StartTime, t3.EndTime, subjectId = t5.ID, subjectName = t5.Name, index = SqlFunc.MappingColumn(t5.ID, "row_number() over(order by t5.ID)") }).ToList();
+
+            var first = getByWhere.First();
+            result.studentId = first.studentId;
+            result.studentName = first.studentName;
+            result.certificateId = first.certificateId;
+            result.certificateName = first.CategoryName;
+            result.certificateLevel = first.ExamSubject;
+            result.certificateStartTime = DateTime.Parse(first.StartTime).ToShortDateString();
+            result.certificateEndTime = DateTime.Parse(first.EndTime).ToShortDateString();
+
+            List<CertificateSubjectInfo> subjects = getByWhere.Select(a => new CertificateSubjectInfo { index = a.index, subjectId = a.subjectId, subjectName = a.subjectName }).ToList();
+            result.subjects = subjects;
             return result;
         }
 

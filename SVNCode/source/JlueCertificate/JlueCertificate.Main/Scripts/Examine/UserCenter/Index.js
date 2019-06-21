@@ -1,5 +1,5 @@
 ﻿
-layui.use(['jquery','layer'], function () {
+layui.use(['jquery','layer', 'form'], function () {
     var $ = layui.$,
         layer = layui.layer,
         form = layui.form;
@@ -74,23 +74,7 @@ layui.use(['jquery','layer'], function () {
         ret = ret || JSON.parse(ret);
         if (ret.Code == 0) {
             if ( Params.getCookieDis("examid").length > 0 && Params.getCookieDis("cardid").length > 0) {
-                var _html = '';
-                var _htmlids = 'studentid="' + ret.Data.studentid + '" examid = "' + ret.Data.examid + '" certifiid = "' + ret.Data.certifiid + '"';
-                $.each(ret.Data.subjects, function (i, m) {
-                    _html += '<li><span class="text-left">科目';
-                    switch (i) {
-                        case 0: _html += '一'; break;
-                        case 1: _html += '二'; break;
-                        case 2: _html += '三'; break;
-                        case 3: _html += '四'; break;
-                        case 4: _html += '五'; break;
-                        case 5: _html += '六'; break;
-                        default:
-                            break;
-                    }
-                    _html += '：</span><span class="text-right"><input type="button" class="btn-vf" subjectid="' + m.subjectid + '" ' + _htmlids + ' value="' + m.name + '" /></span></li>';
-                })
-                //$("#loaderT ul").html(_html);
+                ExamSubjectsInit(ret.Data)
                 setTimeout(function () {
                     $("#foot_span").html(new Date().getFullYear())
                     $("#loader").css("display", "none")
@@ -122,4 +106,86 @@ layui.use(['jquery','layer'], function () {
     function PageIni_error(ret) {
         layer.msg("请求错误", { icon: 1, time: 1000 });
     }
+
+    function ExamSubjectsInit(data){
+        var startTime=new Date(data.certificateStartTime)
+        var endTime=new Date(data.certificateEndTime)
+        var dateIsValid=startTime<=new Date()&&endTime>=new Date()
+        data.dateIsValid=dateIsValid
+        data.subjects.forEach(function(e,i){
+            e.index=NumberToChinese(e.index)
+        })
+
+        var Vue1=new Vue({
+            el: '#subjects',
+            data: data,
+            mounted:function(){
+            },
+            updated:function(){
+                form.render()
+            },
+            methods: {
+                tips: function (event) {
+                    var dom=event.target
+                    if(dom.getAttribute("dateIsValid")){
+
+                    }
+                    else{
+                        layer.tips("当前时间不在允许考试的时间范围内("+data.certificateStartTime+"至"+data.certificateEndTime+")",dom,{tips: 1,time:0,area:'auto',maxWidth:500})
+                        dom.disabled="disabled"
+                    }
+                }
+              }
+        })
+    }
+
 })
+
+var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"];
+var chnUnitSection = ["","万","亿","万亿","亿亿"];
+var chnUnitChar = ["","十","百","千"];
+
+function SectionToChinese(section){
+    var strIns = '', chnStr = '';
+    var unitPos = 0;
+    var zero = true;
+    while(section > 0){
+        var v = section % 10;
+        if(v === 0){
+            if(!zero){
+                zero = true;
+                chnStr = chnNumChar[v] + chnStr;
+            }
+        }else{
+            zero = false;
+            strIns = chnNumChar[v];
+            strIns += chnUnitChar[unitPos];
+            chnStr = strIns + chnStr;
+        }
+        unitPos++;
+        section = Math.floor(section / 10);
+    }
+    return chnStr;
+}
+
+function NumberToChinese(num){
+      var unitPos = 0;
+      var strIns = '', chnStr = '';
+      var needZero = false;
+      if(num === 0){
+        return chnNumChar[0];
+      }
+      while(num > 0){
+        var section = num % 10000;
+        if(needZero){
+          chnStr = chnNumChar[0] + chnStr;
+        }
+        strIns = SectionToChinese(section);
+        strIns += (section !== 0) ? chnUnitSection[unitPos] : chnUnitSection[0];
+        chnStr = strIns + chnStr;
+        needZero = (section < 1000) && (section > 0);
+        num = Math.floor(num / 10000);
+        unitPos++;
+      }
+      return chnStr;
+}

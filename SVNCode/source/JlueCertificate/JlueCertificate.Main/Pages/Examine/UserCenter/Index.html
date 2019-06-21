@@ -56,15 +56,15 @@
         }
 
         .bg-text {
-            width: 60%;
+            width: 70%;
             height: auto;
             margin: auto;
-            padding-top: 6%;
+            padding-top: 0%;
             box-sizing: border-box;
         }
 
         .title {
-            font-size: 35px;
+            font-size: 34px;
             color: #fff;
             text-align: center;
             border-top: 1px solid #fff;
@@ -83,7 +83,7 @@
         }
 
         .bg-text li {
-            width: 55%;
+            width: 95%;
             min-width:600px;
             height: 100px;
             background: url(../../../images/listbg.png);
@@ -107,9 +107,9 @@
         .text-right {
             display: inline-block;
             height: 100px;
-            line-height: 85px;
+            line-height: 80px;
             font-size: 36px;
-            width: 388px;
+            width: 75%;
             text-align: center;
             float: right;
             overflow: hidden;
@@ -141,23 +141,11 @@
     <div id="loaderT" style="display:none">
         <div class="bg-text">
             <p class="title">人才评价考试平台</p>
-            <ul>
-                <li>
-                    <span class="text-left">科目一：</span>
+            <ul id="subjects">
+                <li v-for="item in subjects">
+                    <span class="text-left">科目{{item.index}}：</span>
                     <span class="text-right">
-                        <input type="button" class="btn-vf" nodeid="1" value="综合版会计实务" />
-                    </span>
-                </li>
-                <li>
-                    <span class="text-left">科目二：</span>
-                    <span class="text-right">
-                        <input type="button" class="btn-vf" nodeid="2" value="电脑账" />
-                    </span>
-                </li>
-                <li>
-                    <span class="text-left">科目三：</span>
-                    <span class="text-right">
-                        <input type="button" class="btn-vf" nodeid="3" value="报税" />
+                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.subjectName" v-on:mouseover="tips" v-bind:dateIsValid="dateIsValid" />
                     </span>
                 </li>
             </ul>
@@ -169,6 +157,8 @@
     <script type="text/javascript" src="../../../Scripts/layui/layui.js"></script>
     <script type="text/javascript" src="../../../Scripts/common.js"></script>
     <script type="text/javascript" src="../../../Scripts/Examine/UserCenter/Index.js"></script>
+    <script type="text/javascript" src="../../../Scripts/Vue/vue.js"></script>
+
 </body>
 
 </html>

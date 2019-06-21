@@ -4,11 +4,39 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace JlueCertificate.Dal.MsSQL
 {
     public class T_CertifiSubject
     {
+        public long ID { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string CertificateId { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string SubjectId { get; set; }
+
+        [StringLength(100)]
+        public string NormalResult { get; set; }
+
+        [StringLength(100)]
+        public string ExamResult { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string IsNeedExam { get; set; }
+
+        public long? ExamLength { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string IsDel { get; set; }
+
+        public DateTime CreateTime { get; set; }
 
         public static List<Entity.MsSQL.T_CertifiSubject> GetList()
         {

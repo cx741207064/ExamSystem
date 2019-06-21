@@ -8,8 +8,48 @@ using System.Text;
 
 namespace JlueCertificate.Dal.MsSQL
 {
-    public static class T_Student
+    public class T_Student
     {
+        public string Id { get; set; }
+
+        public long OrgaId { get; set; }
+
+        public string Name { get; set; }
+
+        public string CardId { get; set; }
+
+        public string HeaderUrl { get; set; }
+
+        public string Sex { get; set; }
+
+        public string TelPhone { get; set; }
+
+        public string ProvinceId { get; set; }
+
+        public string CityId { get; set; }
+
+        public string ZoneId { get; set; }
+
+        public string Address { get; set; }
+
+        public string PostProvinceId { get; set; }
+
+        public string PostCityId { get; set; }
+
+        public string PostZoneId { get; set; }
+
+        public string PostAddress { get; set; }
+
+        public string IsDel { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public string OLSchoolUserId { get; set; }
+
+        public string OLSchoolUserName { get; set; }
+
+        public string OLSchoolPWD { get; set; }
+
         public static Entity.MsSQL.T_Student GetModel(string _name, string _cardid)
         {
             string sql = "SELECT * FROM dbo.T_Student WHERE 1=1 ";
