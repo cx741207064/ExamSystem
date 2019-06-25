@@ -132,7 +132,7 @@ layui.use(['jquery','layer', 'form'], function () {
                     }
                     else{
                         layer.tips("当前时间不在允许考试的时间范围内("+data.certificateStartTime+"至"+data.certificateEndTime+")",dom,{tips: 1,time:0,area:'auto',maxWidth:500})
-                        dom.disabled="disabled"
+                        $("#loaderT").unbind()
                     }
                 }
               }

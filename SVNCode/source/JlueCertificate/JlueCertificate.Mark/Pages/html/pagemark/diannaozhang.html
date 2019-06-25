@@ -59,9 +59,14 @@
             color: #fff;
             border-radius: 2px;
         }
+
+        .layui-form-select{
+            width:30%;
+        }
     </style>
 </head>
 <body>
+    <form class="layui-form">
     <div class="layui-fluid larry-wrapper">
         <div class="layui-row  animated bounceIn">
             <div class="">
@@ -71,8 +76,13 @@
                 <div class="layui-btn-group larry-group" id="larry_group" style="margin-left: 100px">
                 </div>
             </div>
-            <div class="layui-form" style="margin-left: 100px">
-                <div class="layui-form-item" id="condes">
+            <div class="layui-form-item" style="margin-left: 100px">
+                <label class="layui-form-label">选择证书：</label>
+                <div class="layui-input-block">
+                    <select id="select-certificate" v-model="selected" lay-filter="certificate">
+                        <option></option>
+                        <option v-for="item in certificates" v-bind:value="item.id" >{{item.categoryName + item.examSubject}}</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item" style="margin-left: 100px; width: 1160px;">
@@ -84,25 +94,20 @@
                         <button class="layui-btn btnblack">黑色</button>未评分，未审阅
                     </div>-->
                 </fieldset>
-                <ul class="site-doc-icon" style="min-height: 400px">
-                    <!--<li><button class="layui-btn btngreen">张三丰</button></li>
-                    <li><button class="layui-btn btnred">张无忌</button></li>
-                    <li><button class="layui-btn btnblack">金毛狮王</button></li>-->
-                    <li>
-                        <button class="layui-btn btnred">张海超</button></li>
-                    <li>
-                        <button class="layui-btn btnred">王健</button></li>
-                    <li>
-                        <button class="layui-btn btnred">张小欣</button></li>
+                <div class="site-doc-icon" style="min-height: 400px">
+                <ul id="list-students" v-if="seen">
+                    <li v-for="item in students">
+                        <input type="button" class="layui-btn btnred" v-bind:value = "item.studentName" />
+                    </li>
                 </ul>
-
+                </div>
                 <div style="text-align: center; margin-top: 0px; width: 100%;">
                     <div id="laypage" style="margin-top: 5px;"></div>
                 </div>
             </div>
         </div>
     </div>
-
+</form>
 
     <!-- 加载js文件 -->
     <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
@@ -111,5 +116,8 @@
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../../common/common.js"></script>
     <script type="text/javascript" src="../../js/pagemark/diannaozhang.js"></script>
+    <script type="text/javascript" src="../../js/Vue/vue.js"></script>
+    <script type="text/javascript" src="../../js/pagemark/yuejuan.js?v=1.0"></script>
+
 </body>
 </html>

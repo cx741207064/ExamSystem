@@ -1,7 +1,11 @@
-﻿using System;
+﻿using JlueCertificate.Dal.Settings;
+using Newtonsoft.Json.Linq;
+using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -26,6 +30,21 @@ namespace JlueCertificate.Dal.MsSQL
         public string IsDel { get; set; }
 
         public string CreateTime { get; set; }
+
+        private static SqlSugarClient db
+        {
+            get
+            {
+                ConnectionConfig connectionConfig = new ConnectionConfig()
+                {
+                    ConnectionString = Untity.HelperMsSQL.connStr,
+                    DbType = SqlSugar.DbType.SqlServer,//设置数据库类型
+                    IsAutoCloseConnection = true,//自动释放数据务，如果存在事务，在事务结束后释放
+                    InitKeyType = InitKeyType.Attribute //从实体特性中读取主键自增列信息
+                };
+                return new SqlSugarClient(connectionConfig);
+            }
+        }
 
         public static Entity.MsSQL.T_StudentTicket GetModel(string _ticketid)
         {
@@ -214,5 +233,24 @@ namespace JlueCertificate.Dal.MsSQL
             string sql = string.Format("UPDATE dbo.T_StudentTicket SET IsDel = 1 WHERE TicketNum = '{0}' ", ticketnum);
             Untity.HelperMsSQL.ExecuteQuery(sql);
         }
+
+        public static dynamic getStudentsByCertificateID(string postString)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            string certificateId = JObject.Parse(postString)["certificateId"].ToString();
+            dynamic re_obj = new JArray();
+            if (!string.IsNullOrEmpty(certificateId))
+            {
+                var getByWhere = db.Queryable<T_StudentTicket, T_Student>((a, b) => new object[] { JoinType.Inner, a.StudentId == b.Id }).Where((a, b) => a.CertificateId == certificateId && a.IsDel != MySetting.IsDel).Select((a, b) => new { studentId = b.Id, studentName = b.Name, index = SqlFunc.MappingColumn(b.Id, "row_number() over(order by b.id)") }).ToList();
+
+                re_obj = getByWhere;
+            }
+            watch.Stop();
+            TimeSpan ts = watch.Elapsed;
+            return re_obj;
+        }
+
     }
 }

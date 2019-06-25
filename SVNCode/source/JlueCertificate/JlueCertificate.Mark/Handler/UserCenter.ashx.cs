@@ -76,7 +76,9 @@ namespace JlueCertificate.Mark.Handler
                                 case "addcertifisubject": result = Logic.Mark.UserCenter.addcertifisubject(_uid, _pwd, postString); break;
                                 case "updatecertifisubject": result = Logic.Mark.UserCenter.updatecertifisubject(_uid, _pwd, postString); break;
                                 case "delcertifisubject": result = Logic.Mark.UserCenter.delcertifisubject(_uid, _pwd, postString); break;
-                                case "getcertificate": result = Logic.Mark.UserCenter.getCertificate(_uid, _pwd, postString); break;
+                                case "getmarkusercertificatebyid": result = Logic.Mark.UserCenter.getMarkUserCertificateById(_uid, _pwd, postString); break;
+                                case "getmarkusercertificatebyname": result = Logic.Mark.UserCenter.getMarkUserCertificateByName(_uid, _pwd, postString); break;
+                                case "getstudentsbycertificateid": result = Logic.Mark.UserCenter.getStudentsByCertificateID(_uid, _pwd, postString); break;
                                 default:
                                     break;
                             }

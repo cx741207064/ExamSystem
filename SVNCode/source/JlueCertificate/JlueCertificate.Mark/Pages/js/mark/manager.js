@@ -230,7 +230,7 @@
 
     function getCertificate(data){
         $.when($.ajax({
-            url:"/Handler/UserCenter.ashx?action=getCertificate",
+            url:"/Handler/UserCenter.ashx?action=getMarkUserCertificateById",
             type:"post",
             dataType:"json",
             data:JSON.stringify(data)

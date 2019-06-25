@@ -61,6 +61,7 @@
     <Compile Include="MsSQL\T_StudentTicket.cs" />
     <Compile Include="MsSQL\T_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\MySetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JlueCertificate.Entity\JlueCertificate.Entity.csproj">

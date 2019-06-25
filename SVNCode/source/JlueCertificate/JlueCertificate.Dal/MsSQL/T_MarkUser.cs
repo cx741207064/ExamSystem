@@ -4,11 +4,29 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace JlueCertificate.Dal.MsSQL
 {
     public class T_MarkUser
     {
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Password { get; set; }
+
+        [StringLength(1)]
+        public string Level { get; set; }
+
+        public int IsDel { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
         public static Entity.MsSQL.T_MarkUser GetModel(string _name, string _password)
         {
             string sql = string.Format("select * from T_MarkUser where Name = '{0}' AND Password='{1}' AND IsDel = 0 ", _name, _password);

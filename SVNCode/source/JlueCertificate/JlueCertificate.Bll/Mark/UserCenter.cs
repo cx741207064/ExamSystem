@@ -605,14 +605,43 @@ namespace JlueCertificate.Bll.Mark
             }
         }
 
-        public static object getCertificate(string _uid, string _pwd, string postString, ref string error)
+        public static object getMarkUserCertificateById(string _uid, string _pwd, string postString, ref string error)
         {
             Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
             if (_user != null)
             {
                 Entity.Request.addmarkuser _markuser = Untity.HelperJson.DeserializeObject<Entity.Request.addmarkuser>(postString);
 
-                return Dal.MsSQL.T_MarkUserCertificate.getCertificate(_markuser.id);
+                return Dal.MsSQL.T_MarkUserCertificate.getMarkUserCertificateById(_markuser.id);
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+
+        public static object getMarkUserCertificateByName(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
+            if (_user != null)
+            {
+                return Dal.MsSQL.T_MarkUserCertificate.getMarkUserCertificateByName(postString);
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+
+
+        public static object getStudentsByCertificateID(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
+            if (_user != null)
+            {
+                return Dal.MsSQL.T_StudentTicket.getStudentsByCertificateID(postString);
             }
             else
             {
