@@ -106,18 +106,18 @@ layui.define(['jquery', 'larryElem', 'layer', 'common'], function(exports) {
     } else if (that.config.tabSession) {
       $('#checkboxtabSession').attr('checked', 'checked');
     }
-    that.config.autoRefresh = true;
-    //if (localStorage.getItem('autoRefresh')) {
-    //  var autoRefreshs = JSON.parse(localStorage.getItem('autoRefresh'));
-    //  if (autoRefreshs) {
-    //    $('#autoRefresh').attr('checked', 'checked');
-    //    that.config.autoRefresh = autoRefreshs;
-    //  } else {
-    //    that.config.autoRefresh = autoRefreshs;
-    //  }
-    //} else if (that.config.autoRefresh) {
-    //  $('#autoRefresh').attr('checked', 'checked');
-    //}
+    //that.config.autoRefresh = true;
+    if (localStorage.getItem('autoRefresh')) {
+      var autoRefreshs = JSON.parse(localStorage.getItem('autoRefresh'));
+      if (autoRefreshs) {
+        $('#autoRefresh').attr('checked', 'checked');
+        that.config.autoRefresh = autoRefreshs;
+      } else {
+        that.config.autoRefresh = autoRefreshs;
+      }
+    } else if (that.config.autoRefresh) {
+      $('#autoRefresh').attr('checked', 'checked');
+    }
     //2、tab选项卡初始化
     if (that.config.tabSession) {
         sessionSet(that.config.data);

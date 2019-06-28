@@ -1,11 +1,11 @@
 ﻿layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload'], function () {
     var $ = layui.$,
-		layer = layui.layer,
+        layer = layui.layer,
 		form = layui.form,
 		table = layui.table,
         upload = layui.upload,
         laypage = layui.laypage,
-		common = layui.common;
+        common = layui.common;
     var curnum = 1;
     var limitcount = 10;
     getscorequery();
@@ -138,8 +138,9 @@
             layer.open({
                 type: 2
                 , title: _title
-                , area: ['730px', '500px']
+                , area: ['1000px', '500px']
                 , shade: 0
+                ,moveOut: true
                 , content: ['querynormaldetail.html?Id=' + data.Id + "&OLSchoolUserId=" + data.OLSchoolUserId, 'no']
                 , btn: []
                 , success: function (layero, index) {

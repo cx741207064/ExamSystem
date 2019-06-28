@@ -173,5 +173,24 @@ var Params = {
         String(curr_date).length < 2 ? (curr_date = "0" + curr_date) : curr_date;
         var yyyyMMdd = curr_year + "-" + curr_month + "-" + curr_date;
         return yyyyMMdd;
+    },
+    Get: function (url, data, success_callback, callback_error) {
+        $.ajax({
+            type: "get",
+            url: url,
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+            data: data,
+            success: function (ret) {
+                if (success_callback && typeof success_callback == "function") {
+                    success_callback(ret)
+                }
+            },
+            error: function (ret) {
+                if (callback_error && typeof callback_error == "function") {
+                    callback_error(ret)
+                }
+            }
+        });
     }
 }

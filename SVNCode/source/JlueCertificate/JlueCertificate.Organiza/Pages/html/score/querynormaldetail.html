@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>平时成绩</title>
@@ -39,8 +40,22 @@
         .layui-form-select dl {
             max-height: 200px !important;
         }
+
+        .warm {
+            color: #ff5722;
+        }
+
+        ol li {
+            list-style: cjk-ideographic;
+            color: blue
+        }
+
+        ol {
+            padding-inline-start: 40px;
+        }
     </style>
 </head>
+
 <body>
     <div class="layui-fluid larry-wrapper">
         <div class="layui-form layui-form-pane" style="margin-left: 20px; margin-right: 20px">
@@ -55,14 +70,52 @@
             </div>
         </div>
     </div>
-    <script type="text/html" id="userbar">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>
+    <div class="layer_notice none" id="jindu">
+        <div class="form-div">
+            <p>总进度：{{videoreat}}% （已看完：{{lookvideo}} 段视频 ； 该课程共：{{allvideo}} 段视频）</p>
+            <table class="layui-hide" id="test2" lay-filter="userTables2"></table>
+        </div>
+    </div>
+    <script type="text/html" id="statusTpl1">
+        {{# if(d.isEnd){ }}
+        <span class="blue">已看完</span>
+        {{# } else { }}
+        <span class="warm">未看完</span>
+        {{# } }}
     </script>
+    <script type="text/html" id="userbar">
+        <a class="layui-btn layui-btn-xs" lay-event="view">查看</a>
+    </script>
+    <div class="layui-tab none" id="exam-papers" lay-filter="exam-papers">
+        <ul class="layui-tab-title">
+            <li v-for="item in Data" v-bind:lay-id="item.name">{{item.name}}</li>
+        </ul>
+        <div class="layui-tab-content">
+            <template v-for="item in Data">
+                <div class="layui-tab-item layui-collapse">
+                    <div v-for="paper in item.papers" class="layui-colla-item" data-Coursesort="paper.Course_Sort"
+                        v-bind:data-id="paper.paperid">
+                        <h2 class="layui-colla-title">{{paper.papername}}<i class="layui-icon layui-colla-icon"></i>
+                        </h2>
+                        <div class="layui-colla-content">
+                            <p v-if="paper.scores.length === 0">该试卷未作答</p>
+                            <ol v-else>
+                                <li v-for="score in paper.scores" class="scoredetail">{{score.Score + '分'}}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
     <!-- 加载js文件 -->
     <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
     <script type="text/javascript" src="../../js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../../common/common.js"></script>
+    <script type="text/javascript" src="../../js/Vue/vue.js"></script>
     <script type="text/javascript" src="../../js/score/querynormaldetail.js"></script>
 </body>
+
 </html>

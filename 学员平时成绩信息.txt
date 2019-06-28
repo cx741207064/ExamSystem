@@ -1,0 +1,14 @@
+http://admin.kjcytk.com
+jljy软件部
+123456
+
+http://jluerawx.kjcytk.com/api/VideoJinDu/Check?studentid=857b0d101bae4931889a53337c8f71ee&AOMid=1009&PublicMark=true&Sort_Id=16Sort_Id
+
+OLSchoolId 对应Sort_Id
+OLSchoolAOMid 对应AOMid
+OLSchoolUserId 对应studentid
+PublicMark固定为true
+
+jljy朱楚馨
+
+jljyzhc

@@ -66,5 +66,21 @@ namespace JlueCertificate.Bll.Organiz
             }
             return result;
         }
+
+        public static object getSubjectsByTicket(string _uid, string _pwd, string id, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            var result = new object();
+            if (_orga != null)
+            {
+                result = Dal.MsSQL.T_StudentTicket.getSubjectsByTicket(id);
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+            }
+            return result;
+        }
+
     }
 }

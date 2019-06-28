@@ -252,5 +252,22 @@ namespace JlueCertificate.Dal.MsSQL
             return re_obj;
         }
 
+        public static dynamic getSubjectsByTicket(string id)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            dynamic re_obj = new JArray();
+            if (!string.IsNullOrEmpty(id))
+            {
+                var getByWhere = db.Queryable<T_StudentTicket, T_CertifiSubject, T_Subject>((a, b, c) => new object[] { JoinType.Inner, a.CertificateId == b.CertificateId, JoinType.Inner, b.SubjectId == c.ID.ToString() }).Where((a, b, c) => a.Id.ToString() == id && a.IsDel != MySetting.IsDel && b.IsDel != MySetting.IsDel).Select((a, b, c) => new { subjectId = c.ID, subjectName = c.Name, subjectType = c.Category, score = 90, Sort_Id = c.OLSchoolId, AOMid = c.OLSchoolAOMid, index = SqlFunc.MappingColumn(c.ID, "row_number() over(order by c.id)") }).ToList();
+
+                re_obj = getByWhere;
+            }
+            watch.Stop();
+            TimeSpan ts = watch.Elapsed;
+            return re_obj;
+        }
+
     }
 }

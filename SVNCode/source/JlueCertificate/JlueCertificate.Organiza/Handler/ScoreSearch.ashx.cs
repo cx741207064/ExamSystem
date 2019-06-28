@@ -36,6 +36,7 @@ namespace JlueCertificate.Organiza.Handler
 
                                 case "getscore": result = Logic.Score.ScoreSearch.getscore(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["ticketnum"]), context.Request["page"], context.Request["limit"]); break;
                                 case "getscoredetail": result = Logic.Score.ScoreSearch.getscoredetail(HttpContextSecurity.HttpContextParam(context.Request["ticketid"]), HttpContextSecurity.HttpContextParam(context.Request["OLSchoolUserId"])); break;
+                                case "getsubjectsbyticket": result = Logic.Score.ScoreSearch.getSubjectsByTicket(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["id"])); break;
                                 default:
                                     break;
                             }
