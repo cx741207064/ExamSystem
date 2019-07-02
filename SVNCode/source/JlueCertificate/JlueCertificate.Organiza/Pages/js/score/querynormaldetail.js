@@ -9,7 +9,7 @@ var app = new Vue({
   }
 })
 
-layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], function () {
+layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'element'], function () {
   var $ = layui.$,
     layer = layui.layer,
     form = layui.form,
@@ -17,7 +17,7 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], f
     upload = layui.upload,
     laypage = layui.laypage,
     common = layui.common,
-    element=layui.element;
+    element = layui.element;
 
   var url = "/Handler/ScoreSearch.ashx?action=getSubjectsByTicket&id=" + Params.getParamsFormUrl("id")
   Params.Ajax(url, "get", "", pageInitSuccessCallBack)
@@ -47,21 +47,29 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], f
         }
         Params.Get(wangxiaohost + '/api/VideoJinDu/Check', info, setdetailAjax)
       }
-      else if(data.subjectType==="题库"){
-        var url="http://114.55.38.113:8054/TiKu/Paper/CoursePaperList"
-        data={
-          "classid":9,
-          "userid":"3a30108ff834499db688866d305ac1c7",
-          "sortid":8
+      else if (data.subjectType === "题库") {
+        var url = "http://114.55.38.113:8054/TiKu/Paper/CoursePaperList"
+        var da = {
+          "classid": 9,
+          "userid": "3a30108ff834499db688866d305ac1c7",
+          "sortid": 8
         }
 
-        Params.Get(url,data,setTikuData)
+        var da1 = {
+          "classid": data.classId,
+          "userid": Params.getParamsFormUrl("OLSchoolUserId"),
+          "sortid": data.Sort_Id
+        }
+
+        $.when($.ajax({ type: "get", url: url, data: da }), $.ajax({ type: "get", url: url, data: da1 })).done(function (ret, ret1) {
+          setTikuData(ret[0])
+        })
 
       }
     })
 
-    function setTikuData(ret){
-      Vue1.Data=ret.Data
+    function setTikuData(ret) {
+      Vue1.Data = ret.Data
 
       layer.open({
         type: 1,
@@ -185,7 +193,7 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], f
     }
   }
 
-  element.on('tab(exam-papers)', function(data){
+  element.on('tab(exam-papers)', function (data) {
     console.log(this); //当前Tab标题所在的原始DOM元素
     console.log(data.index); //得到当前Tab的所在下标
     console.log(data.elem); //得到当前的Tab大容器
@@ -196,9 +204,9 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload','element'], f
     data: {
       Data: [],
     },
-    updated:function(){
+    updated: function () {
       element.render("collapse")
-      element.tabChange("exam-papers","章节练习")
+      element.tabChange("exam-papers", "章节练习")
     }
   })
 

@@ -133,7 +133,7 @@
                 , zIndex: layer.zIndex
             });
         }
-        else if (obj.event === 'del') {
+        else if (obj.event === 'usual') {
             var _title = "平时成绩";
             layer.open({
                 type: 2
