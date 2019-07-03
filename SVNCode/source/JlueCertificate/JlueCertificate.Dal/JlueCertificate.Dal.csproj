@@ -53,6 +53,7 @@
     <Compile Include="MsSQL\T_CertifiSerial.cs" />
     <Compile Include="MsSQL\T_CertifiSubject.cs" />
     <Compile Include="MsSQL\T_MarkUserCertificate.cs" />
+    <Compile Include="MsSQL\T_StudentSubjectScore.cs" />
     <Compile Include="MsSQL\T_Subject.cs" />
     <Compile Include="MsSQL\T_MarkUser.cs" />
     <Compile Include="MsSQL\T_Organiza.cs" />

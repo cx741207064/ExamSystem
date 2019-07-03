@@ -49,6 +49,8 @@ namespace JlueCertificate.Dal.MsSQL
         [StringLength(10)]
         public string OLAccCourseId { get; set; }
 
+        public string OLPaperID { get; set; }
+
         [Required]
         [StringLength(1)]
         public string IsDel { get; set; }
@@ -150,9 +152,9 @@ namespace JlueCertificate.Dal.MsSQL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into T_Subject(");
-            strSql.Append("Name,Category,Price,Describe,OLSchoolId,OLSchoolName,OLSchoolProvinceId,OLSchoolCourseId,OLSchoolQuestionNum,OLSchoolAOMid,OLSchoolMasterTypeId,OLAccCourseId)");
+            strSql.Append("Name,Category,Price,Describe,OLSchoolId,OLSchoolName,OLSchoolProvinceId,OLSchoolCourseId,OLSchoolQuestionNum,OLSchoolAOMid,OLSchoolMasterTypeId,OLAccCourseId,OLPaperID)");
             strSql.Append(" values (");
-            strSql.Append("@Name,@Category,@Price,@Describe,@OLSchoolId,@OLSchoolName,@OLSchoolProvinceId,@OLSchoolCourseId,@OLSchoolQuestionNum,@OLSchoolAOMid,@OLSchoolMasterTypeId,@OLAccCourseId)");
+            strSql.Append("@Name,@Category,@Price,@Describe,@OLSchoolId,@OLSchoolName,@OLSchoolProvinceId,@OLSchoolCourseId,@OLSchoolQuestionNum,@OLSchoolAOMid,@OLSchoolMasterTypeId,@OLAccCourseId,@OLPaperID)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@Name", SqlDbType.NVarChar,200),
@@ -166,7 +168,8 @@ namespace JlueCertificate.Dal.MsSQL
 					new SqlParameter("@OLSchoolQuestionNum", SqlDbType.VarChar,10),
 					new SqlParameter("@OLSchoolAOMid", SqlDbType.VarChar,10),
 					new SqlParameter("@OLSchoolMasterTypeId", SqlDbType.VarChar,10),
-                    new SqlParameter("@OLAccCourseId", SqlDbType.VarChar,10)};
+                    new SqlParameter("@OLAccCourseId", SqlDbType.VarChar,10),
+                    new SqlParameter("@OLPaperID", SqlDbType.VarChar,10)};
             parameters[0].Value = model.Name;
             parameters[1].Value = model.Category;
             parameters[2].Value = model.Price;
@@ -179,6 +182,7 @@ namespace JlueCertificate.Dal.MsSQL
             parameters[9].Value = model.OLSchoolAOMid;
             parameters[10].Value = model.OLSchoolMasterTypeId;
             parameters[11].Value = model.OLAccCourseId;
+            parameters[12].Value = model.OLPaperID;
 
             object obj = Untity.HelperMsSQL.ExecuteScalar(strSql.ToString(), parameters);
             if (obj == null)
@@ -207,6 +211,7 @@ namespace JlueCertificate.Dal.MsSQL
             strSql.Append("OLSchoolAOMid=@OLSchoolAOMid,");
             strSql.Append("OLSchoolMasterTypeId=@OLSchoolMasterTypeId,");
             strSql.Append("OLAccCourseId=@OLAccCourseId,");
+            strSql.Append("OLPaperID=@OLPaperID,");
             strSql.Append("IsDel=@IsDel ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
@@ -222,6 +227,7 @@ namespace JlueCertificate.Dal.MsSQL
 					new SqlParameter("@OLSchoolAOMid", SqlDbType.VarChar,10),
 					new SqlParameter("@OLSchoolMasterTypeId", SqlDbType.VarChar,10),
 					new SqlParameter("@OLAccCourseId", SqlDbType.VarChar,10),
+					new SqlParameter("@OLPaperID", SqlDbType.VarChar,10),
 					new SqlParameter("@IsDel", SqlDbType.Char,1),
 					new SqlParameter("@ID", SqlDbType.BigInt,8)};
             parameters[0].Value = model.Name;
@@ -236,8 +242,9 @@ namespace JlueCertificate.Dal.MsSQL
             parameters[9].Value = model.OLSchoolAOMid;
             parameters[10].Value = model.OLSchoolMasterTypeId;
             parameters[11].Value = model.OLAccCourseId;
-            parameters[12].Value = 0;
-            parameters[13].Value = model.ID;
+            parameters[12].Value = model.OLPaperID;
+            parameters[13].Value = 0;
+            parameters[14].Value = model.ID;
 
             int rows = Untity.HelperMsSQL.ExecuteQuery(strSql.ToString(), parameters);
             if (rows > 0)

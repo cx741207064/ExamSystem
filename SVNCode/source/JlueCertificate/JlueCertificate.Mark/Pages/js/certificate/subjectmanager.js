@@ -29,6 +29,7 @@
                 $("#Price").val("");
                 $("#Category").val("");
                 $("#Describe").val("");
+                $("#OLPaperID").val("");
                 if ($("#OLSchoolId option")[0]) {
                     $("#OLSchoolId option")[0].selected = true;
                 }
@@ -116,6 +117,7 @@
             Price: "",
             Category: $("#Category").val(),
             Describe: $("#Describe").val(),
+            OLPaperID:$("#OLPaperID").val(),
         };
         if (_data.Name.length == 0) {
             top.layer.msg("课程名称不能为空", { icon: 2 });
@@ -185,6 +187,7 @@
                     $("#Category").val(data.Category);
                     $("#Describe").val(data.Describe);
                     $("#OLSchoolId").val(data.OLSchoolAOMid);
+                    $("#OLPaperID").val(data.OLPaperID);
                     form.render('select');
                 }
                 , yes: function () {

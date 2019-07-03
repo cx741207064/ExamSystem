@@ -20,5 +20,8 @@ namespace JlueCertificate.Entity.Request
         public string OLSchoolQuestionNum { get; set; }
         public string OLSchoolAOMid { get; set; }
         public string OLSchoolMasterTypeId { get; set; }
+
+        public string OLPaperID { get; set; }
+
     }
 }

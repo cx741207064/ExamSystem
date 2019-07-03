@@ -86,18 +86,17 @@
                         <input name="Name" id="Name" class="layui-input" type="text" placeholder="请输入课程名称" lay-verify="required" autocomplete="off">
                     </div>
                 </div>
-                <!--<div class="layui-form-item">
-                    <label class="layui-form-label label1">价格</label>
-                    <div class="layui-input-block layui-input-block1">
-                        <input name="Price" id="Price" class="layui-input" type="number" placeholder="请输入价格" lay-verify="required" autocomplete="off">
-                    </div>
-                </div>-->
             </div>
             <div class="layui-inline">
                  <div class="layui-form-item" style="width: 380px;">
                     <label class="layui-form-label label1">课程类别</label>
                     <div class="layui-input-block layui-input-block1">
-                        <input name="Category" id="Category" class="layui-input" type="text" placeholder="请输入课程类别" lay-verify="required" autocomplete="off">
+                        <select name="Category" id="Category" class="layui-input" lay-verify="required" autocomplete="off">
+                            <option>题库</option>
+                            <option>实操-电脑账</option>
+                            <option>实操-报税</option>
+                            <option>视频</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -109,7 +108,12 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="layui-form-item" style="width: 380px;">
+            <label class="layui-form-label label1">对应网校试卷</label>
+            <div class="layui-input-block layui-input-block1">
+                <input name="OLPaperID" id="OLPaperID" class="layui-input" type="text" placeholder="请输入网校试卷" lay-verify="required" autocomplete="off">
+            </div>
         </div>
         <div class="layui-form-item" style="margin-top: 20px; margin-bottom: 5px;">
             <div class="layui-form-item" style="width: 774px;">

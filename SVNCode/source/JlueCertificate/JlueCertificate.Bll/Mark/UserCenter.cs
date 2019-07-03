@@ -358,7 +358,8 @@ namespace JlueCertificate.Bll.Mark
                     OLSchoolName = _subject.OLSchoolName,
                     OLSchoolProvinceId = _subject.OLSchoolProvinceId,
                     OLSchoolQuestionNum = _subject.OLSchoolQuestionNum,
-                    OLAccCourseId = getAccCourseId(_subject.OLSchoolId, _path)
+                    OLAccCourseId = getAccCourseId(_subject.OLSchoolId, _path),
+                    OLPaperID = _subject.OLPaperID
                 };
                 return Dal.MsSQL.T_Subject.Add(_model).ToString();
             }
@@ -389,7 +390,8 @@ namespace JlueCertificate.Bll.Mark
                     OLSchoolName = _subject.OLSchoolName,
                     OLSchoolProvinceId = _subject.OLSchoolProvinceId,
                     OLSchoolQuestionNum = _subject.OLSchoolQuestionNum,
-                    OLAccCourseId = getAccCourseId(_subject.OLSchoolId, _path)
+                    OLAccCourseId = getAccCourseId(_subject.OLSchoolId, _path),
+                    OLPaperID = _subject.OLPaperID
                 };
                 return Dal.MsSQL.T_Subject.Update(_model).ToString();
             }

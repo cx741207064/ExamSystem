@@ -65,8 +65,21 @@ namespace JlueCertificate.Organiza.Handler
                             #region Get处理
                             switch (action.ToLower())
                             {
-
                                 case "getscoredetail": result = Logic.Score.ScoreSearch.getscoredetail(HttpContextSecurity.HttpContextParam(context.Request["ticketid"]), HttpContextSecurity.HttpContextParam(context.Request["OLSchoolUserId"])); break;
+                                case "getstudentsubjectscore": result = Logic.Score.ScoreSearch.getStudentSubjectScore(HttpContextSecurity.HttpContextParam(context.Request["studentid"]), HttpContextSecurity.HttpContextParam(context.Request["aomid"])); break;
+                                default:
+                                    break;
+                            }
+                            #endregion
+                        }
+                        if (context.Request.HttpMethod.ToUpper() == "POST")
+                        {
+                            #region Post处理
+                            string postString = HttpContextSecurity.getPostStr(context);
+                            switch (action.ToLower())
+                            {
+                                case "addstudentsubjectscore": result = Logic.Score.ScoreSearch.addStudentSubjectScore(postString); break;
+                                case "updatestudentsubjectscore": result = Logic.Score.ScoreSearch.updateStudentSubjectScore(postString); break;
                                 default:
                                     break;
                             }

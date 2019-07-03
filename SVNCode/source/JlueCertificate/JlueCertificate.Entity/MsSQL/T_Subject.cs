@@ -129,6 +129,9 @@ namespace JlueCertificate.Entity.MsSQL
             set { _olacccourseid = value; }
             get { return _olacccourseid; }
         }
+
+        public string OLPaperID { set; get; }
+
         /// <summary>
         /// 
         /// </summary>

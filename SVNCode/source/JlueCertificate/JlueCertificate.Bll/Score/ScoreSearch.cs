@@ -82,5 +82,26 @@ namespace JlueCertificate.Bll.Organiz
             return result;
         }
 
+
+        public static object getStudentSubjectScore(string studentid, string aomid, ref string error)
+        {
+            var result = new object();
+            result = Dal.MsSQL.T_StudentSubjectScore.getStudentSubjectScore(studentid, aomid);
+            return result;
+        }
+
+        public static object addStudentSubjectScore(string postString, ref string error)
+        {
+            Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);
+            object obj = Dal.MsSQL.T_StudentSubjectScore.addStudentSubjectScore(sss).ToString();
+            return obj;
+        }
+
+        public static object updateStudentSubjectScore(string postString, ref string error)
+        {
+            Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);
+            object obj = Dal.MsSQL.T_StudentSubjectScore.updateStudentSubjectScore(sss).ToString();
+            return obj;
+        }
     }
 }

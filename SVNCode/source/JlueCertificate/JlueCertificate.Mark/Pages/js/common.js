@@ -13,9 +13,9 @@ layui.use(['jquery','layer','element','common','larryMenu','form'],function(){
     // 右键菜单控制
     var larrycmsMenuData = [
 	];
-	larryMenu.ContentMenu(larrycmsMenuData,{
-         name: "html" 
-	},$('html'));
+	// larryMenu.ContentMenu(larrycmsMenuData,{
+    //      name: "html" 
+	// },$('html'));
 	// 右键菜单结束
 	$('#larry_tab_content', parent.document).mouseout(function(){
          larryMenu.remove();
