@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JlueCertificate.Entity.MsSQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace JlueCertificate.Entity.Respose
     {
         public UserExamInfo()
         {
-            subjects = new List<CertificateSubjectInfo>();
+            subjects = new List<T_Subject>();
         }
         public string certificateId { get; set; }
 
@@ -26,7 +27,17 @@ namespace JlueCertificate.Entity.Respose
 
         public string studentName { get; set; }
 
-        public List<CertificateSubjectInfo> subjects { get; set; }
+        public string orgPath { get; set; }
+
+        public string orgClassId { get; set; }
+
+        public string OLSchoolUserId { get; set; }
+
+        public string OLSchoolUserName { get; set; }
+
+        public string OLSchoolPWD { get; set; }
+
+        public List<T_Subject> subjects { get; set; }
     }
 
     [Serializable]

@@ -132,7 +132,7 @@ namespace JlueCertificate.Bll.Exam
             Entity.Respose.UserExamInfo result = new Entity.Respose.UserExamInfo();
             string Deleted = "1";
             string NeedExam = "1";
-            var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Certificate, T_CertifiSubject, T_Subject>((t1, t2, t3, t4, t5) => new object[] { JoinType.Left, t1.StudentId == t2.Id, JoinType.Left, t1.CertificateId == t3.Id, JoinType.Left, t3.Id == t4.CertificateId, JoinType.Left, t4.SubjectId == t5.ID.ToString() }).Where((t1, t2, t3, t4, t5) => t1.TicketNum == _examid && t1.IsDel != Deleted && t3.IsDel != Deleted && t4.IsNeedExam == NeedExam && t5.IsDel != Deleted).Select((t1, t2, t3, t4, t5) => new { studentId = t2.Id, studentName = t2.Name, certificateId = t3.Id, t3.CategoryName, t3.ExamSubject, t3.StartTime, t3.EndTime, subjectId = t5.ID, subjectName = t5.Name, index = SqlFunc.MappingColumn(t5.ID, "row_number() over(order by t5.ID)") }).ToList();
+            var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Certificate, T_CertifiSubject, Entity.MsSQL.T_Subject, Entity.MsSQL.T_Organiza>((t1, t2, t3, t4, t5, t6) => new object[] { JoinType.Left, t1.StudentId == t2.Id, JoinType.Left, t1.CertificateId == t3.Id, JoinType.Left, t3.Id == t4.CertificateId, JoinType.Left, t4.SubjectId == t5.ID.ToString(), JoinType.Left, t2.OrgaId == t6.Id }).Where((t1, t2, t3, t4, t5) => t1.TicketNum == _examid && t1.IsDel != Deleted && t3.IsDel != Deleted && t4.IsNeedExam == NeedExam && t5.IsDel != Deleted).Select((t1, t2, t3, t4, t5, t6) => new { studentId = t2.Id, studentName = t2.Name, t2.OLSchoolUserId, t2.OLSchoolUserName, t2.OLSchoolPWD, certificateId = t3.Id, t3.CategoryName, t3.ExamSubject, t3.StartTime, t3.EndTime, t5 = t5, t6.Path, t6.ClassId, index = SqlFunc.MappingColumn(t5.ID, "row_number() over(order by t5.ID)") }).ToList();
 
             var first = getByWhere.First();
             result.studentId = first.studentId;
@@ -142,8 +142,13 @@ namespace JlueCertificate.Bll.Exam
             result.certificateLevel = first.ExamSubject;
             result.certificateStartTime = DateTime.Parse(first.StartTime).ToShortDateString();
             result.certificateEndTime = DateTime.Parse(first.EndTime).ToShortDateString();
+            result.orgPath = first.Path;
+            result.orgClassId = first.ClassId;
+            result.OLSchoolUserId = first.OLSchoolUserId;
+            result.OLSchoolUserName = first.OLSchoolUserName;
+            result.OLSchoolPWD = first.OLSchoolPWD;
 
-            List<CertificateSubjectInfo> subjects = getByWhere.Select(a => new CertificateSubjectInfo { index = a.index, subjectId = a.subjectId, subjectName = a.subjectName }).ToList();
+            List<Entity.MsSQL.T_Subject> subjects = getByWhere.Select(a => a.t5).ToList();
             result.subjects = subjects;
             return result;
         }

@@ -145,7 +145,7 @@
                 <li v-for="item in subjects">
                     <span class="text-left">科目{{item.index}}：</span>
                     <span class="text-right">
-                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.subjectName" v-on:click="tips" v-bind:dateIsValid="dateIsValid" />
+                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.Name" v-on:click="tips(item,$event)" v-bind:dateIsValid="dateIsValid" />
                     </span>
                 </li>
             </ul>
