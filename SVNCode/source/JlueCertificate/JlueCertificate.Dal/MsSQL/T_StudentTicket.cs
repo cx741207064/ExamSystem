@@ -243,7 +243,7 @@ namespace JlueCertificate.Dal.MsSQL
             dynamic re_obj = new JArray();
             if (!string.IsNullOrEmpty(certificateId))
             {
-                var getByWhere = db.Queryable<T_StudentTicket, T_Student>((a, b) => new object[] { JoinType.Inner, a.StudentId == b.Id }).Where((a, b) => a.CertificateId == certificateId && a.IsDel != MySetting.IsDel).Select((a, b) => new { studentId = b.Id, studentName = b.Name, index = SqlFunc.MappingColumn(b.Id, "row_number() over(order by b.id)") }).ToList();
+                var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Organiza>((a, b, c) => new object[] { JoinType.Inner, a.StudentId == b.Id, JoinType.Inner, b.OrgaId == c.Id }).Where((a, b) => a.CertificateId == certificateId && a.IsDel != MySetting.IsDel).Select((a, b, c) => new { studentId = b.Id, studentName = b.Name, b.OLSchoolUserId, b.OLSchoolUserName, c.ClassId, index = SqlFunc.MappingColumn(b.Id, "row_number() over(order by b.id)") }).ToList();
 
                 re_obj = getByWhere;
             }

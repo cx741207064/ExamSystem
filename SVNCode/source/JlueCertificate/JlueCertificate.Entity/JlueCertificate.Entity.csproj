@@ -64,6 +64,7 @@
     <Compile Include="Request\handelorganiza.cs" />
     <Compile Include="Request\ExamSubjectInfo.cs" />
     <Compile Include="Request\bangding.cs" />
+    <Compile Include="Respose\CertificateSubject.cs" />
     <Compile Include="Respose\City.cs" />
     <Compile Include="Respose\ExamToAcc.cs" />
     <Compile Include="Respose\getcertificate.cs" />

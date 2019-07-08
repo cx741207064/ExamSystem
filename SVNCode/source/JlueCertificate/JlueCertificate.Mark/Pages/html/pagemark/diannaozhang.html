@@ -81,7 +81,7 @@
                 <div class="layui-input-block">
                     <select id="select-certificate" v-model="selected" lay-filter="certificate">
                         <option></option>
-                        <option v-for="item in certificates" v-bind:value="item.id" >{{item.categoryName + item.examSubject}}</option>
+                        <option v-for="item in certificates" v-bind:value="item.id" v-bind:subs="JSON.stringify(item.subjects)" >{{item.categoryName + item.examSubject}}</option>
                     </select>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                 <div class="site-doc-icon" style="min-height: 400px">
                 <ul id="list-students" v-if="seen">
                     <li v-for="item in students">
-                        <input type="button" class="layui-btn btnred" v-bind:value = "item.studentName" />
+                        <input type="button" class="layui-btn btnred" v-bind:value = "item.studentName" v-on:click = "stuClick(item)" />
                     </li>
                 </ul>
                 </div>

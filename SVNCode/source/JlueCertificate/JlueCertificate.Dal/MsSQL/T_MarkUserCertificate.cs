@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using JlueCertificate.Entity.Respose;
+using JlueCertificate.Dal.Settings;
 
 namespace JlueCertificate.Dal.MsSQL
 {
@@ -84,7 +87,16 @@ namespace JlueCertificate.Dal.MsSQL
             dynamic re_obj = new object();
             if (!string.IsNullOrEmpty(name))
             {
-                var getByWhere = db.Queryable<T_MarkUser, T_MarkUserCertificate, T_Certificate>((a, b, c) => new object[] { JoinType.Inner, a.Id == b.MarkUserId && a.Name == name, JoinType.Inner, b.CertificateId == c.Id }).Where((a, b, c) => c.IsDel == "0").Select((a, b, c) => new { id = c.Id, categoryName = c.CategoryName, examSubject = c.ExamSubject, index = SqlFunc.MappingColumn(c.Id, "row_number() over(order by a.id)") }).ToList();
+                string IsNeedExam = "1";
+                var getByWhere = db.Queryable<T_MarkUser, T_MarkUserCertificate, T_Certificate>((a, b, c) => new object[] { JoinType.Inner, a.Id == b.MarkUserId && a.Name == name, JoinType.Inner, b.CertificateId == c.Id }).Where((a, b, c) => c.IsDel == "0").Select((a, b, c) => new GetCertificateSubject { id = c.Id, categoryName = c.CategoryName, examSubject = c.ExamSubject, index = SqlFunc.MappingColumn(c.Id, "row_number() over(order by a.id)") }).Mapper((it, cache) =>
+                {
+                    var all = cache.Get(list =>
+                                         {
+                                             List<string> ids = list.Select(i => i.id).ToList();
+                                             return db.Queryable<Entity.MsSQL.T_Subject, T_CertifiSubject>((a, b) => new object[] { JoinType.Inner, a.ID.ToString() == b.SubjectId && b.IsDel != MySetting.IsDel && b.IsNeedExam == IsNeedExam }).Where((a, b) => ids.Contains(b.CertificateId)).Select((a, b) => new { sub = a, b.CertificateId }).ToList();
+                                         });
+                    it.subjects = all.Where(i => i.CertificateId == it.id).Select(a => a.sub).ToList();
+                }).ToList();
 
                 re_obj = getByWhere;
             }
