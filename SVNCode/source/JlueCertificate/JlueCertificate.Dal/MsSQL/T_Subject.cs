@@ -169,7 +169,7 @@ namespace JlueCertificate.Dal.MsSQL
 					new SqlParameter("@OLSchoolAOMid", SqlDbType.VarChar,10),
 					new SqlParameter("@OLSchoolMasterTypeId", SqlDbType.VarChar,10),
                     new SqlParameter("@OLAccCourseId", SqlDbType.VarChar,10),
-                    new SqlParameter("@OLPaperID", SqlDbType.VarChar,10)};
+                    new SqlParameter("@OLPaperID", SqlDbType.VarChar,50)};
             parameters[0].Value = model.Name;
             parameters[1].Value = model.Category;
             parameters[2].Value = model.Price;
@@ -227,7 +227,7 @@ namespace JlueCertificate.Dal.MsSQL
 					new SqlParameter("@OLSchoolAOMid", SqlDbType.VarChar,10),
 					new SqlParameter("@OLSchoolMasterTypeId", SqlDbType.VarChar,10),
 					new SqlParameter("@OLAccCourseId", SqlDbType.VarChar,10),
-					new SqlParameter("@OLPaperID", SqlDbType.VarChar,10),
+					new SqlParameter("@OLPaperID", SqlDbType.VarChar,50),
 					new SqlParameter("@IsDel", SqlDbType.Char,1),
 					new SqlParameter("@ID", SqlDbType.BigInt,8)};
             parameters[0].Value = model.Name;

@@ -45,9 +45,16 @@
   <ItemGroup>
     <Compile Include="Enum\CertificateRule.cs" />
     <Compile Include="Enum\CertState.cs" />
+    <Compile Include="Enum\SubjectCategory.cs" />
     <Compile Include="MsSQL\T_Certificate.cs" />
+    <Compile Include="MsSQL\T_CertifiScheme.cs" />
     <Compile Include="MsSQL\T_CertifiSerial.cs" />
     <Compile Include="MsSQL\T_CertifiSubject.cs" />
+    <Compile Include="MsSQL\T_ExamSchedule.cs" />
+    <Compile Include="MsSQL\T_ExamScore.cs" />
+    <Compile Include="MsSQL\T_SchemeNode.cs" />
+    <Compile Include="MsSQL\T_StudentCertifi.cs" />
+    <Compile Include="MsSQL\T_StudentExam.cs" />
     <Compile Include="MsSQL\T_Subject.cs" />
     <Compile Include="MsSQL\T_MarkUser.cs" />
     <Compile Include="MsSQL\T_Organiza.cs" />
@@ -82,6 +89,7 @@
     <Compile Include="Respose\getsubjects.cs" />
     <Compile Include="Respose\getcertifisubjects.cs" />
     <Compile Include="Respose\getolmobile.cs" />
+    <Compile Include="Respose\gettikunormalscore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

@@ -397,6 +397,7 @@
     <Content Include="Handler\BaseData.ashx" />
     <Content Include="Handler\ScoreSearch.ashx" />
     <Content Include="common\jquery.qrcode.min.js" />
+    <Content Include="Handler\WXLogin.ashx" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\JLCertifi.pubxml" />
     <None Include="Properties\PublishProfiles\organiza.pubxml" />
@@ -429,6 +430,9 @@
     </Compile>
     <Compile Include="Handler\ScoreSearch.ashx.cs">
       <DependentUpon>ScoreSearch.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\WXLogin.ashx.cs">
+      <DependentUpon>WXLogin.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

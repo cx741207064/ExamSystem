@@ -53,7 +53,7 @@ namespace JlueCertificate.Dal.MsSQL
 
         public static List<Entity.Respose.allcertifisubject> GetAllListByCertId(string certid)
         {
-            string sql = @"SELECT dbo.T_CertifiSubject.Id,dbo.T_CertifiSubject.NormalResult,dbo.T_CertifiSubject.ExamResult,dbo.T_CertifiSubject.CertificateId,dbo.T_CertifiSubject.SubjectId,dbo.T_Subject.OLSchoolId,dbo.T_Subject.OLSchoolAOMid,dbo.T_Subject.Name,dbo.T_Subject.Category,dbo.T_Subject.Price 
+            string sql = @"SELECT dbo.T_CertifiSubject.Id,dbo.T_CertifiSubject.NormalResult,dbo.T_CertifiSubject.ExamResult,dbo.T_CertifiSubject.CertificateId,dbo.T_CertifiSubject.SubjectId,dbo.T_Subject.OLSchoolId,dbo.T_Subject.OLSchoolAOMid,dbo.T_Subject.Name,dbo.T_Subject.Category,dbo.T_Subject.Price,dbo.T_Subject.OLAccCourseId,dbo.T_Subject.OLPaperID 
             FROM dbo.T_CertifiSubject left join dbo.T_Subject on dbo.T_CertifiSubject.SubjectId=dbo.T_Subject.ID WHERE dbo.T_CertifiSubject.IsDel = 0 ";
             string sqlCondetion = "";
             if (certid != null)

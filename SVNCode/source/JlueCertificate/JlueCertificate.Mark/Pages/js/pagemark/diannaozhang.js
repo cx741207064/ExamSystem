@@ -13,7 +13,7 @@
         return $.md5(d1 + d2);
     }
     var curnum = 1;
-    getHangye();
+    //getHangye();
     function getHangye() {
         var url = "/Handler/UserCenter.ashx?action=hangye";
         Params.Ajax(url, "get", "", getHangye_success, getHangye_fail);

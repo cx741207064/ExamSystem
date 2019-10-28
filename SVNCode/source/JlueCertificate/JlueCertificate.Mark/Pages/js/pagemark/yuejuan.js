@@ -105,7 +105,8 @@ var Vue2 = new Vue({
                 top.layer.msg("此科目自动评分，无需手动评分。", { icon: 1 });
             }
             else if (sub.Category == global.SubjectType.baoshui) {
-                url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId
+                //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
+                url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "_1&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId + "&StudentTicketId=" + stu.StudentTicketId
                 window.open(url, "报税阅卷")
             }
             else if (sub.Category == global.SubjectType.diannaozhang) {
@@ -114,7 +115,7 @@ var Vue2 = new Vue({
                     var Data = ret.Data
                     if (Data) {
                         var token = $.md5(new Date().getDate() + Data.Identify.toUpperCase())
-                        url = global.diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token
+                        url = global.diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token + "&StudentTicketId=" + stu.StudentTicketId + "&OLSchoolId=" + sub.OLSchoolId + "&isexam=1"
                         window.open(url, "diannaozhang")
                     }
                 })

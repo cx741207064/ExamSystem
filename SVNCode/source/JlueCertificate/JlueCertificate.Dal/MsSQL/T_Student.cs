@@ -105,6 +105,20 @@ namespace JlueCertificate.Dal.MsSQL
             }
         }
 
+        public static Entity.MsSQL.T_Student GetModelByOLSchoolUserId(string OLSchoolUserId)
+        {
+            string sql = string.Format("SELECT * FROM dbo.T_Student WHERE OLSchoolUserId = '{0}' ", OLSchoolUserId);
+            List<Entity.MsSQL.T_Student> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Student>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list.FirstOrDefault();
+            }
+        }
+
         public static List<Entity.MsSQL.T_Student> GetListByPage(long _orgaid, string _name, string _cardid, string page, string limit, ref long count)
         {
             string sql = "SELECT COUNT(*) FROM dbo.T_Student Where IsDel = 0 ";

@@ -12,6 +12,8 @@ namespace JlueCertificate.Entity.Respose
         public string SubjectId { get; set; }
         public string OLSchoolId { get; set; }
         public string OLSchoolAOMid { get; set; }
+        public string OLAccCourseId{ get; set; }
+        public string OLPaperID { get; set; }
         public string Category { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }

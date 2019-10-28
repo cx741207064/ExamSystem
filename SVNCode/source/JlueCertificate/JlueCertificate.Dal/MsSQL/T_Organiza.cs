@@ -54,6 +54,20 @@ namespace JlueCertificate.Dal.MsSQL
             }
         }
 
+        public static Entity.MsSQL.T_Organiza GetModel(string classid)
+        {
+            string sql = string.Format("select  * from T_Organiza where classid = {0} ", classid);
+            List<Entity.MsSQL.T_Organiza> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Organiza>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list.FirstOrDefault();
+            }
+        }
+
         public static Entity.MsSQL.T_Organiza GetModel(string _name, string _password)
         {
             string sql = string.Format("select  * from T_Organiza where Name = '{0}' AND Password='{1}' ", _name, _password);

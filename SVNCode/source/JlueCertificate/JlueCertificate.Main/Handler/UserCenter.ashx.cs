@@ -22,7 +22,7 @@ namespace JlueCertificate.Main.Handler
             try
             {
                 string action = context.Request["action"].ToString();
-                string _examid = HttpContextSecurity.HttpContextCookie(context,Untity.HelperHttp.Cookie_ExamId);
+                string _examid = HttpContextSecurity.HttpContextCookie(context, Untity.HelperHttp.Cookie_ExamId);
                 string _cardid = HttpContextSecurity.HttpContextCookie(context, Untity.HelperHttp.Cookie_CardId);
                 if (!string.IsNullOrEmpty(_examid) && !string.IsNullOrEmpty(_cardid))
                 {
@@ -47,8 +47,8 @@ namespace JlueCertificate.Main.Handler
                             string postString = HttpContextSecurity.getPostStr(context);
                             switch (action.ToLower())
                             {
-                                case "subjectinfo": result = Logic.Exam.UserCenter.subjectinfo(_examid, _cardid, postString);
-                                    break;
+                                case "subjectinfo": result = Logic.Exam.UserCenter.subjectinfo(_examid, _cardid, postString); break;
+                                case "updatestateto2": result = Logic.Exam.UserCenter.updatestateto2(_examid); break;
                                 default:
                                     break;
                             }

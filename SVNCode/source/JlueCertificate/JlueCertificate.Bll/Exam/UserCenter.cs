@@ -111,7 +111,8 @@ namespace JlueCertificate.Bll.Exam
                 return null;
             }
 
-            Entity.Respose.UserInfo result = new Entity.Respose.UserInfo() { 
+            Entity.Respose.UserInfo result = new Entity.Respose.UserInfo()
+            {
                 studentname = _student.Name,
                 certifiid = _ticket.CertificateId,
             };
@@ -132,11 +133,13 @@ namespace JlueCertificate.Bll.Exam
             Entity.Respose.UserExamInfo result = new Entity.Respose.UserExamInfo();
             string Deleted = "1";
             string NeedExam = "1";
-            var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Certificate, T_CertifiSubject, Entity.MsSQL.T_Subject, Entity.MsSQL.T_Organiza>((t1, t2, t3, t4, t5, t6) => new object[] { JoinType.Left, t1.StudentId == t2.Id, JoinType.Left, t1.CertificateId == t3.Id, JoinType.Left, t3.Id == t4.CertificateId, JoinType.Left, t4.SubjectId == t5.ID.ToString(), JoinType.Left, t2.OrgaId == t6.Id }).Where((t1, t2, t3, t4, t5) => t1.TicketNum == _examid && t1.IsDel != Deleted && t3.IsDel != Deleted && t4.IsNeedExam == NeedExam && t5.IsDel != Deleted).Select((t1, t2, t3, t4, t5, t6) => new { studentId = t2.Id, studentName = t2.Name, t2.OLSchoolUserId, t2.OLSchoolUserName, t2.OLSchoolPWD, certificateId = t3.Id, t3.CategoryName, t3.ExamSubject, t3.StartTime, t3.EndTime, t5 = t5, t6.Path, t6.ClassId, index = SqlFunc.MappingColumn(t5.ID, "row_number() over(order by t5.ID)") }).ToList();
+            var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Certificate, T_CertifiSubject, Entity.MsSQL.T_Subject, Entity.MsSQL.T_Organiza>((t1, t2, t3, t4, t5, t6) => new object[] { JoinType.Left, t1.StudentId == t2.Id, JoinType.Left, t1.CertificateId == t3.Id, JoinType.Left, t3.Id == t4.CertificateId, JoinType.Left, t4.SubjectId == t5.ID.ToString(), JoinType.Left, t2.OrgaId == t6.Id }).Where((t1, t2, t3, t4, t5) => t1.TicketNum == _examid && t1.IsDel != Deleted && t3.IsDel != Deleted && t4.IsNeedExam == NeedExam && t5.IsDel != Deleted).Select((t1, t2, t3, t4, t5, t6) => new { StudentTicketId = t1.Id, studentId = t2.Id, studentName = t2.Name, CardId = t2.CardId, t2.OLSchoolUserId, t2.OLSchoolUserName, t2.OLSchoolPWD, certificateId = t3.Id, t3.CategoryName, t3.ExamSubject, t3.StartTime, t3.EndTime, t5 = t5, t6.Path, t6.ClassId, index = SqlFunc.MappingColumn(t5.ID, "row_number() over(order by t5.ID)") }).ToList();
 
             var first = getByWhere.First();
             result.studentId = first.studentId;
             result.studentName = first.studentName;
+            result.CardId = first.CardId;
+            result.StudentTicketId = first.StudentTicketId;
             result.certificateId = first.certificateId;
             result.certificateName = first.CategoryName;
             result.certificateLevel = first.ExamSubject;
@@ -168,7 +171,7 @@ namespace JlueCertificate.Bll.Exam
                 error = "系统不存在该准考证";
                 return null;
             }
-            
+
             Entity.Request.ExamSubjectInfo subjectinfo = Untity.HelperJson.DeserializeObject<Entity.Request.ExamSubjectInfo>(postString);
             long _certifiid = Untity.HelperDataCvt.strToLong(subjectinfo.certifiid);
             long _subjectid = Untity.HelperDataCvt.strToLong(subjectinfo.subjectid);
@@ -182,39 +185,6 @@ namespace JlueCertificate.Bll.Exam
                 return null;
             }
 
-            //#region 电脑账
-            
-            //if (Untity.HelperDataCvt.strToIni(_subject.OLAccCourseId,0) > 0)
-            //{
-            //    _iswinopen = false;
-            //    _url = string.Format("{0}?SortId={1}&CourseId={2}&mobile={3}&identify={4}",
-            //        Untity.HelperAppSet.getAppSetting("diannaozhang"), _subject.OLSchoolId, _subject.OLAccCourseId, _ticket.OLMobile, _student.OLSchoolUserId);
-            //}
-            //#endregion
-
-            //#region 会计实务
-            //_iswinopen = true;
-            ////ProvinceID=29 写死
-            //_url = string.Format("{0}?username={1}&password={2}&ProvinceID=29&CourseSort={3}&CourseID={4}",
-            //    Untity.HelperAppSet.getAppSetting("huijishiwu"), _student.OLSchoolUserName, _student.OLSchoolPWD, _subject.OLSchoolId, _subject.OLSchoolCourseId);
-            //#endregion
-
-            //#region 报税 
-            //Entity.MsSQL.T_Organiza _orga1 = Dal.MsSQL.T_Organiza.GetModel(_ticket.OrgaizId);
-            //_iswinopen = true;
-            ////userquestionId 待定，questionId=2418，CompanyId=36 写死
-            //_url = string.Format("{0}?userid={1}&username={2}&classid={3}&courseid={4}&sortid={5}&questionId=2418&userquestionId=3784&CompanyId=36&rand=",
-            //    Untity.HelperAppSet.getAppSetting("baoshui"), _student.OLSchoolUserId, _student.OLSchoolUserName, _orga1.ClassId, _subject.OLSchoolCourseId, _subject.OLSchoolId);
-            //#endregion
-
-            //#region 网银
-            //Entity.MsSQL.T_Organiza _orga2 = Dal.MsSQL.T_Organiza.GetModel(_ticket.OrgaizId);
-            //_iswinopen = true;
-            ////IsFree=0，type=1 写死
-            //_url = string.Format("{0}?userid={1}&username={2}&classid={3}&courseid={4}&sortid={5}&IsFree=0&type=1",
-            //    Untity.HelperAppSet.getAppSetting("wangyin"), _student.OLSchoolUserId, _student.OLSchoolUserName, _orga2.ClassId, _subject.OLSchoolCourseId, _subject.OLSchoolId);
-            //#endregion
-
             Entity.Respose.ExamSubjectInfo result = new Entity.Respose.ExamSubjectInfo();
             result.certifiid = _certifiid.ToString();
             result.subjectid = _subjectid.ToString();
@@ -222,6 +192,18 @@ namespace JlueCertificate.Bll.Exam
             result.url = _url;
             result.iswinopen = _iswinopen;
             return result;
+        }
+
+        public static object updatestateto2(string _examid, ref string error)
+        {
+            Entity.MsSQL.T_StudentTicket _ticket = Dal.MsSQL.T_StudentTicket.GetModel(_examid);
+            if (_ticket == null)
+            {
+                error = "系统不存在该准考证";
+                return null;
+            }
+            Dal.MsSQL.T_StudentTicket.updatestateto2(_examid);
+            return "1";
         }
 
     }

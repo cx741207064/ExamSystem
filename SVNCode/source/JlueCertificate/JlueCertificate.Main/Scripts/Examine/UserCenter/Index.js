@@ -53,7 +53,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
         var dateIsValid = startTime <= new Date() && endTime >= new Date()
         data.dateIsValid = dateIsValid
         data.subjects.forEach(function (e, i) {
-            e.index = NumberToChinese(i+1)
+            e.index = NumberToChinese(i + 1)
         })
 
         var Vue1 = new Vue({
@@ -89,7 +89,8 @@ layui.use(['jquery', 'layer', 'form'], function () {
             layer.closeAll()
 
             if (item.Category == ret.baoshui) {
-                url = baoshuihost + "/QuestionMain.aspx?userid=" + data.OLSchoolUserId + "&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId
+                //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
+                url = baoshuihost + "/QuestionMainKaoShi.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId
                 window.open(url, "_blank")
             }
             else if (item.Category == ret.diannaozhang) {
@@ -102,7 +103,8 @@ layui.use(['jquery', 'layer', 'form'], function () {
                 })
             }
             else if (item.Category == ret.tiku) {
-                url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName
+                //url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
+                url = "http://localhost:8360" + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
                 window.open(url, "_blank")
             }
         })
@@ -156,4 +158,26 @@ function NumberToChinese(num) {
         unitPos++;
     }
     return chnStr;
+}
+
+$(".submitexam").on("click", function () {
+    layer.confirm('确认提交?', { icon: 3, title: '提示' }, function (index) {
+        Params.Ajax("/Handler/UserCenter.ashx?action=submitexam", "get", "", submitexam_success, submitexam_error)
+
+        layer.close(index);
+    });
+});
+
+function submitexam_success(ret) {
+    ret = ret || JSON.parse(ret);
+    if (ret.Code == 0) {
+
+    }
+    else {
+        layer.msg("提交失败", { icon: 1, time: 1000 });
+    }
+}
+
+function submitexam_error(ret) {
+    layer.msg("请求错误", { icon: 1, time: 1000 });
 }

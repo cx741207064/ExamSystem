@@ -37,6 +37,22 @@ namespace JlueCertificate.Bll.Organiz
             return 1;
         }
 
+        public static object wxlogin(string _classid, ref string uid, ref string pwd, ref string error)
+        {
+
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_classid);
+            if (_orga == null)
+            {
+                error = "机构尚未录入，请联系客服";
+            }
+            else
+            {
+                uid = _orga.Name;
+                pwd = _orga.Password;
+            }
+            return 1;
+        }
+
         /// <summary>
         /// 刷新用户信息
         /// </summary>

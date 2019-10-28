@@ -58,4 +58,40 @@ namespace JlueCertificate.Entity.Respose
         public string NormalResult { get; set; }
         public string ExamResult { get; set; }
     }
+
+    public class HKJScore
+    {
+        public string ScoreId { get; set; }
+        public string CourseId { get; set; }
+        public string Identify { get; set; }
+        public string BookId { get; set; }
+        public string IsExam { get; set; }
+        public decimal AutoTotal { get; set; }
+        public decimal AutoRight { get; set; }
+        public decimal AutoFinal { get; set; }
+        public decimal ManualTotal { get; set; }
+        public decimal ManualRight { get; set; }
+        public decimal ManualFinal { get; set; }
+        public int IsDel { get; set; }
+        public DateTime CreatedTime { get; set; }
+    }
+
+    public class SPScore
+    {
+        public decimal persent { get; set; }
+        public int count { get; set; }
+        public int sum { get; set; }
+    }
+
+    public class normalscore
+    {
+        public string subjectId { get; set; }
+        public string subjectName { get; set; }
+        public string subjectType { get; set; }
+        public decimal score { get; set; }
+        public string Sort_Id { get; set; }
+        public string AOMid { get; set; }
+        public string classId { get; set; }
+        public int index { get; set; }
+    }
 }

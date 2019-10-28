@@ -243,7 +243,7 @@ namespace JlueCertificate.Dal.MsSQL
             dynamic re_obj = new JArray();
             if (!string.IsNullOrEmpty(certificateId))
             {
-                var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Organiza>((a, b, c) => new object[] { JoinType.Inner, a.StudentId == b.Id, JoinType.Inner, b.OrgaId == c.Id }).Where((a, b) => a.CertificateId == certificateId && a.IsDel != MySetting.IsDel).Select((a, b, c) => new { studentId = b.Id, studentName = b.Name, b.OLSchoolUserId, b.OLSchoolUserName, c.ClassId, index = SqlFunc.MappingColumn(b.Id, "row_number() over(order by b.id)") }).ToList();
+                var getByWhere = db.Queryable<T_StudentTicket, T_Student, T_Organiza>((a, b, c) => new object[] { JoinType.Inner, a.StudentId == b.Id, JoinType.Inner, b.OrgaId == c.Id }).Where((a, b) => a.CertificateId == certificateId && a.IsDel != MySetting.IsDel).Select((a, b, c) => new { studentId = b.Id, studentName = b.Name, StudentTicketId = a.Id, b.OLSchoolUserId, b.OLSchoolUserName, c.ClassId, index = SqlFunc.MappingColumn(b.Id, "row_number() over(order by b.id)") }).ToList();
 
                 re_obj = getByWhere;
             }
@@ -252,22 +252,12 @@ namespace JlueCertificate.Dal.MsSQL
             return re_obj;
         }
 
-        public static dynamic getSubjectsByTicket(string id)
+        /// <summary>
+        /// 更改状态为已考试
+        /// </summary>
+        public static void updatestateto2(string examid)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
-            dynamic re_obj = new JArray();
-            if (!string.IsNullOrEmpty(id))
-            {
-                var getByWhere = db.Queryable<T_StudentTicket, T_CertifiSubject, T_Subject, T_Student, T_Organiza>((a, b, c, d, e) => new object[] { JoinType.Inner, a.CertificateId == b.CertificateId, JoinType.Inner, b.SubjectId == c.ID.ToString(), JoinType.Left, a.StudentId == d.Id, JoinType.Left, d.OrgaId == e.Id }).Where((a, b, c) => a.Id.ToString() == id && a.IsDel != MySetting.IsDel && b.IsDel != MySetting.IsDel).Select((a, b, c, d, e) => new { subjectId = c.ID, subjectName = c.Name, subjectType = c.Category, score = 90, Sort_Id = c.OLSchoolId, AOMid = c.OLSchoolAOMid, classId = e.ClassId, index = SqlFunc.MappingColumn(c.ID, "row_number() over(order by c.id)") }).ToList();
-
-                re_obj = getByWhere;
-            }
-            watch.Stop();
-            TimeSpan ts = watch.Elapsed;
-            return re_obj;
+            var obj = db.Updateable<Entity.MsSQL.T_StudentTicket>().UpdateColumns(it => new { State = Entity.Enum.TicketState.已考试 }).Where(it => it.TicketNum == examid).ExecuteCommand();
         }
-
     }
 }

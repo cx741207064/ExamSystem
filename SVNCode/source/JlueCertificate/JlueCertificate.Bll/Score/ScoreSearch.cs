@@ -29,6 +29,8 @@ namespace JlueCertificate.Bll.Organiz
             Entity.MsSQL.T_StudentTicket ticketmodel = Dal.MsSQL.T_StudentTicket.GetModel(_ticketid);
             if (ticketmodel != null)
             {
+                Entity.MsSQL.T_Student _st = Dal.MsSQL.T_Student.GetModelByOLSchoolUserId(_OLSchoolUserId);
+                Entity.MsSQL.T_Organiza _org = Dal.MsSQL.T_Organiza.GetModel(_st.OrgaId);
                 List<Entity.Respose.allcertifisubject> _certifisubjectlist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(ticketmodel.CertificateId);
                 Entity.MsSQL.T_Certificate certifimodel = Dal.MsSQL.T_Certificate.GetModel(Untity.HelperDataCvt.strToIni(ticketmodel.CertificateId));
                 //获取计算方式
@@ -37,8 +39,7 @@ namespace JlueCertificate.Bll.Organiz
                 string _accountform = "(" + _normalaccount + ") * " + certifimodel.NormalResult + "% + "
                     + "(" + _examaccount + ") * " + certifimodel.ExamResult + "%";
                 //获取网校课程得分情况并计算得分情况
-                string _subjectids = string.Join(",", _certifisubjectlist.Select(ii => ii.OLSchoolAOMid).ToList());
-                List<Entity.Respose.scoredetail> _olscoredetail = Dal.MsSQL.T_StudentTicket.GetScoreDetailFromOLSchool(_OLSchoolUserId, _subjectids);
+                List<Entity.Respose.scoredetail> _olscoredetail = Dal.MsSQL.T_StudentSubjectScore.getscore(_certifisubjectlist, _org.ClassId, _OLSchoolUserId, _ticketid);
                 //总得分，平时，考试
                 double _scoresum = 0;
                 double _normalsum = 0;
@@ -73,7 +74,13 @@ namespace JlueCertificate.Bll.Organiz
             var result = new object();
             if (_orga != null)
             {
-                result = Dal.MsSQL.T_StudentTicket.getSubjectsByTicket(id);
+                Entity.MsSQL.T_StudentTicket _stmodel = Dal.MsSQL.T_StudentTicket.GetModel(id);
+                Entity.MsSQL.T_Student _stumodel = Dal.MsSQL.T_Student.GetModel(_stmodel.StudentId);
+                Entity.MsSQL.T_Organiza _orgmodel = Dal.MsSQL.T_Organiza.GetModel(_stmodel.OrgaizId);
+                List<Entity.Respose.allcertifisubject> _certifisubjectlist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(_stmodel.CertificateId);
+                List<Entity.Respose.normalscore> _nslist = Dal.MsSQL.T_StudentSubjectScore.getnormalscore(_certifisubjectlist, _orgmodel.ClassId, _stumodel.OLSchoolUserId, id);
+
+                result = _nslist;
             }
             else
             {
@@ -93,6 +100,7 @@ namespace JlueCertificate.Bll.Organiz
         public static object addStudentSubjectScore(string postString, ref string error)
         {
             Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);
+            sss.id = Guid.NewGuid().ToString();
             object obj = Dal.MsSQL.T_StudentSubjectScore.addStudentSubjectScore(sss).ToString();
             return obj;
         }

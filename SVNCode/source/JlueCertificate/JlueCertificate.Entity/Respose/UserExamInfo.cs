@@ -13,6 +13,8 @@ namespace JlueCertificate.Entity.Respose
         {
             subjects = new List<T_Subject>();
         }
+        public int StudentTicketId { get; set; }
+
         public string certificateId { get; set; }
 
         public string certificateName { get; set; }
@@ -26,6 +28,8 @@ namespace JlueCertificate.Entity.Respose
         public string studentId { get; set; }
 
         public string studentName { get; set; }
+
+        public string CardId { get; set; }
 
         public string orgPath { get; set; }
 

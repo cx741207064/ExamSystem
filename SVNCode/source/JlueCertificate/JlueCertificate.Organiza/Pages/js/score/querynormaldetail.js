@@ -62,7 +62,7 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'element'], 
         }
 
         $.when($.ajax({ type: "get", url: url, data: da }), $.ajax({ type: "get", url: url, data: da1 })).done(function (ret, ret1) {
-          setTikuData(ret[0])
+          setTikuData(ret1[0])
         })
 
       }

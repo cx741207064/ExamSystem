@@ -84,7 +84,7 @@
 
         .bg-text li {
             width: 95%;
-            min-width:600px;
+            min-width: 600px;
             height: 100px;
             background: url(../../../images/listbg.png);
             background-repeat: no-repeat;
@@ -117,6 +117,7 @@
             white-space: nowrap;
             padding: 0 9px;
         }
+
             .text-right input {
                 height: 50px;
                 width: 90%;
@@ -127,28 +128,66 @@
                 background-color: transparent;
                 cursor: pointer;
             }
-        .text-right input:hover {
-            background-color: #377498;
-            color: #fff;
-            border-radius: 10px;
+
+                .text-right input:hover {
+                    background-color: #377498;
+                    color: #fff;
+                    border-radius: 10px;
+                }
+
+        .text-submit {
+            display: inline-block;
+            height: 100px;
+            line-height: 80px;
+            font-size: 36px;
+            width: 30%;
+            text-align: center;
+            float: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0 9px;
+            margin-top:30px;
         }
+        .text-submit input {
+                height: 50px;
+                width: 90%;
+                line-height: 0px;
+                font-size: 36px;
+                color: white;
+                border-style: none;
+                background-color: transparent;
+                cursor: pointer;
+                background-color: #79CDCD;
+                border-radius: 10px;
+            }
+
+                .text-submit input:hover {
+                    background-color: #377498;
+                    color: #fff;
+                }
     </style>
 
 </head>
 
 <body id="temp1" class="main-container">
-    <div id="loader" style="display: block;"><div id="loaderInner">正在进入考试中心 ... </div></div>
-    <div id="loaderT" style="display:none">
+    <div id="loader" style="display: block;">
+        <div id="loaderInner">正在进入考试中心 ... </div>
+    </div>
+    <div id="loaderT" style="display: none">
         <div class="bg-text">
             <p class="title">人才评价考试平台</p>
             <ul id="subjects">
                 <li v-for="item in subjects">
                     <span class="text-left">科目{{item.index}}：</span>
                     <span class="text-right">
-                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.Name" v-on:click="tips(item,$event)" v-bind:dateIsValid="dateIsValid" />
+                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.Name" v-on:click="tips(item,$event)" v-bind:dateisvalid="dateIsValid" />
                     </span>
                 </li>
             </ul>
+            <span class="text-submit">
+                <input type="button" value="确认提交" class="submitexam" />
+            </span>
         </div>
 
     </div>

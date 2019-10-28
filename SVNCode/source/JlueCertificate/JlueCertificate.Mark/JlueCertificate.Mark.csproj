@@ -300,12 +300,15 @@
     <Content Include="Pages\js\main.js" />
     <Content Include="Pages\js\model\C693D950962A963CD0FB4A880DD6154E.js" />
     <Content Include="Pages\js\mypanel.js" />
+    <Content Include="Pages\js\pagemark\yuejuan.js" />
     <Content Include="Pages\js\score\query.js" />
     <Content Include="Pages\js\site\message.js" />
     <Content Include="Pages\js\sysapp.js" />
     <Content Include="Pages\js\sysappevent.js" />
     <Content Include="Pages\js\sysapppage.js" />
     <Content Include="Pages\js\user.js" />
+    <Content Include="Pages\js\Vue\vue.js" />
+    <Content Include="Pages\js\Vue\vue.min.js" />
     <Content Include="Pages\login.html" />
     <Content Include="Pages\main.html" />
     <Content Include="Pages\subgroup\404.html" />
@@ -321,7 +324,9 @@
     <Content Include="Pages\subgroup\larryfont.html" />
     <Content Include="Pages\subgroup\larrytab.html" />
     <Content Include="Pages\subgroup\menu.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\datas\article.json" />

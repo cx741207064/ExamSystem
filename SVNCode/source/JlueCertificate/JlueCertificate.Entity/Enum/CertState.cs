@@ -20,4 +20,19 @@ namespace JlueCertificate.Entity.Enum
         /// </summary>
         public static string 已发证 = "2";
     }
+
+    /// <summary>
+    /// 目前已报名证书考试状态
+    /// </summary>
+    public class TicketState
+    {
+        /// <summary>
+        /// 未考试
+        /// </summary>
+        public static string 未考试 = "1";
+        /// <summary>
+        /// 已考试
+        /// </summary>
+        public static string 已考试 = "2";
+    }
 }

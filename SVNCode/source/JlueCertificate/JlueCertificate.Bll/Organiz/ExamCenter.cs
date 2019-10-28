@@ -308,19 +308,13 @@ namespace JlueCertificate.Bll.Organiz
                             error = error + ",无法报名";
                             return "-1";
                         }
-                        string OLMobile = Dal.MsSQL.T_StudentTicket.GetOLMobile(_student.OLSchoolUserId);
-                        if (string.IsNullOrEmpty(OLMobile))
-                        {
-                            error = "未能正常生成参数,无法报名";
-                            return "-1";
-                        }
                         Entity.MsSQL.T_StudentTicket _model = new Entity.MsSQL.T_StudentTicket()
                         {
                             CertificateId = _signup.certificateid.ToString(),
                             OrgaizId = _orga.Id,
                             StudentId = _student.Id,
                             TicketNum = getZKH(Untity.HelperDataCvt.objToString(_orga.Id)).ToString(),
-                            OLMobile = OLMobile
+                            OLMobile = ""
                         };
                         return Dal.MsSQL.T_StudentTicket.Add(_model).ToString();
                     }
