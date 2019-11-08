@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Untity;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,7 @@ namespace JlueCertificate.Dal.MsSQL
 {
     public class T_Student
     {
+        [SugarColumn(IsPrimaryKey = true)]
         public string Id { get; set; }
 
         public long OrgaId { get; set; }
@@ -49,6 +51,8 @@ namespace JlueCertificate.Dal.MsSQL
         public string OLSchoolUserName { get; set; }
 
         public string OLSchoolPWD { get; set; }
+
+        public string UploadIDCardPath { get; set; }
 
         public static Entity.MsSQL.T_Student GetModel(string _name, string _cardid)
         {
@@ -161,9 +165,9 @@ namespace JlueCertificate.Dal.MsSQL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into T_Student(");
-            strSql.Append("Id,OrgaId,Name,CardId,HeaderUrl,Sex,TelPhone,ProvinceId,CityId,ZoneId,Address,PostProvinceId,PostCityId,PostZoneId,PostAddress,IsDel,CreateTime)");
+            strSql.Append("Id,OrgaId,Name,CardId,HeaderUrl,Sex,TelPhone,ProvinceId,CityId,ZoneId,Address,PostProvinceId,PostCityId,PostZoneId,PostAddress,IsDel,CreateTime,UploadIDCardPath)");
             strSql.Append(" values (");
-            strSql.Append("@Id,@OrgaId,@Name,@CardId,@HeaderUrl,@Sex,@TelPhone,@ProvinceId,@CityId,@ZoneId,@Address,@PostProvinceId,@PostCityId,@PostZoneId,@PostAddress,@IsDel,@CreateTime)");
+            strSql.Append("@Id,@OrgaId,@Name,@CardId,@HeaderUrl,@Sex,@TelPhone,@ProvinceId,@CityId,@ZoneId,@Address,@PostProvinceId,@PostCityId,@PostZoneId,@PostAddress,@IsDel,@CreateTime,@UploadIDCardPath)");
             SqlParameter[] parameters = {
 					new SqlParameter("@Id", SqlDbType.VarChar,100),
 					new SqlParameter("@OrgaId", SqlDbType.BigInt,8),
@@ -181,7 +185,8 @@ namespace JlueCertificate.Dal.MsSQL
 					new SqlParameter("@PostZoneId", SqlDbType.VarChar,100),
 					new SqlParameter("@PostAddress", SqlDbType.VarChar,100),
 					new SqlParameter("@IsDel", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime)};
+					new SqlParameter("@CreateTime", SqlDbType.DateTime),
+            		new SqlParameter("@UploadIDCardPath", SqlDbType.VarChar,200)};
             parameters[0].Value = model.Id;
             parameters[1].Value = model.OrgaId;
             parameters[2].Value = model.Name;
@@ -199,6 +204,7 @@ namespace JlueCertificate.Dal.MsSQL
             parameters[14].Value = model.PostAddress;
             parameters[15].Value = model.IsDel;
             parameters[16].Value = model.CreateTime;
+            parameters[17].Value = model.UploadIDCardPath;
 
             object obj = Untity.HelperMsSQL.ExecuteScalar(strSql.ToString(), parameters);
             if (obj == null)

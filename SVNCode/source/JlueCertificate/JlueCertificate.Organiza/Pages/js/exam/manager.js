@@ -8,17 +8,22 @@
 		common = layui.common;
     var curnum = 1;
     var limitcount = 10;
+    var curStu;
     getstudent();
     getcity();
     //普通图片上传
     var uploadInst = upload.render({
         elem: '#uploadimg1'
       , url: "/Handler/BaseData.ashx?action=uploadheader"
+      , data:{stuid:function(){
+        return curStu
+      }}
       , accept: "images"
       , method: "POST"
       , done: function (res, index, upload) {
           res = res || JSON.parse(res);
           if (res.Code == "0") {
+            getstudent();
               $("#uploadimg1_div").css("display", "none");
               $('#uploadimg1').css('background-image', 'url(' + res.Data + ')');
               $('#uploadimg1').attr('desc', res.Data);
@@ -35,10 +40,15 @@
     //身份证上传
     var uploadInst = upload.render({
         elem: '#uploadimg2'
-      , url: "/Handler/BaseData.ashx?action=uploadheader"
+      , url: "/Handler/BaseData.ashx?action=UploadIDCard"
+      , data:{stuid:function(){
+          return curStu
+        }}
       , accept: "images"
       , method: "POST"
       , done: function (res, index, upload) {
+        getstudent();
+        $("#img-IDCard").prop("src",res.Data)
           top.layer.msg("上传成功！")
           //res = res || JSON.parse(res);
           //if (res.Code == "0") {
@@ -158,6 +168,8 @@
         $("#uploadimg1_div").css("display", "");
         $('#uploadimg1').css('background-image', "");
         $('#uploadimg1').attr('desc', "");
+        $('#img-IDCard').attr('src', "");
+
         if ($("#sex option")[0]) {
             $("#sex option")[0].selected = true;
         }
@@ -212,6 +224,7 @@
             idnumber: $("#idnumber").val(),
             name: $("#name").val(),
             headerurl: $('#uploadimg1').attr('desc'),
+            UploadIDCardPath: $('#img-IDCard').attr('src'),
             cardid: $("#cardid").val(),
             sex: $("#sex")[0].value,
             telphone: $("#telphone").val(),
@@ -268,6 +281,7 @@
     }
     function getstudentid_success(ret) {
         if (ret.Code == "0") {
+            curStu=ret.Data
             $("#idnumber").val(ret.Data)
             $("#signup").val(Params.getDate())
             $("#btnadd2").attr("type", "1")
@@ -392,10 +406,12 @@
     table.on('tool(userTables)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
+            curStu=data.idnumber
             $("#btnadd2").attr("type", "2")
             $("#btnadd2 cite").html("修改")
             $("#idnumber").val(data.idnumber);
             $("#name").val(data.name);
+            $("#img-IDCard").prop("src",data.UploadIDCardPath)
             if (data.headerurl.length > 0) {
                 $("#uploadimg1_div").css("display", "none");
                 $('#uploadimg1').css('background-image', 'url(' + data.headerurl + ')');

@@ -191,6 +191,13 @@ namespace JlueCertificate.Entity.MsSQL
             set { _olschoolpwd = value; }
             get { return _olschoolpwd; }
         }
+
+        public string UploadIDCardPath
+        {
+            set;
+            get;
+        }
+
         #endregion Model
 
     }

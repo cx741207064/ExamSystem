@@ -444,6 +444,10 @@
       <Project>{a45c2770-f8c1-4826-89e0-bdd2ff28258f}</Project>
       <Name>JlueCertificate.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JlueCertificate.Repository\JlueCertificate.Repository.csproj">
+      <Project>{d2efd486-b9ba-4aa3-b4dc-74a245d9b07a}</Project>
+      <Name>JlueCertificate.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JlueCertificate.Untity\JlueCertificate.Untity.csproj">
       <Project>{41645e03-b246-46fb-955a-d78fc517607f}</Project>
       <Name>JlueCertificate.Untity</Name>

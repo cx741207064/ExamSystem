@@ -208,7 +208,7 @@ namespace JlueCertificate.Dal.MsSQL
             decimal score = 0;
             Untity.HelperMethod p = new Untity.HelperMethod();
             string path = Untity.HelperAppSet.getAppSetting("wangxiaohost");
-            string fullpath = path + "/api/VideoJinDu/Check?Sort_Id=" + OLSchoolId
+            string fullpath = path + "/api/VideoJinDu/Check?classid=9&Sort_Id=" + OLSchoolId
                 + "&studentid=" + OLSchoolUserId
                 + "&AOMid=" + OLSchoolAOMid
                 + "&PublicMark=" + true;

@@ -23,5 +23,6 @@ namespace JlueCertificate.Entity.Request
         public string postcityid { get; set; }
         public string postzoneid { get; set; }
         public string postaddress { get; set; }
+        public string UploadIDCardPath { get; set; }
     }
 }

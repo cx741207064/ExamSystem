@@ -34,7 +34,7 @@
             $("#IssueDate").val(ret.Data.IssueDate);
             $("#Sex").val(ret.Data.Sex);
             var Path = Params.getProjectPathFormUrl();
-            $('#qrcode').qrcode({ width: 110, height: 110, text: Path + '/html/score/querydetail.html?Id=' + ret.Data.Id + "&OLSchoolUserId" + ret.Data.OLSchoolUserId });
+            $('#qrcode').qrcode({ width: 80, height: 80, text: Path + '/html/score/querydetail.html?Id=' + ret.Data.Id + "&OLSchoolUserId" + ret.Data.OLSchoolUserId });
 
         }
         else {

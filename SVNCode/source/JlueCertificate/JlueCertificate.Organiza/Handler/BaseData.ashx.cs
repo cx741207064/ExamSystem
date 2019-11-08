@@ -20,6 +20,8 @@ namespace JlueCertificate.Organiza.Handler
             try
             {
                 string action = context.Request["action"].ToString();
+                string stuid = context.Request["stuid"] ?? "";
+
                 if (!string.IsNullOrEmpty(action) && HttpContextSecurity.HttpContextQuerySafe(context))
                 {
 
@@ -42,7 +44,8 @@ namespace JlueCertificate.Organiza.Handler
                         string postString = HttpContextSecurity.getPostStr(context);
                         switch (action.ToLower())
                         {
-                            case "uploadheader": result = HttpContextSecurity.uploadheader(context); break;
+                            case "uploadheader": result = HttpContextSecurity.uploadheader(context,stuid); break;
+                            case "uploadidcard": result = HttpContextSecurity.UploadIDCard(context,stuid); break;
                             default:
                                 break;
                         }

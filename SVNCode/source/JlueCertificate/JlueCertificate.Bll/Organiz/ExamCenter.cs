@@ -44,7 +44,8 @@ namespace JlueCertificate.Bll.Organiz
                     telphone = Untity.HelperDataCvt.objToString(ii.TelPhone),
                     zoneid = Untity.HelperDataCvt.objToString(ii.ZoneId),
                     createtime = ii.CreateTime.ToString("yyyy-MM-dd"),
-                    olschoolusername = ii.OLSchoolUserName
+                    olschoolusername = ii.OLSchoolUserName,
+                    UploadIDCardPath=ii.UploadIDCardPath
                 });
             });
             return result;
@@ -74,6 +75,7 @@ namespace JlueCertificate.Bll.Organiz
                     Name = Untity.HelperDataCvt.objToString(_student.name),
                     CardId = Untity.HelperDataCvt.objToString(_student.cardid),
                     HeaderUrl = Untity.HelperDataCvt.objToString(_student.headerurl),
+                    UploadIDCardPath = Untity.HelperDataCvt.objToString(_student.UploadIDCardPath),
                     Sex = Untity.HelperDataCvt.objToString(_student.sex),
                     TelPhone = Untity.HelperDataCvt.objToString(_student.telphone),
                     ProvinceId = Untity.HelperDataCvt.objToString(_student.provinceid),

@@ -1,0 +1,2 @@
+先访问http://cwrcpj.kjcytk.com/Member/DefaultLogin?UserName=user1&UserPass=123456
+再访问http://cwrcpj.kjcytk.com/JLStudent/WelCome/Index

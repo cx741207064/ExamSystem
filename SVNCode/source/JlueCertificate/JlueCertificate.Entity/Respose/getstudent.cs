@@ -26,5 +26,7 @@ namespace JlueCertificate.Entity.Respose
         public string postaddress { get; set; }
         public string createtime { get; set; }
         public string olschoolusername { get; set; }
+        public string UploadIDCardPath { get; set; }
+
     }
 }

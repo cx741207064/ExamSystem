@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
+using JlueCertificate.Repository;
 
 namespace JlueCertificate.Organiza.Handler
 {
@@ -203,8 +204,9 @@ namespace JlueCertificate.Organiza.Handler
         }
 
 
-        internal static string uploadheader(HttpContext context)
+        internal static string uploadheader(HttpContext context, string stuid)
         {
+            string subpath = "/Upload/StudentHeader/";
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
             result.Code = "-1";
             if (context.Request.Files.Count > 0 && context.Request.Files[0] != null)
@@ -213,15 +215,42 @@ namespace JlueCertificate.Organiza.Handler
                 string filename = Untity.HelperFile.checkFileImage(_file.ContentType, _file.ContentLength);
                 if (!string.IsNullOrEmpty(filename))
                 {
-                    string dirTempPath =  AppDomain.CurrentDomain.BaseDirectory + "/Upload/StudentHeader/";
+                    string dirTempPath = AppDomain.CurrentDomain.BaseDirectory + subpath;
                     Untity.HelperFile.createFileDirectory(dirTempPath);
 
                     _file.SaveAs(dirTempPath + filename);
                     result.Code = "0";
-                    result.Data = "/Upload/StudentHeader/" + filename;
+                    result.Data = subpath + filename;
+
+                    OrganizaRepository.Singleton.UpdateHeader(stuid, subpath + filename);
                 }
             }
             return Untity.HelperJson.SerializeObject(result);
         }
+
+        internal static string UploadIDCard(HttpContext context, string stuid)
+        {
+            string subpath = "/Upload/StudentIDCard/";
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            result.Code = "-1";
+            if (context.Request.Files.Count > 0 && context.Request.Files[0] != null)
+            {
+                HttpPostedFile _file = context.Request.Files[0];
+                string filename = Untity.HelperFile.checkFileImage(_file.ContentType, _file.ContentLength);
+                if (!string.IsNullOrEmpty(filename))
+                {
+                    string dirTempPath = AppDomain.CurrentDomain.BaseDirectory + subpath;
+                    Untity.HelperFile.createFileDirectory(dirTempPath);
+
+                    _file.SaveAs(dirTempPath + filename);
+                    result.Code = "0";
+                    result.Data = subpath + filename;
+
+                    OrganizaRepository.Singleton.UpdateIDCardPath(stuid, subpath + filename);
+                }
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
+
     }
 }
