@@ -1,0 +1,4 @@
+JlueCertificate.Organiza 机构报名系统 部署在jluecertificateorgan.kjcytk.com
+JlueCertificate.Mark 后台阅卷系统 部署在jluecertificatemark.kjcytk.com
+JlueCertificate.Main 考试系统 部署在jluecertificatemain.kjcytk.com
+报税考试项目 部署在tybscppublish.kjcytk.com

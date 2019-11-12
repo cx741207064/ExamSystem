@@ -374,20 +374,6 @@
     <Content Include="Pages\subgroup\larryfont.html" />
     <Content Include="Pages\subgroup\larrytab.html" />
     <Content Include="Pages\subgroup\menu.html" />
-    <Content Include="Upload\StudentHeader\076f1d1a-1d80-430a-ba5b-d370cae2d70a.jpeg" />
-    <Content Include="Upload\StudentHeader\1e011762-1564-40b2-ab93-bbd7879ca29a.png" />
-    <Content Include="Upload\StudentHeader\2f517a9c-d5ed-4d25-95ad-8daad7d80440.jpeg" />
-    <Content Include="Upload\StudentHeader\3641f27d-a9df-4f5e-b910-516916c0a234.jpeg" />
-    <Content Include="Upload\StudentHeader\441a8e72-d886-43de-844a-c76dc6f7e1fc.jpeg" />
-    <Content Include="Upload\StudentHeader\48c2c35f-d51c-42eb-a7cf-4c1ec05fc226.jpeg" />
-    <Content Include="Upload\StudentHeader\5c420e72-9baa-4486-9e3a-017ace23bcc9.jpeg" />
-    <Content Include="Upload\StudentHeader\6e1db003-d463-49c0-817c-aced9fabaed1.png" />
-    <Content Include="Upload\StudentHeader\84a578ce-7708-444d-8b27-f0d1453647cf.png" />
-    <Content Include="Upload\StudentHeader\b352e027-b38b-4a19-babe-d79b1a14b14d.jpeg" />
-    <Content Include="Upload\StudentHeader\cda530f4-9f90-45c2-9fa4-4517998fcc8f.jpeg" />
-    <Content Include="Upload\StudentHeader\d8c3ef27-3c90-4d06-8bbf-5d4704003d46.jpeg" />
-    <Content Include="Upload\StudentHeader\f35247fb-e12f-4dac-8711-98df4fa4f16f.jpeg" />
-    <Content Include="Upload\StudentHeader\f890e14a-f47d-41bb-8709-3037a63d60c8.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -398,8 +384,7 @@
     <Content Include="Handler\ScoreSearch.ashx" />
     <Content Include="common\jquery.qrcode.min.js" />
     <Content Include="Handler\WXLogin.ashx" />
-    <None Include="Properties\PublishProfiles\1.pubxml" />
-    <None Include="Properties\PublishProfiles\JLCertifi.pubxml" />
+    <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Properties\PublishProfiles\organiza.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -438,6 +423,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\StudentHeader\" />
+    <Folder Include="Upload\StudentIDCard\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JlueCertificate.Logic\JlueCertificate.Logic.csproj">

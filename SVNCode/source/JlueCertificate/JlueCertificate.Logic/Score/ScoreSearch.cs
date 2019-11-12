@@ -34,20 +34,8 @@ namespace JlueCertificate.Logic.Score
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
             string error = string.Empty;
-            try
-            {
-                result.Data = Bll.Organiz.ScoreSearch.getscoredetail(_ticketid, _OLSchoolUserId, ref error);
-                result.Msg = error;
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message.ToString();
-                result.Code = "-1";
-                result.Msg = error;
-            }
-            finally
-            {
-            }
+            result.Data = Bll.Organiz.ScoreSearch.getscoredetail(_ticketid, _OLSchoolUserId, ref error);
+            result.Msg = error;
             return Untity.HelperJson.SerializeObject(result);
         }
 

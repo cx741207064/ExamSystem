@@ -1,4 +1,4 @@
-﻿var baoshuihost = "http://47.97.29.32:8099"
+﻿var baoshuihost = "http://tybscppublish.kjcytk.com"
 var diannaozhanghost = "https://ssl.jinglue.cn"
 var diannaozhangapihost = "http://114.55.38.113:8054"
 
@@ -90,7 +90,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
 
             if (item.Category == ret.baoshui) {
                 //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
-                url = baoshuihost + "/QuestionMainKaoShi.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId
+                url = baoshuihost + "/QuestionMainPingCe.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId
                 window.open(url, "_blank")
             }
             else if (item.Category == ret.diannaozhang) {
@@ -103,8 +103,8 @@ layui.use(['jquery', 'layer', 'form'], function () {
                 })
             }
             else if (item.Category == ret.tiku) {
-                //url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
-                url = "http://localhost:8360" + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
+                url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
+                //url = "http://localhost:8360" + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
                 window.open(url, "_blank")
             }
         })

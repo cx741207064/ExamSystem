@@ -245,6 +245,8 @@
     <Content Include="Scripts\layui\lay\modules\tree.js" />
     <Content Include="Scripts\layui\lay\modules\upload.js" />
     <Content Include="Scripts\layui\lay\modules\util.js" />
+    <Content Include="Scripts\Vue\vue.js" />
+    <Content Include="Scripts\Vue\vue.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -256,7 +258,8 @@
     <Content Include="Handler\UserCenter.ashx" />
     <Content Include="Handler\VerifyCode.ashx" />
     <Content Include="Handler\Login.ashx" />
-    <None Include="Properties\PublishProfiles\1.pubxml" />
+    <Content Include="json\SubjectType.json" />
+    <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Properties\PublishProfiles\main.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -381,7 +381,7 @@
     <Content Include="Pages\font-awesome\scss\_screen-reader.scss" />
     <Content Include="Pages\font-awesome\scss\_stacked.scss" />
     <Content Include="Pages\font-awesome\scss\_variables.scss" />
-    <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Properties\PublishProfiles\mark.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
