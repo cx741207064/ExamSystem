@@ -178,12 +178,14 @@
         <div class="bg-text">
             <p class="title">人才评价考试平台</p>
             <ul id="subjects">
-                <li v-for="item in subjects">
+                <template v-for="item in subjects">
+                    <li>
                     <span class="text-left">科目{{item.index}}：</span>
                     <span class="text-right">
                         <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.Name" v-on:click="tips(item,$event)" v-bind:dateisvalid="dateIsValid" />
                     </span>
-                </li>
+                    </li>
+                </template>
             </ul>
             <span class="text-submit">
                 <input type="button" value="确认提交" class="submitexam" />

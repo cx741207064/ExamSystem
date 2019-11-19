@@ -1,6 +1,7 @@
 ﻿var baoshuihost = "http://tybscppublish.kjcytk.com"
 var diannaozhanghost = "https://ssl.jinglue.cn"
 var diannaozhangapihost = "http://114.55.38.113:8054"
+//var diannaozhangapihost = "http://localhost:8014"
 
 layui.use(['jquery', 'layer', 'form'], function () {
     var $ = layui.$,
@@ -52,6 +53,12 @@ layui.use(['jquery', 'layer', 'form'], function () {
         var endTime = new Date(data.certificateEndTime)
         var dateIsValid = startTime <= new Date() && endTime >= new Date()
         data.dateIsValid = dateIsValid
+        var subjects=data.subjects
+        for(var i=subjects.length-1;i>=0;i--){
+            if(subjects[i].Category=="视频"){
+                subjects.splice(i,1)
+            }
+        }
         data.subjects.forEach(function (e, i) {
             e.index = NumberToChinese(i + 1)
         })
@@ -90,7 +97,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
 
             if (item.Category == ret.baoshui) {
                 //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
-                url = baoshuihost + "/QuestionMainPingCe.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId
+                url = baoshuihost + "/QuestionMainExam.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId
                 window.open(url, "_blank")
             }
             else if (item.Category == ret.diannaozhang) {

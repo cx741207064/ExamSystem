@@ -50,78 +50,98 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
         Vue2.subjects = subs
     }
 
+    Vue2 = new Vue({
+        el: '#list-students',
+        data: {
+            seen: false,
+            students: [],
+            subjects: [],
+        },
+        mounted: function () {
+            //form.render()
+        },
+        updated: function () {
+            //form.render()
+        },
+        watch: {
+        },
+        methods: {
+            stuClick: function (stu) {
+                $(".site-doc-icon").unbind()
+                var subjects = this.subjects
+                var $this = this
+                subjects=subjects.filter(function(i){
+                    return i.Category!=$this.global.SubjectType.shipin
+                })
+
+                form.on("select(subject)", function (data) {
+                    var id=data.value
+                    sub=subjects.filter(function(i){
+                        return i.ID==id
+                    })
+                    if(sub.length>0){
+                    $this.subject(sub[0], stu)
+                    }
+                })
+            
+                new Vue({
+                    el:"#select-subject",
+                    data:{subjects:subjects},
+                    mounted:function(){
+                        form.render()
+                        layer.open({
+                            type:1,
+                            content:$("#confirm-yuejuan"),
+                            area:["auto","200px"]
+                        })
+                    },
+                    methods:{
+                        itemClick:function(){
+                        }
+                    }
+                })
+            },
+            subject: function (sub, stu) {
+                var global = this.global
+                var url
+                if (sub.Category == global.SubjectType.tiku) {
+                    top.layer.msg("此科目自动评分，无需手动评分。", { icon: 1 });
+                }
+                else if (sub.Category == global.SubjectType.baoshui) {
+                    //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
+                    url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "_1&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId + "&StudentTicketId=" + stu.StudentTicketId
+                    window.open(url, "报税阅卷")
+                }
+                else if (sub.Category == global.SubjectType.diannaozhang) {
+                    var url_identify = global.identifyhost + "/Member/GetMobileAndIdentify?classid=" + stu.ClassId + "&OLSchoolUserId=" + stu.OLSchoolUserId + "&OLSchoolId=" + sub.OLSchoolId
+                    $.ajax({ url: url_identify, type: "get", dataType: "json" }).success(function (ret) {
+                        var Data = ret.Data
+                        if (Data) {
+                            var token = $.md5(new Date().getDate() + Data.Identify.toUpperCase())
+                            url = global.diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token + "&StudentTicketId=" + stu.StudentTicketId + "&OLSchoolId=" + sub.OLSchoolId + "&isexam=1"
+                            window.open(url, "diannaozhang")
+                        }
+                    })
+                }
+            }
+        },
+        computed: {
+        }
+    })
 })
 
 Vue.prototype.global =
     {
-        baoshuihost: "http://47.97.29.32:8099",
+        baoshuihost: "http://tybscppublish.kjcytk.com",
         diannaozhanghost: "http://jluepracticeautobookscore.kjcytk.com",
         identifyhost: "http://114.55.38.113:8054",
         SubjectType:
         {
             "baoshui": "实操-报税",
             "diannaozhang": "实操-电脑账",
-            "tiku": "题库"
+            "tiku": "题库",
+            "shipin":"视频"
         }
     }
 var Vue1;
-var Vue2 = new Vue({
-    el: '#list-students',
-    data: {
-        seen: false,
-        students: [],
-        subjects: [],
-    },
-    mounted: function () {
-        //form.render()
-    },
-    updated: function () {
-        //form.render()
-    },
-    watch: {
-    },
-    methods: {
-        stuClick: function (stu) {
-            $(".site-doc-icon").unbind()
-            var subjects = this.subjects
-            var $this = this
-            layer.confirm('请选择阅卷科目？',
-                {
-                    btn: [subjects[0].Name, subjects[1].Name, subjects[2].Name],
-                    btn3: function (index, layero) {
-                        $this.subject(subjects[2], stu)
-                    },
-                    area: ['auto']
-                }, function (index, layero) {
-                    $this.subject(subjects[0], stu)
-                }, function (index) {
-                    $this.subject(subjects[1], stu)
-                })
-        },
-        subject: function (sub, stu) {
-            var global = this.global
-            var url
-            if (sub.Category == global.SubjectType.tiku) {
-                top.layer.msg("此科目自动评分，无需手动评分。", { icon: 1 });
-            }
-            else if (sub.Category == global.SubjectType.baoshui) {
-                //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
-                url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "_1&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId + "&StudentTicketId=" + stu.StudentTicketId
-                window.open(url, "报税阅卷")
-            }
-            else if (sub.Category == global.SubjectType.diannaozhang) {
-                var url_identify = global.identifyhost + "/Member/GetMobileAndIdentify?classid=" + stu.ClassId + "&OLSchoolUserId=" + stu.OLSchoolUserId + "&OLSchoolId=" + sub.OLSchoolId
-                $.ajax({ url: url_identify, type: "get", dataType: "json" }).success(function (ret) {
-                    var Data = ret.Data
-                    if (Data) {
-                        var token = $.md5(new Date().getDate() + Data.Identify.toUpperCase())
-                        url = global.diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token + "&StudentTicketId=" + stu.StudentTicketId + "&OLSchoolId=" + sub.OLSchoolId + "&isexam=1"
-                        window.open(url, "diannaozhang")
-                    }
-                })
-            }
-        }
-    },
-    computed: {
-    }
-})
+var Vue2;

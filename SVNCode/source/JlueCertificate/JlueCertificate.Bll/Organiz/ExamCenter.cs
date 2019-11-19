@@ -305,7 +305,7 @@ namespace JlueCertificate.Bll.Organiz
                         List<Entity.Respose.allcertifisubject> _sublist = new List<Entity.Respose.allcertifisubject>();
                         _sublist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(Untity.HelperDataCvt.objToString(_certificate.Id));
                         string ids = string.Join(",", _sublist.Select(ii => ii.OLSchoolAOMid.ToString()).ToList());
-                        if (ids != "" && !(Dal.MsSQL.T_Subject.IsBuyAll(_orga, ids, _signup.username, ref error)))
+                        if (ids != "" && !(Dal.MsSQL.T_Subject.IsBuyAll(_orga, ids, _student.OLSchoolUserName, ref error)))
                         {
                             error = error + ",无法报名";
                             return "-1";

@@ -359,6 +359,8 @@
     <Content Include="Pages\js\sysappevent.js" />
     <Content Include="Pages\js\sysapppage.js" />
     <Content Include="Pages\js\user.js" />
+    <Content Include="Pages\js\Vue\vue.js" />
+    <Content Include="Pages\js\Vue\vue.min.js" />
     <Content Include="Pages\login.html" />
     <Content Include="Pages\main.html" />
     <Content Include="Pages\subgroup\404.html" />

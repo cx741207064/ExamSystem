@@ -274,19 +274,8 @@ namespace JlueCertificate.Logic.Organiz
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
             string error = string.Empty;
-            try
-            {
-                result.Data = Bll.Organiz.ExamCenter.getstudentcertifi(_uid, _pwd, studentid, ref error);
-                result.Msg = error;
-            }
-            catch (Exception ex)
-            {
-                result.Code = "-1";
-                result.Msg = ex.Message.ToString();
-            }
-            finally
-            {
-            }
+            result.Data = Bll.Organiz.ExamCenter.getstudentcertifi(_uid, _pwd, studentid, ref error);
+            result.Msg = error;
             return Untity.HelperJson.SerializeObject(result);
         }
 

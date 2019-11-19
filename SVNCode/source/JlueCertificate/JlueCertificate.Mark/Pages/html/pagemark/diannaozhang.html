@@ -61,7 +61,7 @@
         }
 
         .layui-form-select{
-            width:30%;
+            width:200px;
         }
     </style>
 </head>
@@ -108,6 +108,16 @@
         </div>
     </div>
 </form>
+
+<div id="confirm-yuejuan" style="display:none" class="layui-form">
+        <label class="layui-form-label">选择科目:</label>
+    <div class="layui-input-block">
+    <select id="select-subject" lay-filter="subject" v-on:change = "itemClick()" >
+        <option></option>
+        <option v-for="item in subjects" v-bind:value="item.ID" >{{item.Name}}</option>
+    </select>
+    </div>
+</div>
 
     <!-- 加载js文件 -->
     <script type="text/javascript" src="../../../common/frame/layui/layui.js"></script>
