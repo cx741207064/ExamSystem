@@ -260,6 +260,8 @@
     <Content Include="Pages\font-awesome\HELP-US-OUT.txt" />
     <Content Include="Pages\html\certificate\backmanager.html" />
     <Content Include="Pages\html\certificate\subjectmanager.html" />
+    <Content Include="Pages\html\IssueCertificate.html" />
+    <Content Include="Pages\html\IssueCertificate.js" />
     <Content Include="Pages\html\mark\manager.html" />
     <Content Include="Pages\html\mark\organizamanager.html" />
     <Content Include="Pages\html\pagemark\diannaozhang.html" />
@@ -324,6 +326,8 @@
     <Content Include="Pages\subgroup\larryfont.html" />
     <Content Include="Pages\subgroup\larrytab.html" />
     <Content Include="Pages\subgroup\menu.html" />
+    <Content Include="tool\element-ui%402.12.0\lib\index.js" />
+    <Content Include="tool\element-ui%402.12.0\lib\theme-chalk\index.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -381,8 +385,10 @@
     <Content Include="Pages\font-awesome\scss\_screen-reader.scss" />
     <Content Include="Pages\font-awesome\scss\_stacked.scss" />
     <Content Include="Pages\font-awesome\scss\_variables.scss" />
+    <Content Include="Handler\CertificateCenter.ashx" />
     <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Properties\PublishProfiles\mark.pubxml" />
+    <Content Include="tool\element-ui%402.12.0\lib\theme-chalk\fonts\element-icons.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -393,6 +399,9 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\CertificateCenter.ashx.cs">
+      <DependentUpon>CertificateCenter.ashx</DependentUpon>
     </Compile>
     <Compile Include="Handler\HttpContextSecurity.cs" />
     <Compile Include="Handler\Login.ashx.cs">
@@ -411,6 +420,10 @@
     <ProjectReference Include="..\JlueCertificate.Logic\JlueCertificate.Logic.csproj">
       <Project>{a45c2770-f8c1-4826-89e0-bdd2ff28258f}</Project>
       <Name>JlueCertificate.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JlueCertificate.Repository\JlueCertificate.Repository.csproj">
+      <Project>{d2efd486-b9ba-4aa3-b4dc-74a245d9b07a}</Project>
+      <Name>JlueCertificate.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\JlueCertificate.Untity\JlueCertificate.Untity.csproj">
       <Project>{41645e03-b246-46fb-955a-d78fc517607f}</Project>

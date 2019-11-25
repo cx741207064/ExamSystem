@@ -39,11 +39,11 @@
 
     //身份证上传
     var uploadInst = upload.render({
-        elem: '#uploadimg2'
+        elem: '#upload-front'
       , url: "/Handler/BaseData.ashx?action=UploadIDCard"
       , data:{stuid:function(){
           return curStu
-        }}
+        },side:"front"}
       , accept: "images"
       , method: "POST"
       , done: function (res, index, upload) {
@@ -64,6 +64,21 @@
           //}
       }
     });
+
+    upload.render({
+        elem: '#upload-back'
+      , url: "/Handler/BaseData.ashx?action=UploadIDCard"
+      , data:{stuid:function(){
+          return curStu
+        },side:"back"}
+      , accept: "images"
+      , method: "POST"
+      , done: function (res, index, upload) {
+        getstudent();
+        $("#img-IDCard2").prop("src",res.Data)
+          top.layer.msg("上传成功！")
+      }
+    })
 
     form.on('select(province)', function (data) {
         var _tags = data.elem.getElementsByTagName("option");
@@ -169,6 +184,7 @@
         $('#uploadimg1').css('background-image', "");
         $('#uploadimg1').attr('desc', "");
         $('#img-IDCard').attr('src', "");
+        $('#img-IDCard2').attr('src', "");
 
         if ($("#sex option")[0]) {
             $("#sex option")[0].selected = true;
@@ -224,7 +240,7 @@
             idnumber: $("#idnumber").val(),
             name: $("#name").val(),
             headerurl: $('#uploadimg1').attr('desc'),
-            UploadIDCardPath: $('#img-IDCard').attr('src'),
+            UploadIDCardPath:JSON.stringify(JSON.stringify({front: $('#img-IDCard').attr('src'),back:$('#img-IDCard2').attr('src')})),
             cardid: $("#cardid").val(),
             sex: $("#sex")[0].value,
             telphone: $("#telphone").val(),
@@ -411,7 +427,12 @@
             $("#btnadd2 cite").html("修改")
             $("#idnumber").val(data.idnumber);
             $("#name").val(data.name);
-            $("#img-IDCard").prop("src",data.UploadIDCardPath)
+            if(data.UploadIDCardPath){
+                var UploadIDCardPath=JSON.parse(JSON.parse(data.UploadIDCardPath))
+                $("#img-IDCard").prop("src",UploadIDCardPath.front)
+                $("#img-IDCard2").prop("src",UploadIDCardPath.back)    
+            }
+
             if (data.headerurl.length > 0) {
                 $("#uploadimg1_div").css("display", "none");
                 $('#uploadimg1').css('background-image', 'url(' + data.headerurl + ')');

@@ -100,8 +100,11 @@
                     <label class="layui-form-label label1">身份证号</label>
                     <div class="layui-input-block layui-input-block1">
                         <input type="text" name="cardid" id="cardid" autocomplete="off" class="layui-input">
-                        <button type="button" class="layui-btn" id="uploadimg2">
-                            <i class="layui-icon">&#xe67c;</i>上传身份证
+                        <button type="button" class="layui-btn" id="upload-front">
+                            <i class="layui-icon">&#xe67c;</i>上传正面
+                        </button>
+                        <button type="button" class="layui-btn" id="upload-back">
+                            <i class="layui-icon">&#xe67c;</i>上传反面
                         </button>
                     </div>
                 </div>
@@ -203,7 +206,8 @@
         <hr>
         <div class="layui-form-item">
             <label class="layui-form-label label1">上传的身份证</label>
-            <img id="img-IDCard" style="" src="">
+            <img id="img-IDCard" src="">
+            <img id="img-IDCard2" src="">
         </div>
         <div class="layui-form-item" style="margin-top: 80px;">
             <button class="layui-btn" style="float: right; margin-right: 38px;" id="btnadd2" data-type="add"><i class="layui-icon">&#xe61f;</i><cite>添加</cite></button>

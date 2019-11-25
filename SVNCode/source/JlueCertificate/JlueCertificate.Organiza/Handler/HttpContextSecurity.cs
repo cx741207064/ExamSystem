@@ -228,7 +228,7 @@ namespace JlueCertificate.Organiza.Handler
             return Untity.HelperJson.SerializeObject(result);
         }
 
-        internal static string UploadIDCard(HttpContext context, string stuid)
+        internal static string UploadIDCard(HttpContext context, string stuid,string side)
         {
             string subpath = "/Upload/StudentIDCard/";
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
@@ -246,7 +246,7 @@ namespace JlueCertificate.Organiza.Handler
                     result.Code = "0";
                     result.Data = subpath + filename;
 
-                    OrganizaRepository.Singleton.UpdateIDCardPath(stuid, subpath + filename);
+                    OrganizaRepository.Singleton.UpdateIDCardPath(stuid, side, subpath + filename);
                 }
             }
             return Untity.HelperJson.SerializeObject(result);

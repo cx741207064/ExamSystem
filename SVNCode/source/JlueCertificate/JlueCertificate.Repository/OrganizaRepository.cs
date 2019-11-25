@@ -1,4 +1,6 @@
 ﻿using JlueCertificate.Dal.MsSQL;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -47,9 +49,27 @@ namespace JlueCertificate.Repository
             }
         }
 
-        public void UpdateIDCardPath(string stuid, string path)
+        public void UpdateIDCardPath(string stuid, string side, string path)
         {
-            var data = new T_Student() { Id = stuid, UploadIDCardPath = path };
+            var t = db.Queryable<T_Student>().Where(it => it.Id == stuid).First();
+            if (t == null)
+            {
+                return;
+            }
+            JValue jo;
+            JObject j;
+            if (string.IsNullOrEmpty(t.UploadIDCardPath))
+            {
+                j = new JObject();
+            }
+            else
+            {
+                j = JObject.Parse(JValue.Parse(t.UploadIDCardPath).Value<string>());
+            }
+            j[side] = path;
+            jo = new JValue(JsonConvert.SerializeObject(j));
+
+            var data = new T_Student() { Id = stuid, UploadIDCardPath = JsonConvert.SerializeObject(jo) };
             db.Updateable(data).UpdateColumns(it => new { it.UploadIDCardPath }).ExecuteCommand();
         }
 
@@ -57,6 +77,17 @@ namespace JlueCertificate.Repository
         {
             var data = new T_Student() { Id = stuid, HeaderUrl = path };
             db.Updateable(data).UpdateColumns(it => new { it.HeaderUrl }).ExecuteCommand();
+        }
+
+        public string IssueCertificate(string studentId, string certificateId)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+
+            string SerialNum = "ZS" + DateTime.Now.Ticks;
+            db.Updateable<T_StudentTicket>().SetColumns(it => new T_StudentTicket() { SerialNum = SerialNum }).Where(it => it.CertificateId == certificateId && it.StudentId == studentId).ExecuteCommand();
+            long BigIdentity = db.Insertable(new T_CertifiSerial() { CertificateId = certificateId, State = "1", SerialNum = SerialNum, IssueDate = DateTime.Now, CreateTime = DateTime.Now, IsDel = "0" }).ExecuteReturnBigIdentity();
+            return Untity.HelperJson.SerializeObject(result);
+
         }
 
     }

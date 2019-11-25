@@ -61,6 +61,15 @@
 				"url": "html/certificate/subjectmanager.html",
 				"spread": false,
 				"children":[]
+			},
+			{
+				"id": "10",
+				"pid": "6",
+				"title": "证书颁发",
+				"icon": "&#xe621;",
+				"url": "html/IssueCertificate.html",
+				"spread": false,
+				"children":[]
 			}
 		]
 	}, {

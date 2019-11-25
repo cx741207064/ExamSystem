@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="/tool/element-ui@2.12.0/lib/theme-chalk/index.css">
+    <style>
+        div#main {
+            width: 1190px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 1190px) {
+            div#main {
+                width: 990px;
+                margin: 0 auto;
+            }
+        }
+
+        @media screen and (min-width: 1440px) {
+            div#main {
+                width: 1440px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h2>颁发证书</h2>
+        <div id="app">
+            <el-form ref="form" :model="form" label-width="120px">
+                <el-form-item label="选择证书：">
+                    <el-select v-model="certificateValue" placeholder="请选择证书" @change="change">
+                        <el-option v-for="item in certificates" :key="item.id"
+                            :label="item.categoryName+item.examSubject" :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </div>
+        <h4>学员列表</h4>
+        <div id="students">
+            <template>
+                <el-table :data="tableData" style="width: auto" border>
+                    <el-table-column label="序号" width="100" prop="index">
+                    </el-table-column>
+                    <el-table-column label="学号" width="180" prop="studentId">
+                    </el-table-column>
+                    <el-table-column label="姓名" width="180" prop="studentName">
+                    </el-table-column>
+                    <el-table-column label="网校账号" width="180" prop="OLSchoolUserName">
+                    </el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button size="mini" type="primary" @click="IssueCertificate(scope.$index, scope.row)">颁发
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </template>
+        </div>
+    </div>
+</body>
+<!-- import Vue before Element -->
+<script src="/Pages/js/Vue/vue.js"></script>
+<!-- import JavaScript -->
+<script src="/tool/element-ui@2.12.0/lib/index.js"></script>
+<script type="text/javascript" src="/Pages/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../../common/common.js"></script>
+<script src="IssueCertificate.js">
+</script>
+
+</html>
