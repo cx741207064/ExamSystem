@@ -1,11 +1,11 @@
 ﻿layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], function () {
     var $ = layui.$,
-		layer = layui.layer,
-		form = layui.form,
-		table = layui.table,
+        layer = layui.layer,
+        form = layui.form,
+        table = layui.table,
         upload = layui.upload,
         laypage = layui.laypage,
-		common = layui.common,
+        common = layui.common,
         laydate = layui.laydate;
     //时间控件
     laydate.render({
@@ -28,7 +28,7 @@
             type: 1
             , title: _title
             , area: ['830px', '430px']
-            ,offset: "10px"
+            , offset: "10px"
             , shade: 0
             , content: $("#notice1")
             , btn: ['确认添加']
@@ -230,11 +230,18 @@
     }
     function handelCertificate_success(ret) {
         if (ret.Code == 0) {
-            top.layer.msg("操作成功", { icon: 1 });
-            getCertificate();
-            setTimeout(function () {
-                layer.closeAll();
-            }, 1500)
+
+            if (ret.Data == 1) {
+                top.layer.msg("该证书不能删除", { icon: 0 });
+            }else  {
+                top.layer.msg("操作成功", { icon: 1 });
+                getCertificate();
+                setTimeout(function () {
+                    layer.closeAll();
+                }, 1500)
+            }
+
+          
         }
         else {
             top.layer.msg(ret.Msg);
@@ -282,13 +289,17 @@
     }
     function handelsubject_success(ret) {
         if (ret.Code == 0) {
-            top.layer.msg("操作成功", { icon: 1 });
-            getSubjectsByCertId();
-            //setTimeout(function () {
-            //    layer.close(layer.index);
-            //}, 1500)
-        }
-        else {
+            if (ret.Data == 1) {
+                top.layer.msg("该课程不能删除", { icon: 0 });
+            } else  {
+                top.layer.msg("操作成功", { icon: 1 });
+                getSubjectsByCertId();
+                setTimeout(function () {
+                layer.close(layer.index);
+                }, 1500)
+            }
+            
+        } else {
             top.layer.msg(ret.Msg, { icon: 5 });
         }
     }
@@ -308,7 +319,7 @@
             table.render({
                 elem: '#certificateTables',
                 height: "500px",
-                limit: 10000,
+                limit: ret.Stamp,
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
@@ -369,12 +380,13 @@
                 type: 1
                 , title: _title
                 , area: ['830px', '430px']
-                ,offset: "10px"
+                , offset: "10px"
                 , shade: 0
                 , content: $("#notice1")
                 , btn: ['确认修改']
                 , success: function (layero, index) {
                     $("#Id").val(data.Id);
+                    $("#CertId").val(data.Id);
                     $("#CategoryName").val(data.CategoryName);
                     $("#ExamSubject").val(data.ExamSubject);
                     $("#NormalResult").val(data.NormalResult);
@@ -394,8 +406,10 @@
                 , zIndex: layer.zIndex
             });
         } else if (obj.event === 'del') {
+           // data.CertificateId = $("#CertId").val();
             layer.confirm('注：确认删除' + data.CategoryName + '-' + data.ExamSubject + '?', function (index) {
                 var url = "/Handler/UserCenter.ashx?action=delcertificate";
+               
                 Params.Ajax(url, "post", data, handelCertificate_success, handelCertificate_fail);
             });
         }
@@ -409,7 +423,7 @@
                 type: 1
                 , title: _title
                 , area: ['830px', '360px']
-                ,offset: '5px'
+                , offset: '5px'
                 , shade: 0
                 , content: $("#notice2")
                 , btn: ['确认修改']
@@ -431,8 +445,10 @@
                 , zIndex: layer.zIndex
             });
         } else if (obj.event === 'del') {
+            data.CertificateId = $("#CertId").val();
             top.layer.confirm('注：确认删除' + data.Name + '-' + data.Category + '?', function (index) {
                 var url = "/Handler/UserCenter.ashx?action=delcertifisubject";
+                
                 Params.Ajax(url, "post", data, handelsubject_success, handelsubject_fail);
             });
         }

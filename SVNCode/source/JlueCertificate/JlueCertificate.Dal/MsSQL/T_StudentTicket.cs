@@ -259,5 +259,19 @@ namespace JlueCertificate.Dal.MsSQL
         {
             var obj = db.Updateable<Entity.MsSQL.T_StudentTicket>().UpdateColumns(it => new { State = Entity.Enum.TicketState.已考试 }).Where(it => it.TicketNum == examid).ExecuteCommand();
         }
+        public static int GetStudentCountByCertificateId(string certificateids)
+        {
+            string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket WHERE IsDel = 0 AND CertificateId ='{0}' ", certificateids);
+           // string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket WHERE IsDel = 0 AND dbo.T_StudentTicket.StudentId = '{0}' AND dbo.T_StudentTicket.CertificateId='{1}' ", studentid, certificateid);
+            object obj = Untity.HelperMsSQL.ExecuteScalar(sql);
+            if (obj == null||obj.ToString()=="0")
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
     }
 }

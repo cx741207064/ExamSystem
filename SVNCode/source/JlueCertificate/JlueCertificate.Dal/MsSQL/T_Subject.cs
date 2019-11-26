@@ -88,7 +88,7 @@ namespace JlueCertificate.Dal.MsSQL
             return Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Subject>(sql);
         }
 
-
+        //阅卷获取课程或课程查询
         public static List<Entity.MsSQL.T_Subject> GetList(string name, string page, string limit, ref long count)
         {
             string sql = "SELECT count(*) FROM dbo.T_Subject WHERE IsDel = 0 ";
@@ -117,7 +117,7 @@ namespace JlueCertificate.Dal.MsSQL
                 return list;
             }
         }
-
+        //网校接口调课程
         public static List<Entity.Respose.olschoolsubject> GetOLSchoolAllList()
         {
             HelperMethod p = new HelperMethod();
@@ -147,7 +147,7 @@ namespace JlueCertificate.Dal.MsSQL
                 return true;
             }
         }
-
+        //添加课程
         public static long Add(Entity.MsSQL.T_Subject model)
         {
             StringBuilder strSql = new StringBuilder();
@@ -194,7 +194,7 @@ namespace JlueCertificate.Dal.MsSQL
                 return Convert.ToInt64(obj);
             }
         }
-
+        //阅卷修改课程
         public static bool Update(Entity.MsSQL.T_Subject model)
         {
             StringBuilder strSql = new StringBuilder();
@@ -256,7 +256,7 @@ namespace JlueCertificate.Dal.MsSQL
                 return false;
             }
         }
-
+        //阅卷删除课程
         public static void Delete(string idnumber)
         {
             string sql = string.Format("UPDATE dbo.T_Subject SET IsDel = 1 WHERE ID = '{0}' ", idnumber);

@@ -15,5 +15,6 @@ namespace JlueCertificate.Entity.Request
         public string CertificateId { get; set; }
         public string IsNeedExam { get; set; }
         public string ExamLength { get; set; }
+        public string CertId { get; set; }
     }
 }

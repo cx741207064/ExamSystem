@@ -356,7 +356,7 @@ namespace JlueCertificate.Logic.Mark
 
             return Untity.HelperJson.SerializeObject(result);
         }
-
+        //阅卷获取课程
         public static string getallsubject(string _uid, string _pwd, string _name, string _page, string _limit)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
@@ -402,7 +402,7 @@ namespace JlueCertificate.Logic.Mark
             }
             return Untity.HelperJson.SerializeObject(result);
         }
-
+        //添加课程
         public static string addsubject(string _uid, string _pwd, string _path, string postString)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
@@ -425,7 +425,7 @@ namespace JlueCertificate.Logic.Mark
             }
             return Untity.HelperJson.SerializeObject(result);
         }
-
+        //阅卷修改课程
         public static string updatesubject(string _uid, string _pwd, string _path, string postString)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
@@ -448,7 +448,7 @@ namespace JlueCertificate.Logic.Mark
             }
             return Untity.HelperJson.SerializeObject(result);
         }
-
+        //阅卷删除课程
         public static string delsubject(string _uid, string _pwd, string postString)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();

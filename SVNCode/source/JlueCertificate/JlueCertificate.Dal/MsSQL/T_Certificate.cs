@@ -59,7 +59,7 @@ namespace JlueCertificate.Dal.MsSQL
             string sql = string.Format("SELECT * FROM dbo.T_Certificate WHERE IsDel = 0 AND Id in({0}) ", certificateids);
             return Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Certificate>(sql);
         }
-
+       
         public static List<Entity.MsSQL.T_Certificate> GetList(string name, string page, string limit, ref long count)
         {
             string sql = "SELECT count(*) FROM dbo.T_Certificate WHERE IsDel = 0 ";
@@ -255,8 +255,10 @@ namespace JlueCertificate.Dal.MsSQL
 
         public static void Delete(string idnumber)
         {
-            string sql = string.Format("UPDATE dbo.T_Certificate SET IsDel = 1 WHERE Id = '{0}' ", idnumber);
-            Untity.HelperMsSQL.ExecuteQuery(sql);
+            string ccsql = string.Format("UPDATE dbo.T_Certificate SET IsDel = 1 WHERE Id = '{0}' ", idnumber);
+            Untity.HelperMsSQL.ExecuteQuery(ccsql);
+            string cssql = string.Format("UPDATE dbo.T_CertifiSubject SET IsDel = 1 WHERE CertificateId = '{0}' ", idnumber);
+            Untity.HelperMsSQL.ExecuteQuery(cssql);
         }
     }
 }

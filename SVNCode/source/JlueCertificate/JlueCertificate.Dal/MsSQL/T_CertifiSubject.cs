@@ -186,5 +186,20 @@ namespace JlueCertificate.Dal.MsSQL
                 return Convert.ToInt64(obj);
             }
         }
+
+        public static int GetSubjectCountBySubjectId(string subjectids)
+        {
+            string sql = string.Format("SELECT count(*) FROM dbo.T_CertifiSubject WHERE IsDel = 0 AND SubjectId ='{0}' ", subjectids);
+            object obj = Untity.HelperMsSQL.ExecuteScalar(sql);
+            if (obj == null || obj.ToString() == "0")
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
     }
 }

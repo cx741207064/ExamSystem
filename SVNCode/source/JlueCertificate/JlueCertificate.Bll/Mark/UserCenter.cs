@@ -308,7 +308,7 @@ namespace JlueCertificate.Bll.Mark
             }
             return null;
         }
-
+        //阅卷获取课程
         public static object getallsubject(string _uid, string _pwd, string _name, string _page, string _limit, ref long count, ref string error)
         {
             List<Entity.MsSQL.T_Subject> result = new List<Entity.MsSQL.T_Subject>();
@@ -339,6 +339,7 @@ namespace JlueCertificate.Bll.Mark
             return result;
         }
 
+        //阅卷添加课程
         public static object addsubject(string _uid, string _pwd,string _path, string postString, ref string error)
         {
             Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
@@ -369,7 +370,7 @@ namespace JlueCertificate.Bll.Mark
                 return "-1";
             }
         }
-
+        //阅卷修改课程
         public static object updatesubject(string _uid, string _pwd, string _path, string postString, ref string error)
         {
             Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
@@ -420,15 +421,25 @@ namespace JlueCertificate.Bll.Mark
             }
             return AccCourseId;
         }
-
+        //阅卷删除课程
         public static object delsubject(string _uid, string _pwd, string postString, ref string error)
         {
             Entity.MsSQL.T_MarkUser _user = Dal.MsSQL.T_MarkUser.GetModel(_uid, _pwd);
             if (_user != null)
             {
                 Entity.Request.handelsubject _subject = Untity.HelperJson.DeserializeObject<Entity.Request.handelsubject>(postString);
-                Dal.MsSQL.T_Subject.Delete(Untity.HelperDataCvt.objToString(_subject.ID));
-                return "1";
+                var result = Dal.MsSQL.T_CertifiSubject.GetSubjectCountBySubjectId(_subject.ID);
+                if (result == 0)
+                {
+                    Dal.MsSQL.T_Subject.Delete(Untity.HelperDataCvt.objToString(_subject.ID));
+                    return "0";
+                }
+                else
+                {
+                    return "1";
+                }
+                //Dal.MsSQL.T_Subject.Delete(Untity.HelperDataCvt.objToString(_subject.ID));
+                //return "1";
             }
             else
             {
@@ -503,9 +514,17 @@ namespace JlueCertificate.Bll.Mark
             if (_user != null)
             {
                 Entity.Request.handelcertifisubject _certifisubject = Untity.HelperJson.DeserializeObject<Entity.Request.handelcertifisubject>(postString);
-               // _certifisubject.CertificateId
-                Dal.MsSQL.T_CertifiSubject.Delete(Untity.HelperDataCvt.objToString(_certifisubject.ID));
-                return "1";
+                var result = Dal.MsSQL.T_StudentTicket.GetStudentCountByCertificateId(_certifisubject.CertificateId);
+                if (result == 0)
+                {
+                    Dal.MsSQL.T_CertifiSubject.Delete(Untity.HelperDataCvt.objToString(_certifisubject.ID));
+                    return "0";
+                }
+                else
+                {
+                    return "1";
+                }
+              
             }
             else
             {
@@ -598,8 +617,19 @@ namespace JlueCertificate.Bll.Mark
             if (_user != null)
             {
                 Entity.Request.addcertificate _certificate = Untity.HelperJson.DeserializeObject<Entity.Request.addcertificate>(postString);
-                Dal.MsSQL.T_Certificate.Delete(Untity.HelperDataCvt.objToString(_certificate.Id));
-                return "1";
+                
+                var result = Dal.MsSQL.T_StudentTicket.GetStudentCountByCertificateId(_certificate.Id);
+                if (result == 0)
+                {
+                    //Dal.MsSQL.T_CertifiSubject.Delete(Untity.HelperDataCvt.objToString(_certificate.Id));
+                    //return "0";
+                    Dal.MsSQL.T_Certificate.Delete(Untity.HelperDataCvt.objToString(_certificate.Id));
+                    return "0";
+                }
+                else
+                {
+                    return "1";
+                }
             }
             else
             {

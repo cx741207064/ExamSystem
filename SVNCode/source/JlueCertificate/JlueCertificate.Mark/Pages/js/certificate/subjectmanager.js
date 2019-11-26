@@ -1,11 +1,11 @@
 ﻿layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], function () {
     var $ = layui.$,
-		layer = layui.layer,
-		form = layui.form,
-		table = layui.table,
+        layer = layui.layer,
+        form = layui.form,
+        table = layui.table,
         upload = layui.upload,
         laypage = layui.laypage,
-		common = layui.common,
+        common = layui.common,
         laydate = layui.laydate;
 
     var curnum = 1;
@@ -50,6 +50,7 @@
         var url = "/Handler/UserCenter.ashx?action=getallsubject&name=" + escape(name);
         Params.Ajax(url, "get", "", getsubjects_success, get_fail);
     }
+    //阅卷查询课程
     function getsubjects_success(ret) {
         if (ret.Code == "0") {
             if (ret.Msg && ret.Msg.length > 0) {
@@ -61,13 +62,14 @@
                 elem: '#subjectTables',
                 height: "500px",
                 loading: true,
+                limit: ret.Stamp,
                 text: { none: "暂无数据" },
                 cols: [[
                     { checkbox: true },
-                    { field: 'ID',  title: '序号', align: 'center' },
-                    { field: 'Name',  title: '课程名称', align: 'center' },
+                    { field: 'ID', title: '序号', align: 'center' },
+                    { field: 'Name', title: '课程名称', align: 'center' },
                     { field: 'Category', title: '类型', align: 'center' },
-                    { field: 'Describe',title: '描述', align: 'center' },
+                    { field: 'Describe', title: '描述', align: 'center' },
                     { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
                 ]],
                 data: _data,
@@ -111,6 +113,7 @@
             form.render('select');
         }
     }
+    //阅卷添加或修改课程
     function handelsubject(type) {
         var _data = {
             ID: $("#ID").val(),
@@ -118,7 +121,7 @@
             Price: "",
             Category: $("#Category").val(),
             Describe: $("#Describe").val(),
-            OLPaperID:$("#OLPaperID").val(),
+            OLPaperID: $("#OLPaperID").val(),
         };
         if (_data.Name.length == 0) {
             top.layer.msg("课程名称不能为空", { icon: 2 });
@@ -135,12 +138,12 @@
                     var _descJson = JSON.parse(_desc);
                     if (_descJson) {
                         _data.OLSchoolId = _descJson.Sort_Id,
-                        _data.OLSchoolName = _descJson.Sort_Name,
-                        _data.OLSchoolProvinceId = _descJson.ProvinceId,
-                        _data.OLSchoolCourseId = _descJson.CourseId,
-                        _data.OLSchoolQuestionNum = _descJson.QuestionNum,
-                        _data.OLSchoolMasterTypeId = _descJson.MasterTypeId,
-                        _data.OLSchoolAOMid = _descJson.AOMid
+                            _data.OLSchoolName = _descJson.Sort_Name,
+                            _data.OLSchoolProvinceId = _descJson.ProvinceId,
+                            _data.OLSchoolCourseId = _descJson.CourseId,
+                            _data.OLSchoolQuestionNum = _descJson.QuestionNum,
+                            _data.OLSchoolMasterTypeId = _descJson.MasterTypeId,
+                            _data.OLSchoolAOMid = _descJson.AOMid
                     }
                 }
             }
@@ -153,11 +156,29 @@
     }
     function handelsubject_success(ret) {
         if (ret.Code == 0) {
-            top.layer.msg("操作成功", { icon: 1 });
-            getsubjects();
-            setTimeout(function () {
-                layer.closeAll();
-            }, 1500)
+            if (ret.Data == 1) {
+                top.layer.msg("该课程不能删除", { icon: 0 });
+                setTimeout(function () {
+                    layer.closeAll();
+                }, 1500)
+            } else if (ret.Data == 0) {
+                top.layer.msg("操作成功", { icon: 1 });
+                getsubjects();
+                setTimeout(function () {
+                    layer.closeAll();
+                }, 1500)
+            } else {
+                top.layer.msg("操作成功", { icon: 1 });
+                getsubjects();
+                setTimeout(function () {
+                    layer.closeAll();
+                }, 1500)
+            }
+            //top.layer.msg("操作成功", { icon: 1 });
+            //getsubjects();
+            //setTimeout(function () {
+            //    layer.closeAll();
+            //}, 1500)
         }
         else {
             top.layer.msg(ret.Msg);
@@ -192,6 +213,7 @@
                     form.render('select');
                 }
                 , yes: function () {
+                    //修改课程
                     handelsubject("edit");
                 }
                 , end: function () {
@@ -201,6 +223,7 @@
             });
         } else if (obj.event === 'del') {
             layer.confirm('注：确认删除' + data.Name + '-' + data.Category + '?', function (index) {
+                //删除课程
                 var url = "/Handler/UserCenter.ashx?action=delsubject";
                 Params.Ajax(url, "post", data, handelsubject_success, handelsubject_fail);
             });
