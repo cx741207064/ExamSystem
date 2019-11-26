@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -201,6 +203,20 @@ namespace JlueCertificate.Untity
                                 {
                                     decimal obj = 0;
                                     decimal.TryParse(_row[dtCols[i]].ToString(), out obj);
+                                    Tpropertie.SetValue(_t, obj, null);
+                                }
+                                else if (Tpropertie.PropertyType == typeof(JObject))
+                                {
+                                    JObject obj;
+                                    string val = (string)(_row[dtCols[i]] is DBNull ? "" : _row[dtCols[i]]);
+                                    if (val == "")
+                                    {
+                                        obj = new JObject();
+                                    }
+                                    else
+                                    {
+                                        obj = JObject.Parse(_row[dtCols[i]].ToString());
+                                    }
                                     Tpropertie.SetValue(_t, obj, null);
                                 }
                                 break;

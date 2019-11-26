@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -192,7 +193,7 @@ namespace JlueCertificate.Entity.MsSQL
             get { return _olschoolpwd; }
         }
 
-        public string UploadIDCardPath
+        public JObject UploadIDCardPath
         {
             set;
             get;

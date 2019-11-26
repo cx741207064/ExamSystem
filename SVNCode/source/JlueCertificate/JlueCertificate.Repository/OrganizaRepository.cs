@@ -56,7 +56,6 @@ namespace JlueCertificate.Repository
             {
                 return;
             }
-            JValue jo;
             JObject j;
             if (string.IsNullOrEmpty(t.UploadIDCardPath))
             {
@@ -64,12 +63,10 @@ namespace JlueCertificate.Repository
             }
             else
             {
-                j = JObject.Parse(JValue.Parse(t.UploadIDCardPath).Value<string>());
+                j = JObject.Parse(t.UploadIDCardPath);
             }
             j[side] = path;
-            jo = new JValue(JsonConvert.SerializeObject(j));
-
-            var data = new T_Student() { Id = stuid, UploadIDCardPath = JsonConvert.SerializeObject(jo) };
+            var data = new T_Student() { Id = stuid, UploadIDCardPath = JsonConvert.SerializeObject(j) };
             db.Updateable(data).UpdateColumns(it => new { it.UploadIDCardPath }).ExecuteCommand();
         }
 

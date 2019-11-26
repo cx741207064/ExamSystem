@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace JlueCertificate.Entity.Respose
         public string postaddress { get; set; }
         public string createtime { get; set; }
         public string olschoolusername { get; set; }
-        public string UploadIDCardPath { get; set; }
+        public JObject UploadIDCardPath { get; set; }
 
     }
 }

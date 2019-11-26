@@ -110,7 +110,7 @@
                     { field: 'name', title: '用户名', align: 'center' },
                     { field: 'level',  title: '账号类型', align: 'center' },
                     { field: 'createtime',title: '创建时间', align: 'left' },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
+                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar'}
                 ]],
                 data: _data,
                 page: false,

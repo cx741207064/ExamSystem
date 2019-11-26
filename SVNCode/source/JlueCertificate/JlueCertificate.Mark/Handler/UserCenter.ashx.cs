@@ -48,6 +48,8 @@ namespace JlueCertificate.Mark.Handler
                                 case "getolschoolsubjects": result = Logic.Base.BaseData.getOLSchoolSubjects(_uid, _pwd); break;
                                 case "getallcertificate": result = Logic.Mark.UserCenter.getallcertificate(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
                                     context.Request["page"], context.Request["limit"]); break;
+                                case "getunsignupcertificate": result = Logic.Mark.UserCenter.getallcertificate(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
+                                    context.Request["page"], context.Request["limit"]); break;
                                 default:
                                     break;
                             }

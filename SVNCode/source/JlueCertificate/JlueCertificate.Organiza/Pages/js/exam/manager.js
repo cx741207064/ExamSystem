@@ -240,7 +240,7 @@
             idnumber: $("#idnumber").val(),
             name: $("#name").val(),
             headerurl: $('#uploadimg1').attr('desc'),
-            UploadIDCardPath:JSON.stringify(JSON.stringify({front: $('#img-IDCard').attr('src'),back:$('#img-IDCard2').attr('src')})),
+            UploadIDCardPath:{front: $('#img-IDCard').attr('src'),back:$('#img-IDCard2').attr('src')},
             cardid: $("#cardid").val(),
             sex: $("#sex")[0].value,
             telphone: $("#telphone").val(),
@@ -428,9 +428,13 @@
             $("#idnumber").val(data.idnumber);
             $("#name").val(data.name);
             if(data.UploadIDCardPath){
-                var UploadIDCardPath=JSON.parse(JSON.parse(data.UploadIDCardPath))
+                var UploadIDCardPath=data.UploadIDCardPath
                 $("#img-IDCard").prop("src",UploadIDCardPath.front)
                 $("#img-IDCard2").prop("src",UploadIDCardPath.back)    
+            }
+            else{
+                $("#img-IDCard").prop("src","")
+                $("#img-IDCard2").prop("src","")    
             }
 
             if (data.headerurl.length > 0) {

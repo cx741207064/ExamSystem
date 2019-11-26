@@ -27,7 +27,8 @@
         layer.open({
             type: 1
             , title: _title
-            , area: ['830px', '520px']
+            , area: ['830px', '430px']
+            ,offset: "10px"
             , shade: 0
             , content: $("#notice1")
             , btn: ['确认添加']
@@ -244,14 +245,20 @@
     }
 
     function handelsubject(type) {
+        debugger
         var _normalresult = Number($("#NormalResult_Sub").val().replace("%", ""));
         var _examresult = Number($("#ExamResult_Sub").val().replace("%", ""));
+        var _ExamLength = $("#ExamLength").val();
         if (isNaN(_normalresult) || isNaN(_examresult)) {
             layer.msg("成绩比例为0-100之间")
             return
         }
         if (_normalresult < 0 || _examresult < 0 || _normalresult > 100 || _examresult > 100) {
             layer.msg("成绩比例为0-100之间")
+            return
+        }
+        if (isNaN(_ExamLength) || _ExamLength == "") {
+            top.layer.msg("考试时长不能为空")
             return
         }
         var _data = {
@@ -301,6 +308,7 @@
             table.render({
                 elem: '#certificateTables',
                 height: "500px",
+                limit: 10000,
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
@@ -360,7 +368,8 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '560px']
+                , area: ['830px', '430px']
+                ,offset: "10px"
                 , shade: 0
                 , content: $("#notice1")
                 , btn: ['确认修改']
@@ -400,6 +409,7 @@
                 type: 1
                 , title: _title
                 , area: ['830px', '360px']
+                ,offset: '5px'
                 , shade: 0
                 , content: $("#notice2")
                 , btn: ['确认修改']

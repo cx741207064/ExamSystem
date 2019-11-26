@@ -80,7 +80,7 @@
                 <label class="layui-form-label">选择证书：</label>
                 <div class="layui-input-block">
                     <select id="select-certificate" v-model="selected" lay-filter="certificate">
-                        <option></option>
+                        <option subs="[]"></option>
                         <option v-for="item in certificates" v-bind:value="item.id" v-bind:subs="JSON.stringify(item.subjects)" >{{item.categoryName + item.examSubject}}</option>
                     </select>
                 </div>

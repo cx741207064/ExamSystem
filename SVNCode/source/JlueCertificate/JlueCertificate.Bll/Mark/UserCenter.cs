@@ -503,6 +503,7 @@ namespace JlueCertificate.Bll.Mark
             if (_user != null)
             {
                 Entity.Request.handelcertifisubject _certifisubject = Untity.HelperJson.DeserializeObject<Entity.Request.handelcertifisubject>(postString);
+               // _certifisubject.CertificateId
                 Dal.MsSQL.T_CertifiSubject.Delete(Untity.HelperDataCvt.objToString(_certifisubject.ID));
                 return "1";
             }

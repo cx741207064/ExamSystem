@@ -83,22 +83,12 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
                     $this.subject(sub[0], stu)
                     }
                 })
-            
-                new Vue({
-                    el:"#select-subject",
-                    data:{subjects:subjects},
-                    mounted:function(){
-                        form.render()
-                        layer.open({
-                            type:1,
-                            content:$("#confirm-yuejuan"),
-                            area:["auto","200px"]
-                        })
-                    },
-                    methods:{
-                        itemClick:function(){
-                        }
-                    }
+
+                Vue3.subjects=subjects
+                layer.open({
+                    type:1,
+                    content:$("#confirm-yuejuan"),
+                    area:["auto","200px"]
                 })
             },
             subject: function (sub, stu) {
@@ -128,6 +118,21 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
         computed: {
         }
     })
+
+    var Vue3= new Vue({
+        el:"#select-subject",
+        data:{subjects:[]},
+        mounted:function(){
+        },
+        updated:function(){
+            form.render()
+        },
+        methods:{
+            itemClick:function(){
+            }
+        }
+    })
+
 })
 
 Vue.prototype.global =

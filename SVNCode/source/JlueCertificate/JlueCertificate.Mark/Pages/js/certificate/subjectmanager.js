@@ -85,7 +85,8 @@
                                 limitcount = obj.limit;
                                 var name = $("#condes input[name='subname']").val();
                                 var url = "/Handler/UserCenter.ashx?action=getallsubject&name=" + escape(name) + "&page=" + curnum + "&limit=" + limitcount;
-                                Params.Ajax(url, "get", "", getCertificate_success, get_fail);
+                                Params.Ajax(url, "get", "", getsubjects_success, get_fail);
+                                //Params.Ajax(url, "get", "", getCertificate_success, get_fail);
                             }
                         }
                     })

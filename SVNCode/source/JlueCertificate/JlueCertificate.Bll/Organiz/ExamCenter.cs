@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Entity.Enum;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace JlueCertificate.Bll.Organiz
                     zoneid = Untity.HelperDataCvt.objToString(ii.ZoneId),
                     createtime = ii.CreateTime.ToString("yyyy-MM-dd"),
                     olschoolusername = ii.OLSchoolUserName,
-                    UploadIDCardPath=ii.UploadIDCardPath
+                    UploadIDCardPath = ii.UploadIDCardPath.HasValues ? ii.UploadIDCardPath : null
                 });
             });
             return result;
@@ -75,7 +76,7 @@ namespace JlueCertificate.Bll.Organiz
                     Name = Untity.HelperDataCvt.objToString(_student.name),
                     CardId = Untity.HelperDataCvt.objToString(_student.cardid),
                     HeaderUrl = Untity.HelperDataCvt.objToString(_student.headerurl),
-                    UploadIDCardPath = Untity.HelperDataCvt.objToString(_student.UploadIDCardPath),
+                    UploadIDCardPath = _student.UploadIDCardPath,
                     Sex = Untity.HelperDataCvt.objToString(_student.sex),
                     TelPhone = Untity.HelperDataCvt.objToString(_student.telphone),
                     ProvinceId = Untity.HelperDataCvt.objToString(_student.provinceid),

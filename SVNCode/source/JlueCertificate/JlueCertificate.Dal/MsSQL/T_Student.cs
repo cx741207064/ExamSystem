@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Untity;
+using Newtonsoft.Json;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -204,7 +205,7 @@ namespace JlueCertificate.Dal.MsSQL
             parameters[14].Value = model.PostAddress;
             parameters[15].Value = model.IsDel;
             parameters[16].Value = model.CreateTime;
-            parameters[17].Value = model.UploadIDCardPath;
+            parameters[17].Value = JsonConvert.SerializeObject(model.UploadIDCardPath);
 
             object obj = Untity.HelperMsSQL.ExecuteScalar(strSql.ToString(), parameters);
             if (obj == null)
