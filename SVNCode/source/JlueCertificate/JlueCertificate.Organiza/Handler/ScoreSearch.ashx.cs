@@ -105,6 +105,13 @@ namespace JlueCertificate.Organiza.Handler
                 }
             }
             #endregion
+
+            if (string.IsNullOrEmpty(result))
+            {
+                result = "{\"Code\": -1,\"Data\": \"\",\"Msg\": \"请求过度频繁，请稍后再试!\",\"Stamp\": \"\"}";
+            }
+            context.Response.Write(result);
+            context.Response.Flush();
         }
 
         public bool IsReusable

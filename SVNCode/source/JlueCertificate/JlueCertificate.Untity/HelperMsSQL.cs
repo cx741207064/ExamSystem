@@ -75,7 +75,6 @@ namespace JlueCertificate.Untity
             {
                 conn.ConnectionString = connStr;
                 conn.Open();
-                //SqlCommand cmd = new SqlCommand(cmdtext, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmdtext, conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt); 

@@ -148,11 +148,11 @@ namespace JlueCertificate.Dal.MsSQL
             strSql.Append(" values (");
             strSql.Append("@CertificateId,@OrgaizId,@StudentId,@TicketNum,@OLMobile)");
             SqlParameter[] parameters = {
-					new SqlParameter("@CertificateId", SqlDbType.VarChar,100),
-					new SqlParameter("@OrgaizId", SqlDbType.BigInt,8),
-					new SqlParameter("@StudentId", SqlDbType.VarChar,100),
-					new SqlParameter("@TicketNum", SqlDbType.VarChar,100),
-					new SqlParameter("@OLMobile", SqlDbType.VarChar,20),
+                    new SqlParameter("@CertificateId", SqlDbType.VarChar,100),
+                    new SqlParameter("@OrgaizId", SqlDbType.BigInt,8),
+                    new SqlParameter("@StudentId", SqlDbType.VarChar,100),
+                    new SqlParameter("@TicketNum", SqlDbType.VarChar,100),
+                    new SqlParameter("@OLMobile", SqlDbType.VarChar,20),
                                         };
             parameters[0].Value = model.CertificateId;
             parameters[1].Value = model.OrgaizId;
@@ -227,6 +227,24 @@ namespace JlueCertificate.Dal.MsSQL
                 return list.FirstOrDefault();
             }
         }
+        //打印准考证考场科目信息
+        public static Entity.Respose.getticketprintInfo GetTicketPrintInfoModel(string _ticketnum)
+        {
+            string sql = string.Format("SELECT ExamName , ExamPlace,CentreName,ExamNum,ResultReleaseTime,SeatNumber,CategoryName,ExamSubject,StartTime,EndTime" +
+                                        " FROM T_ExamRoom, T_ExamSeat, T_StudentTicket, T_Certificate" + 
+                                        " WHERE T_StudentTicket.TicketNum = T_ExamSeat.TicketId" +
+                                        " AND T_StudentTicket.CertificateId = T_Certificate.Id AND T_ExamSeat.ExamRoomId = T_ExamRoom.id" +
+                                        " AND T_StudentTicket.TicketNum = '{0}'", _ticketnum);
+            List<Entity.Respose.getticketprintInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.Respose.getticketprintInfo>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list.FirstOrDefault();
+            }
+        }
 
         public static void Delete(string ticketnum)
         {
@@ -262,9 +280,9 @@ namespace JlueCertificate.Dal.MsSQL
         public static int GetStudentCountByCertificateId(string certificateids)
         {
             string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket WHERE IsDel = 0 AND CertificateId ='{0}' ", certificateids);
-           // string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket WHERE IsDel = 0 AND dbo.T_StudentTicket.StudentId = '{0}' AND dbo.T_StudentTicket.CertificateId='{1}' ", studentid, certificateid);
+            // string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket WHERE IsDel = 0 AND dbo.T_StudentTicket.StudentId = '{0}' AND dbo.T_StudentTicket.CertificateId='{1}' ", studentid, certificateid);
             object obj = Untity.HelperMsSQL.ExecuteScalar(sql);
-            if (obj == null||obj.ToString()=="0")
+            if (obj == null || obj.ToString() == "0")
             {
                 return 0;
             }

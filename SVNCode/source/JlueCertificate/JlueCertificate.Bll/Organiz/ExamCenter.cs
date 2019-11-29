@@ -669,7 +669,14 @@ namespace JlueCertificate.Bll.Organiz
             result = Dal.MsSQL.T_StudentTicket.GetTicketPrintModel(_ticketnum);
             return result;
         }
-
+        //打印准考证考场科目信息
+        public static object getticketprintInfo(string _uid, string _pwd, string _ticketnum, ref string error)
+        {
+            Entity.Respose.getticketprintInfo result = new Entity.Respose.getticketprintInfo();
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            result = Dal.MsSQL.T_StudentTicket.GetTicketPrintInfoModel(_ticketnum);
+            return result;
+        }
         private static List<Entity.Respose.getexamroom> ConvertExamRoomToResponse(List<Entity.MsSQL.T_ExamRoom> list)
         {
             List<Entity.Respose.getexamroom> result = new List<Entity.Respose.getexamroom>();

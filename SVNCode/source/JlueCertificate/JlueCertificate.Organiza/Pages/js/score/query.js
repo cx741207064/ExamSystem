@@ -33,6 +33,7 @@
                     { field: 'Name',title: '姓名',width: 140, align: 'center' },
                     { field: 'CategoryName',title: '证书类别',width: 200, align: 'center' },
                     { field: 'ExamSubject',  title: '考核级次',width: 100, align: 'center' },
+                    { field: 'SerialNum',  title: '证书编号',width: 200, align: 'center' },
                     { field: 'CreateTime',  title: '发证时间',width: 250, align: 'center' },
                     { width: 180, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
                 ]],

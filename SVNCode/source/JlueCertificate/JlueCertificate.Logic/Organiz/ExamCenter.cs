@@ -437,6 +437,26 @@ namespace JlueCertificate.Logic.Organiz
             }
             return Untity.HelperJson.SerializeObject(result);
         }
+        //打印准考证考场信息
+        public static string getticketprintInfo(string _uid, string _pwd, string _ticketnum)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.getticketprintInfo(_uid, _pwd, _ticketnum, ref error);
+                result.Msg = error;
+            }
+            catch (Exception ex)
+            {
+                result.Code = "-1";
+                result.Msg = ex.Message.ToString();
+            }
+            finally
+            {
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
         //查询考场
         //public static string getexamroom(string _uid, string _pwd, string _ticketnum)
         //{

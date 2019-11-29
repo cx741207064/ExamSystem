@@ -28,4 +28,18 @@ namespace JlueCertificate.Entity.Respose
         public string CardId { get; set; }
         public string HeaderUrl { get; set; }
     }
+    public class getticketprintInfo
+    {
+        public string ExamName { get; set; }
+        public string ExamPlace { get; set; }
+        public string CentreName { get; set; }
+        public string ExamNum { get; set; }
+        public DateTime ResultReleaseTime { get; set; }
+        public string SeatNumber { get; set; }
+        public string CategoryName { get; set; }
+        public string ExamSubject { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+    }
+
 }

@@ -33,6 +33,8 @@ namespace JlueCertificate.Organiza.Handler
                             #region Get处理
                             switch (action.ToLower())
                             {
+                                //查询准考证考场信息
+                                case "getticketprintinfo": result = Logic.Organiz.ExamCenter.getticketprintInfo(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["TicketNum"])); break;
                                 case "getstudentid": result = Logic.Organiz.ExamCenter.getStudentId(_uid, _pwd); break;
                                 case "getstudent": result = Logic.Organiz.ExamCenter.getStudent(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
                                     HttpContextSecurity.HttpContextParam(context.Request["cardid"]), context.Request["page"], context.Request["limit"]); break;
