@@ -9,14 +9,17 @@
         laydate = layui.laydate;
     //时间控件
     laydate.render({
-        elem: '#StartTime'
+        elem: '#StartTime',
+        type: 'datetime',
     });
     laydate.render({
-        elem: '#EndTime'
+        elem: '#EndTime',
+        type: 'datetime',
     });
 
     var curnum = 1;
     var limitcount = 10;
+    var layerIndex = ""
     getCertificate();
     getallSubject();
     $("#btnquery").on("click", function () {
@@ -33,6 +36,8 @@
             , content: $("#notice1")
             , btn: ['确认添加']
             , success: function (layero, index) {
+                layerIndex = index;
+                console.log(layerIndex)
                 $("#Id").val("");
                 $("#CategoryName").val("");
                 $("#ExamSubject").val("");
@@ -64,6 +69,8 @@
             , content: $("#notice2")
             , btn: ['确认添加']
             , success: function (layero, index) {
+                layerIndex = index;
+                console.log(layerIndex)
                 $("#Id_sub").val("");
                 $("#NormalResult_Sub").val("20");
                 $("#ExamResult_Sub").val("80");
@@ -110,21 +117,22 @@
             var _data = ret.Data;
             table.render({
                 elem: '#Tables_subjects',
+                limit: 1000,
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
                     { field: 'ID', title: '序号', align: 'center' },
-                    { field: 'Name', title: '课程名称', align: 'center' },
-                    { field: 'Category', title: '类型', align: 'center' },
-                    { field: 'ExamLength', title: '考试时长', align: 'center' },
+                    { field: 'Name', title: '课程名称',width: 300, align: 'center' },
+                    { field: 'Category', title: '类型',width: 140, align: 'center' },
+                    { field: 'ExamLength', title: '考试时长',width: 100, align: 'center' },
                     {
-                        field: 'NormalResult', title: '平时成绩比例', align: 'center',
+                        field: 'NormalResult', title: '平时成绩比例',width: 160, align: 'center',
                         templet: function (d) {
                             return d.NormalResult + '%';
                         }
                     },
                     {
-                        field: 'ExamResult', title: '考试成绩比例', align: 'center',
+                        field: 'ExamResult', title: '考试成绩比例',width: 160, align: 'center',
                         templet: function (d) {
                             return d.ExamResult + '%';
                         }
@@ -252,7 +260,6 @@
     }
 
     function handelsubject(type) {
-        debugger
         var _normalresult = Number($("#NormalResult_Sub").val().replace("%", ""));
         var _examresult = Number($("#ExamResult_Sub").val().replace("%", ""));
         var _ExamLength = $("#ExamLength").val();
@@ -295,7 +302,7 @@
                 top.layer.msg("操作成功", { icon: 1 });
                 getSubjectsByCertId();
                 setTimeout(function () {
-                layer.close(layer.index);
+                layer.close(layerIndex);
                 }, 1500)
             }
             
@@ -315,28 +322,29 @@
     }
     function getCertificate_success(ret) {
         if (ret.Code == "0") {
+            layer.close(layerIndex)
             var _data = ret.Data
             table.render({
                 elem: '#certificateTables',
-                height: "500px",
+                // height: "390px",
                 limit: ret.Stamp,
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { type: 'numbers' },
+                    { type: 'numbers',title: '序号' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'CategoryName', title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
-                    { field: 'EndTime', title: '本期考试结束时间', align: 'center' },
+                    { field: 'CategoryName', title: '证书类别',width: 200, align: 'center' },
+                    { field: 'ExamSubject', title: '考核级次',width: 100, align: 'center' },
+                    { field: 'StartTime', title: '本期考试开始时间',width: 200, align: 'center' },
+                    { field: 'EndTime', title: '本期考试结束时间',width: 200, align: 'center' },
                     {
-                        field: 'NormalResult', title: '平时成绩', align: 'center',
+                        field: 'NormalResult', title: '平时成绩',width: 100, align: 'center',
                         templet: function (d) {
                             return d.NormalResult + '%';
                         }
                     },
                     {
-                        field: 'ExamResult', title: '考试成绩', align: 'center',
+                        field: 'ExamResult', title: '考试成绩',width: 100, align: 'center',
                         templet: function (d) {
                             return d.ExamResult + '%';
                         }
@@ -428,6 +436,7 @@
                 , content: $("#notice2")
                 , btn: ['确认修改']
                 , success: function (layero, index) {
+                    layerIndex = index
                     $("#Id_sub").val(data.ID);
                     $("#NormalResult_Sub").val(data.NormalResult);
                     $("#ExamResult_Sub").val(data.ExamResult);

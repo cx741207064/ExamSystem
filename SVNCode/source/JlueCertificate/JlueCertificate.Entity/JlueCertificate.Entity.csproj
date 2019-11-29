@@ -50,8 +50,10 @@
     <Compile Include="MsSQL\T_CertifiScheme.cs" />
     <Compile Include="MsSQL\T_CertifiSerial.cs" />
     <Compile Include="MsSQL\T_CertifiSubject.cs" />
+    <Compile Include="MsSQL\T_ExamRoom.cs" />
     <Compile Include="MsSQL\T_ExamSchedule.cs" />
     <Compile Include="MsSQL\T_ExamScore.cs" />
+    <Compile Include="MsSQL\T_ExamSeat.cs" />
     <Compile Include="MsSQL\T_SchemeNode.cs" />
     <Compile Include="MsSQL\T_StudentCertifi.cs" />
     <Compile Include="MsSQL\T_StudentExam.cs" />
@@ -62,6 +64,8 @@
     <Compile Include="MsSQL\T_Student.cs" />
     <Compile Include="MsSQL\T_StudentTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\addexamroom.cs" />
+    <Compile Include="Request\addexamseat.cs" />
     <Compile Include="Request\addmarkuser.cs" />
     <Compile Include="Request\addstudent.cs" />
     <Compile Include="Request\signup.cs" />
@@ -75,6 +79,7 @@
     <Compile Include="Respose\City.cs" />
     <Compile Include="Respose\ExamToAcc.cs" />
     <Compile Include="Respose\getcertificate.cs" />
+    <Compile Include="Respose\getexamroom.cs" />
     <Compile Include="Respose\getmarkuser.cs" />
     <Compile Include="Respose\getprint.cs" />
     <Compile Include="Respose\getscore.cs" />

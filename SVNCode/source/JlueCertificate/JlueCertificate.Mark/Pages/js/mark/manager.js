@@ -28,7 +28,8 @@
         layer.open({
             type: 1
             , title: _title
-            , area: [width, '530px']
+            , area: [width, '430px']
+            ,offset: '10px'
             , shade: 0
             , content: $("#notice1")
             , yes: function () {
@@ -102,7 +103,7 @@
             var _data = ret.Data
             table.render({
                 elem: '#userTables',
-                height: "488px",
+                // height: "488px",
                 loading: true,
                 text: "暂无数据",
                 cols: [[
@@ -188,7 +189,8 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: [width, '530px']
+                , area: [width, '430px']
+                ,offset: '10px'
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {

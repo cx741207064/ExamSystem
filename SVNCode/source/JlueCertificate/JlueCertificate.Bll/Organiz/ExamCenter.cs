@@ -63,6 +63,121 @@ namespace JlueCertificate.Bll.Organiz
             return string.Format("{0}{1}{2}", "ZKH" + DateTime.Now.ToString("yyMMddHHmmss"), string.IsNullOrEmpty(orgaizid) ? "0" : orgaizid, new Random().Next(10, 99));
         }
 
+        //添加考场
+        public static object addexamroom(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.addexamroom _examroom = Untity.HelperJson.DeserializeObject<Entity.Request.addexamroom>(postString);
+                Entity.MsSQL.T_ExamRoom _model = new Entity.MsSQL.T_ExamRoom()
+                {
+                    ExamName = Untity.HelperDataCvt.objToString(_examroom.ExamName),
+                    ExamPlace = Untity.HelperDataCvt.objToString(_examroom.ExamPlace),
+                    CentreName = Untity.HelperDataCvt.objToString(_examroom.CentreName),
+                    ExamNum = Untity.HelperDataCvt.objToString(_examroom.ExamNum),
+                    SeatNum = Untity.HelperDataCvt.objToString(_examroom.SeatNum),
+                    ResultReleaseTime = Untity.HelperDataCvt.strToDatetime(_examroom.ResultReleaseTime.ToString())
+                };
+                return Dal.MsSQL.T_ExamRoom.Add(_model, postString).ToString();
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+        //修改考场
+        public static object updateexamroom(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.addexamroom _examroom = Untity.HelperJson.DeserializeObject<Entity.Request.addexamroom>(postString);
+                Entity.MsSQL.T_ExamRoom _model = new Entity.MsSQL.T_ExamRoom()
+                {
+                    Id = _examroom.id,
+                    ExamName = Untity.HelperDataCvt.objToString(_examroom.ExamName),
+                    ExamPlace = Untity.HelperDataCvt.objToString(_examroom.ExamPlace),
+                    CentreName = Untity.HelperDataCvt.objToString(_examroom.CentreName),
+                    ExamNum = Untity.HelperDataCvt.objToString(_examroom.ExamNum),
+                    SeatNum = Untity.HelperDataCvt.objToString(_examroom.SeatNum),
+                    ResultReleaseTime = _examroom.ResultReleaseTime
+                };
+                Dal.MsSQL.T_ExamRoom.Update(_model).ToString();
+                return "1";
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+        //删除考场
+        public static object deleteexamroom(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.addexamroom _examroom = Untity.HelperJson.DeserializeObject<Entity.Request.addexamroom>(postString);
+                Dal.MsSQL.T_ExamRoom.Delete(Untity.HelperDataCvt.objToString(_examroom.id));
+                return "1";
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+        //考场座位添加
+        public static object addexamseat(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.addexamseat _examseat = Untity.HelperJson.DeserializeObject<Entity.Request.addexamseat>(postString);
+                Entity.MsSQL.T_ExamSeat _model = new Entity.MsSQL.T_ExamSeat()
+                {
+                    ExamRoomId = Untity.HelperDataCvt.objToString(_examseat.ExamRoomId),
+                    SeatNumber = Untity.HelperDataCvt.objToString(_examseat.SeatNumber),
+                    TicketId = Untity.HelperDataCvt.objToString(_examseat.TicketId)
+                };
+                bool flag = Dal.MsSQL.T_ExamSeat.Select(_model);
+                if (flag) {
+                    error = "考场座位号已有，不能添加！";
+                    return "-1";
+                } else {
+                    return Dal.MsSQL.T_ExamSeat.Add(_model).ToString();
+                }
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
+        //（座位添加准考证）
+        public static object updateexamseat(string _uid, string _pwd, string postString, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            if (_orga != null)
+            {
+                Entity.Request.addexamseat _examseat = Untity.HelperJson.DeserializeObject<Entity.Request.addexamseat>(postString);
+                Entity.MsSQL.T_ExamSeat _model = new Entity.MsSQL.T_ExamSeat()
+                {
+                    ExamRoomId = Untity.HelperDataCvt.objToString(_examseat.ExamRoomId),
+                    SeatNumber = Untity.HelperDataCvt.objToString(_examseat.SeatNumber),
+                    TicketId = Untity.HelperDataCvt.objToString(_examseat.TicketId)
+                };
+                Dal.MsSQL.T_ExamSeat.Update(_model).ToString();
+                return "1";
+            }
+            else
+            {
+                error = "账号失效，请重新登陆";
+                return "-1";
+            }
+        }
         public static object addstudent(string _uid, string _pwd, string postString, ref string error)
         {
             Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
@@ -546,12 +661,38 @@ namespace JlueCertificate.Bll.Organiz
             result = Dal.MsSQL.T_StudentTicket.GetCertifiPrintModel(_serialnum);
             return result;
         }
-
+        //打印准考证
         public static object getticketprint(string _uid, string _pwd, string _ticketnum, ref string error)
         {
             Entity.Respose.getticketprint result = new Entity.Respose.getticketprint();
             Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
             result = Dal.MsSQL.T_StudentTicket.GetTicketPrintModel(_ticketnum);
+            return result;
+        }
+
+        private static List<Entity.Respose.getexamroom> ConvertExamRoomToResponse(List<Entity.MsSQL.T_ExamRoom> list)
+        {
+            List<Entity.Respose.getexamroom> result = new List<Entity.Respose.getexamroom>();
+            list.ForEach(ii =>
+            {
+                result.Add(new Entity.Respose.getexamroom()
+                {
+                    id = ii.Id,
+                    ExamName = ii.ExamName,
+                    ExamPlace = ii.ExamPlace,
+                    CentreName = ii.CentreName,
+                    ExamNum = ii.ExamNum,
+                    SeatNum = ii.SeatNum,
+                    IsDel = ii.IsDel,
+                    createtime = ii.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                });
+            });
+            return result;
+        }
+        //查询考场
+        public static object getexamroom(string _uid, string _pwd, string _name, string page, string limit, ref long count, ref string error)
+        {
+            List<Entity.Respose.getexamroom> result = ConvertExamRoomToResponse(Dal.MsSQL.T_ExamRoom.GetListByPage(_name, page, limit, ref count));
             return result;
         }
     }

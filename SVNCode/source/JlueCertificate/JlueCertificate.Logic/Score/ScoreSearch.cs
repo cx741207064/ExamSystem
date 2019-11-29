@@ -81,7 +81,26 @@ namespace JlueCertificate.Logic.Score
             }
             return Untity.HelperJson.SerializeObject(result);
         }
-
+        public static string getIsexaminSubjectScore(string postString)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ScoreSearch.getIsexaminSubjectScore(postString, ref error);
+                result.Msg = error;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                result.Code = "-1";
+                result.Msg = error;
+            }
+            finally
+            {
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
         public static string addStudentSubjectScore(string postString)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();

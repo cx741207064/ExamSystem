@@ -43,26 +43,21 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'element'], 
           "AOMid": data.AOMid,
           "PublicMark": true,
           "Sort_Id": data.Sort_Id,
-          "studentid": Params.getParamsFormUrl("OLSchoolUserId")
+          "studentid": Params.getParamsFormUrl("OLSchoolUserId"),
+          "classId":data.classId
         }
         Params.Get(wangxiaohost + '/api/VideoJinDu/Check', info, setdetailAjax)
       }
       else if (data.subjectType === "题库") {
         var url = "http://114.55.38.113:8054/TiKu/Paper/CoursePaperList"
-        var da = {
-          "classid": 9,
-          "userid": "3a30108ff834499db688866d305ac1c7",
-          "sortid": 8
-        }
-
         var da1 = {
           "classid": data.classId,
           "userid": Params.getParamsFormUrl("OLSchoolUserId"),
           "sortid": data.Sort_Id
         }
 
-        $.when($.ajax({ type: "get", url: url, data: da }), $.ajax({ type: "get", url: url, data: da1 })).done(function (ret, ret1) {
-          setTikuData(ret1[0])
+        $.when($.ajax({ type: "get", url: url, data: da1 })).done(function (ret1) {
+          setTikuData(ret1)
         })
 
       }
@@ -194,9 +189,6 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'element'], 
   }
 
   element.on('tab(exam-papers)', function (data) {
-    console.log(this); //当前Tab标题所在的原始DOM元素
-    console.log(data.index); //得到当前Tab的所在下标
-    console.log(data.elem); //得到当前的Tab大容器
   });
 
   Vue1 = new Vue({

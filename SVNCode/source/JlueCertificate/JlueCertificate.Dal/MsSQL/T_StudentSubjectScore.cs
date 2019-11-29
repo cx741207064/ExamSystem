@@ -43,7 +43,13 @@ namespace JlueCertificate.Dal.MsSQL
             var query = db.Queryable<T_StudentSubjectScore>().Where(a => a.studentid == studentid && a.sortid == sortid);
             return query;
         }
+        public static List<T_StudentSubjectScore> getIsexaminSubjectScore(string postString)
+        {
+            Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);
 
+            List<T_StudentSubjectScore> list = db.Queryable<T_StudentSubjectScore>().Where(a => a.studentticketid == sss.studentticketid && a.sortid == sss.sortid).ToList();
+            return list;
+        }
         public static List<T_StudentSubjectScore> getStudentSubjectExamScore(string studentid, string sortid, string studentticketid)
         {
             List<T_StudentSubjectScore> list = db.Queryable<T_StudentSubjectScore>().Where(a => a.studentid == studentid && a.sortid == sortid && a.studentticketid == studentticketid && a.isexam == "1").ToList().OrderByDescending(ii => ii.createtime).ToList();
@@ -58,8 +64,11 @@ namespace JlueCertificate.Dal.MsSQL
 
         public static object updateStudentSubjectScore(T_StudentSubjectScore sss)
         {
-            var obj = db.Updateable(sss).ExecuteCommand();
-            return obj;
+            // var obj = db.Updateable<T_StudentSubjectScore>(sss).ExecuteCommand();
+           // var obj = db.Updateable<T_StudentSubjectScore>().UpdateColumns(it => new { score = sss.score}).Where(it => it.studentticketid == sss.studentticketid).ExecuteCommand();
+            string sql = string.Format("UPDATE dbo.T_StudentSubjectScore SET score = '{0}' WHERE studentticketid = '{1}' AND sortid = '{2}'", sss.score,sss.studentticketid,sss.sortid);
+            Untity.HelperMsSQL.ExecuteQuery(sql);
+            return 1;
         }
 
         public static List<Entity.Respose.scoredetail> getscore(List<Entity.Respose.allcertifisubject> _certifisubjectlist, string classid, string OLSchoolUserId, string StudentTicketId)
@@ -83,7 +92,7 @@ namespace JlueCertificate.Dal.MsSQL
                 }
                 else if (item.Category == SubjectCategory.视频)
                 {
-                    decimal normalscore = GetSPNormalScore(OLSchoolUserId, item.OLSchoolAOMid, item.OLSchoolId);
+                    decimal normalscore = GetSPNormalScore(classid,OLSchoolUserId, item.OLSchoolAOMid, item.OLSchoolId);
                     _score.NormalScore = normalscore.ToString();
                     _score.ExamScore = "0";
                 }
@@ -130,7 +139,7 @@ namespace JlueCertificate.Dal.MsSQL
                 }
                 else if (item.Category == SubjectCategory.视频)
                 {
-                    decimal normalscore = GetSPNormalScore(OLSchoolUserId, item.OLSchoolAOMid, item.OLSchoolId);
+                    decimal normalscore = GetSPNormalScore(classid,OLSchoolUserId, item.OLSchoolAOMid, item.OLSchoolId);
                     _score.score = normalscore;
                 }
                 else if (item.Category == SubjectCategory.实操报税)
@@ -195,7 +204,7 @@ namespace JlueCertificate.Dal.MsSQL
             List<Entity.Respose.PaperScores> _sorts = Untity.HelperJson.DeserializeObject<List<Entity.Respose.PaperScores>>(result.Data.ToString());
             if (_sorts.Count > 0)
             {
-                score = _sorts[0].Score;
+                score = _sorts.LastOrDefault().Score;
             }
             return score;
         }
@@ -203,12 +212,12 @@ namespace JlueCertificate.Dal.MsSQL
         /// <summary>
         /// 获取视频平时成绩
         /// </summary>
-        public static decimal GetSPNormalScore(string OLSchoolUserId, string OLSchoolAOMid, string OLSchoolId)
+        public static decimal GetSPNormalScore(string classid,string OLSchoolUserId, string OLSchoolAOMid, string OLSchoolId)
         {
             decimal score = 0;
             Untity.HelperMethod p = new Untity.HelperMethod();
             string path = Untity.HelperAppSet.getAppSetting("wangxiaohost");
-            string fullpath = path + "/api/VideoJinDu/Check?classid=9&Sort_Id=" + OLSchoolId
+            string fullpath = path + "/api/VideoJinDu/Check?classid=" + classid + "&Sort_Id=" + OLSchoolId
                 + "&studentid=" + OLSchoolUserId
                 + "&AOMid=" + OLSchoolAOMid
                 + "&PublicMark=" + true;

@@ -73,7 +73,7 @@ namespace JlueCertificate.Dal.MsSQL
         public static List<Entity.Respose.ticket> GetListByTicketNum(long _orgaizid, string _ticketnum, string page, string limit, ref long count)
         {
             string sql = string.Format("SELECT count(*) FROM dbo.T_StudentTicket " +
-                "WHERE IsNull(SerialNum,'')<>'' AND dbo.T_StudentTicket.IsDel = 0 AND dbo.T_StudentTicket.OrgaizId={0} ", _orgaizid);
+                "WHERE dbo.T_StudentTicket.IsDel = 0 AND dbo.T_StudentTicket.OrgaizId={0} ", _orgaizid);
             string sqlCondetion = "";
             if (!string.IsNullOrEmpty(_ticketnum))
             {
@@ -84,10 +84,10 @@ namespace JlueCertificate.Dal.MsSQL
             long _page = Untity.HelperDataCvt.strToLong(page, 1);
             long _limit = Untity.HelperDataCvt.strToLong(limit, 10);
             string sqltext = "select * from ( SELECT ROW_NUMBER()OVER(ORDER BY tempcolumn) temprownumber,* FROM ";
-            sqltext += string.Format("(SELECT TOP {0} tempcolumn = 0,dbo.T_StudentTicket.Id,dbo.T_StudentTicket.TicketNum,dbo.T_Certificate.CategoryName,dbo.T_Certificate.ExamSubject,dbo.T_Student.Name,dbo.T_Student.OLSchoolUserId,dbo.T_Student.OLSchoolUserName,dbo.T_StudentTicket.CreateTime ", _page * _limit);
+            sqltext += string.Format("(SELECT TOP {0} tempcolumn = 0,dbo.T_StudentTicket.Id,dbo.T_StudentTicket.TicketNum,dbo.T_StudentTicket.SerialNum,dbo.T_Certificate.CategoryName,dbo.T_Certificate.ExamSubject,dbo.T_Student.Name,dbo.T_Student.OLSchoolUserId,dbo.T_Student.OLSchoolUserName,dbo.T_StudentTicket.CreateTime ", _page * _limit);
             sqltext += "FROM dbo.T_StudentTicket LEFT JOIN dbo.T_Certificate on dbo.T_StudentTicket.CertificateId = dbo.T_Certificate.Id ";
             sqltext += "LEFT JOIN dbo.T_Student on dbo.T_StudentTicket.StudentId = dbo.T_Student.Id ";
-            sqltext += string.Format("WHERE IsNull(dbo.T_StudentTicket.SerialNum,'')<>'' AND dbo.T_StudentTicket.IsDel = 0 AND dbo.T_StudentTicket.OrgaizId={0} ", _orgaizid);
+            sqltext += string.Format("WHERE dbo.T_StudentTicket.IsDel = 0 AND dbo.T_StudentTicket.OrgaizId={0} ", _orgaizid);
             sqltext += sqlCondetion;
             sqltext += "ORDER BY dbo.T_StudentTicket.Id asc) t  ";
             sqltext += string.Format(") tt where temprownumber>{0} ORDER BY tt.temprownumber asc ", (_page - 1) * _limit);
@@ -208,7 +208,7 @@ namespace JlueCertificate.Dal.MsSQL
                 return list.FirstOrDefault();
             }
         }
-
+        //打印准考证
         public static Entity.Respose.getticketprint GetTicketPrintModel(string _ticketnum)
         {
             string sql = string.Format("select convert(varchar(4),T_Certificate.StartTime,120) as StartTime, " +

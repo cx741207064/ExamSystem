@@ -60,13 +60,14 @@
             table.render({
                 id: 'subjectTables',
                 elem: '#subjectTables',
-                height: "500px",
+                //height: "500px",
                 loading: true,
                 limit: ret.Stamp,
                 text: { none: "暂无数据" },
                 cols: [[
                     { checkbox: true },
-                    { field: 'ID', title: '序号', align: 'center' },
+                    // { field: 'ID', title: '序号', align: 'center' },
+                    {type: 'numbers', title: '序号'},
                     { field: 'Name', title: '课程名称', align: 'center' },
                     { field: 'Category', title: '类型', align: 'center' },
                     { field: 'Describe', title: '描述', align: 'center' },
@@ -123,11 +124,12 @@
             Describe: $("#Describe").val(),
             OLPaperID: $("#OLPaperID").val(),
         };
+        console.log(_data.Catagory)
         if (_data.Name.length == 0) {
             top.layer.msg("课程名称不能为空", { icon: 2 });
             return
         }
-        if (_data.Category.length == 0) {
+        if (!_data.Category) {
             top.layer.msg("课程类别不能为空", { icon: 2 });
             return
         }

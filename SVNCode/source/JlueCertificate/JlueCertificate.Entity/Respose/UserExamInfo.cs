@@ -11,7 +11,7 @@ namespace JlueCertificate.Entity.Respose
     {
         public UserExamInfo()
         {
-            subjects = new List<T_Subject>();
+            subjects = new List<T_ExamSubject>();
         }
         public int StudentTicketId { get; set; }
 
@@ -41,7 +41,13 @@ namespace JlueCertificate.Entity.Respose
 
         public string OLSchoolPWD { get; set; }
 
-        public List<T_Subject> subjects { get; set; }
+        public IEnumerable<T_ExamSubject> subjects { get; set; }
+
+    }
+
+    public class T_ExamSubject : T_Subject
+    {
+        public long? ExamLength { get; set; }
     }
 
     [Serializable]

@@ -52,6 +52,8 @@
     <Compile Include="MsSQL\T_Certificate.cs" />
     <Compile Include="MsSQL\T_CertifiSerial.cs" />
     <Compile Include="MsSQL\T_CertifiSubject.cs" />
+    <Compile Include="MsSQL\T_ExamRoom.cs" />
+    <Compile Include="MsSQL\T_ExamSeat.cs" />
     <Compile Include="MsSQL\T_MarkUserCertificate.cs" />
     <Compile Include="MsSQL\T_StudentSubjectScore.cs" />
     <Compile Include="MsSQL\T_Subject.cs" />

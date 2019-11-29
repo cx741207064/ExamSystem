@@ -33,13 +33,45 @@ namespace JlueCertificate.Bll.Organiz
                 Entity.MsSQL.T_Organiza _org = Dal.MsSQL.T_Organiza.GetModel(_st.OrgaId);
                 List<Entity.Respose.allcertifisubject> _certifisubjectlist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(ticketmodel.CertificateId);
                 Entity.MsSQL.T_Certificate certifimodel = Dal.MsSQL.T_Certificate.GetModel(Untity.HelperDataCvt.strToIni(ticketmodel.CertificateId));
-                //获取计算方式
-                string _normalaccount = string.Join(" + ", _certifisubjectlist.Select(ii => (ii.Name.ToString() + "*" + ii.NormalResult.ToString() + "%")).ToList());
-                string _examaccount = string.Join(" + ", _certifisubjectlist.Select(ii => (ii.Name.ToString() + "*" + ii.ExamResult.ToString() + "%")).ToList());
-                string _accountform = "(" + _normalaccount + ") * " + certifimodel.NormalResult + "% + "
-                    + "(" + _examaccount + ") * " + certifimodel.ExamResult + "%";
                 //获取网校课程得分情况并计算得分情况
                 List<Entity.Respose.scoredetail> _olscoredetail = Dal.MsSQL.T_StudentSubjectScore.getscore(_certifisubjectlist, _org.ClassId, _OLSchoolUserId, _ticketid);
+
+                //计算视频平均平时成绩
+                decimal videoNormalScore = 0;
+                decimal videoNormalAverageScore = 0;
+                string _accountform = "（";
+                var videoscoredetail = _olscoredetail.Where(a => a.Category == SubjectCategory.视频 || a.Category == SubjectCategory.题库)
+                    .Select(b =>
+                    {
+                        videoNormalScore += decimal.Parse(b.NormalScore);
+                        _accountform += b.Name + "平时成绩+";
+                        return b;
+                    }).ToList();
+                videoNormalAverageScore = videoNormalScore / videoscoredetail.Count();
+                if (_accountform.EndsWith("+"))
+                {
+                    _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                }
+                _accountform += "）/ " + videoscoredetail.Count() + " * " + certifimodel.NormalResult + "% + ";
+
+                //计算考试科目平均成绩
+                decimal examScore = 0;
+                decimal examAverageScore = 0;
+                _accountform += "（";
+                var notvideoscoredetail = _olscoredetail.Where(a => a.Category != SubjectCategory.视频)
+                    .Select(b =>
+                    {
+                        examScore += decimal.Parse(b.ExamScore);
+                        _accountform += b.Name + "考试成绩+";
+                        return b;
+                    }).ToList();
+                examAverageScore = examScore / notvideoscoredetail.Count();
+                if (_accountform.EndsWith("+"))
+                {
+                    _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                }
+                _accountform += "）/ " + notvideoscoredetail.Count() + " * " + certifimodel.ExamResult + "%";
+
                 //总得分，平时，考试
                 double _scoresum = 0;
                 double _normalsum = 0;
@@ -57,14 +89,51 @@ namespace JlueCertificate.Bll.Organiz
                     _examsum * Untity.HelperDataCvt.strToDouble(certifimodel.ExamResult) / 100);
 
                 result.all = _olscoredetail;
-                result.scoresum = Math.Round(_scoresum, 2).ToString();
+                //esult.scoresum = Math.Round(_scoresum, 2).ToString();
                 result.accountform = _accountform;
+
+                decimal score = 0M;
+                switch (certifimodel.CategoryName)
+                {
+                    case "人才评价证书一星":
+                        switch (certifimodel.ExamSubject)
+                        {
+                            case "A":
+                            case "B":
+                            case "C":
+                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
+                                break;
+                        }
+                        break;
+                    case "人才评价证书二星":
+                        switch (certifimodel.ExamSubject)
+                        {
+                            case "A":
+                            case "B":
+                            case "C":
+                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
+                                break;
+                        }
+                        break;
+                    case "人才评价证书三星":
+                        switch (certifimodel.ExamSubject)
+                        {
+                            case "A":
+                            case "B":
+                            case "C":
+                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
+                                break;
+                        }
+                        break;
+                }
+                result.scoresum = Math.Round(score, 2).ToString();
             }
             else
             {
                 error = "证书有异常，无法查询";
                 return "-1";
             }
+
             return result;
         }
 
@@ -78,6 +147,7 @@ namespace JlueCertificate.Bll.Organiz
                 Entity.MsSQL.T_Student _stumodel = Dal.MsSQL.T_Student.GetModel(_stmodel.StudentId);
                 Entity.MsSQL.T_Organiza _orgmodel = Dal.MsSQL.T_Organiza.GetModel(_stmodel.OrgaizId);
                 List<Entity.Respose.allcertifisubject> _certifisubjectlist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(_stmodel.CertificateId);
+                _certifisubjectlist = _certifisubjectlist.Where(a => a.Category == SubjectCategory.视频 || a.Category == SubjectCategory.题库).ToList();
                 List<Entity.Respose.normalscore> _nslist = Dal.MsSQL.T_StudentSubjectScore.getnormalscore(_certifisubjectlist, _orgmodel.ClassId, _stumodel.OLSchoolUserId, id);
 
                 result = _nslist;
@@ -96,7 +166,12 @@ namespace JlueCertificate.Bll.Organiz
             result = Dal.MsSQL.T_StudentSubjectScore.getStudentSubjectScore(studentid, aomid);
             return result;
         }
-
+        public static object getIsexaminSubjectScore(string postString, ref string error)
+        {
+            var result = new object();
+            result = Dal.MsSQL.T_StudentSubjectScore.getIsexaminSubjectScore(postString);
+            return result;
+        }
         public static object addStudentSubjectScore(string postString, ref string error)
         {
             Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);

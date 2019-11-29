@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="layui-form-item" style="margin-left: 100px; margin-right: 100px;">
+            <div class="layui-form-item" >
                 <div class="layui-form-item" id="condes">
                     <div class="layui-inline">
                         <label class="layui-form-label">证书名称</label>
@@ -66,7 +66,7 @@
                     <button class="layui-btn" id="btnadd" style="float:right" data-type="add"><i class="layui-icon">&#xe61f;</i><cite>添加证书</cite></button>
                 </div>
             </div>
-            <div class="layui-form-item" style="margin-left: 100px; margin-right: 100px;">
+            <div class="layui-form-item" >
 
                 <div class="user-tables">
                     <table id="certificateTables" lay-filter="certificateTables"></table>
@@ -79,6 +79,12 @@
     <div id="notice1" style="display: none" class="layui-form">
         <div class="layui-form-item" style="margin-top: 20px; margin-bottom: -5px;">
             <div class="layui-inline">
+                    <div class="layui-form-item">
+                            <label class="layui-form-label label1">本期开始时间</label>
+                            <div class="layui-input-block layui-input-block1">
+                                <input class="layui-input" id="StartTime" name="StartTime" type="text" placeholder="yyyy-MM-dd" lay-verify="date" autocomplete="off">
+                            </div>
+                        </div>
                 <div class="layui-form-item" style="width: 380px;">
                     <label class="layui-form-label label1">证书类别</label>
                     <div class="layui-input-block layui-input-block1">
@@ -87,12 +93,7 @@
                         <input name="CategoryName" id="CategoryName" class="layui-input" type="text" placeholder="请输入证书类别" lay-verify="required" autocomplete="off">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label label1">本期开始时间</label>
-                    <div class="layui-input-block layui-input-block1">
-                        <input class="layui-input" id="StartTime" name="StartTime" type="text" placeholder="yyyy-MM-dd" lay-verify="date" autocomplete="off">
-                    </div>
-                </div>
+                
                 <div class="layui-form-item" style="width: 380px;">
                     <label class="layui-form-label label1">平时成绩比例</label>
                     <div class="layui-input-block layui-input-block1">
@@ -101,18 +102,19 @@
                 </div>
             </div>
             <div class="layui-inline">
+                    <div class="layui-form-item">
+                            <label class="layui-form-label label1">本期结束时间</label>
+                            <div class="layui-input-block layui-input-block1">
+                                <input class="layui-input" id="EndTime" name="EndTime" type="text" placeholder="yyyy-MM-dd" lay-verify="date" autocomplete="off">
+                            </div>
+                        </div>
                 <div class="layui-form-item" style="width: 380px;">
                     <label class="layui-form-label label1">证书级次</label>
                     <div class="layui-input-block layui-input-block1">
                         <input name="ExamSubject" id="ExamSubject" class="layui-input" type="text" placeholder="请输入证书级次" lay-verify="required" autocomplete="off">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label label1">本期结束时间</label>
-                    <div class="layui-input-block layui-input-block1">
-                        <input class="layui-input" id="EndTime" name="EndTime" type="text" placeholder="yyyy-MM-dd" lay-verify="date" autocomplete="off">
-                    </div>
-                </div>
+                
                 <div class="layui-form-item">
                     <label class="layui-form-label label1">考试成绩比例</label>
                     <div class="layui-input-block layui-input-block1">

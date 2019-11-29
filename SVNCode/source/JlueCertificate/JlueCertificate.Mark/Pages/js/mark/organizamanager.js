@@ -109,7 +109,7 @@
             var _data = ret.Data
             table.render({
                 elem: '#userTables',
-                height: "488px",
+                //height: "488px",
                 loading: true,
                 text: "暂无数据",
                 cols: [[

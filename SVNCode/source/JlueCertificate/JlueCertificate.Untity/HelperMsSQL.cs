@@ -40,6 +40,63 @@ namespace JlueCertificate.Untity
         /// </summary>
         /// <param name="cmdtext"></param>
         /// <returns></returns>
+        public static int ExecuteQueryExam(string cmdtext)
+        {
+            int result = 0;
+            SqlConnection conn = new SqlConnection();
+            try
+            {
+                conn.ConnectionString = connStr;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(cmdtext, conn);
+                object obj = Convert.ToInt32(cmd.ExecuteScalar());
+                result = (int)obj;
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            conn.Close();
+            conn.Dispose();
+            return result;
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="cmdtext"></param>
+        /// <returns></returns>
+        public static bool ExecuteQuerySelect(string cmdtext)
+        {
+            bool result = false;
+            SqlConnection conn = new SqlConnection();
+            try
+            {
+                conn.ConnectionString = connStr;
+                conn.Open();
+                //SqlCommand cmd = new SqlCommand(cmdtext, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmdtext, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt); 
+                int count = (int)dt.Rows[0][0];
+                if (count>0){
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            conn.Close();
+            conn.Dispose();
+            return result;
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="cmdtext"></param>
+        /// <returns></returns>
         public static int ExecuteQuery(string cmdtext)
         {
             int result = 0;

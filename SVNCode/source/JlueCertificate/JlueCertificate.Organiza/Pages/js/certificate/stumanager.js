@@ -35,13 +35,13 @@
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { type: 'numbers' },
+                    { type: 'numbers',title: '序号',width:60 },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'CategoryName', title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
-                    { field: 'EndTime', title: '本期考试结束时间', align: 'center' },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar_certificate1', fixed: "right" }
+                    { field: 'CategoryName', title: '证书类别',width: 180, align: 'center' },
+                    { field: 'ExamSubject', title: '考核级次',width: 120, align: 'center' },
+                    { field: 'StartTime', title: '本期考试开始时间',width: 160, align: 'center' },
+                    { field: 'EndTime', title: '本期考试结束时间',width: 160, align: 'center' },
+                    {  title: '常用操作', align: 'center', toolbar: '#userbar_certificate1', fixed: "right" }
                 ]],
                 data: _data,
                 page: false
@@ -54,14 +54,14 @@
                 height: ["200px"],
                 text: { none: "暂无数据" },
                 cols: [[
-                    { type: 'numbers' },
+                    { type: 'numbers',title: '序号',width: 60 },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'TicketNum', title: '准考证号', align: 'center' },
-                    { field: 'CategoryName', title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'StartTime', title: '本期考试开始时间', align: 'center' },
-                    { field: 'EndTime', title: '本期考试结束时间', align: 'center' },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar_certificate2', fixed: "right" }
+                    { field: 'TicketNum', title: '准考证号',width: 190, align: 'center' },
+                    { field: 'CategoryName', title: '证书类别',width: 180, align: 'center' },
+                    { field: 'ExamSubject', title: '考核级次',width: 110, align: 'center' },
+                    { field: 'StartTime', title: '本期考试开始时间',width: 150, align: 'center' },
+                    { field: 'EndTime', title: '本期考试结束时间',width: 150, align: 'center' },
+                    { title: '常用操作', align: 'center', toolbar: '#userbar_certificate2', fixed: "right" }
                 ]],
                 data: _data,
                 page: false
@@ -73,17 +73,17 @@
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { type: 'numbers' },
+                    { type: 'numbers',title: '序号' },
                     //{ field: 'Id', width: 100, title: '序号', align: 'center' },
-                    { field: 'SerialNum', title: '证书编号', align: 'center' },
-                    { field: 'CategoryName', title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject', title: '考核级次', align: 'center' },
-                    { field: 'IssueDate', title: '获取日期', align: 'center' },
+                    { field: 'SerialNum', title: '证书编号',width:200, align: 'center' },
+                    { field: 'CategoryName', title: '证书类别',width: 180, align: 'center' },
+                    { field: 'ExamSubject', title: '考核级次',width: 110, align: 'center' },
+                    { field: 'IssueDate', title: '获取日期',width: 180, align: 'center' },
                     {
-                        field: 'CertState', title: '发放状态', align: 'center',
+                        field: 'CertState', title: '发放状态',width: 120, align: 'center',
                         templet: '<div>已发放</div>'
                     },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar_certificate3', fixed: "right" }
+                    {  title: '常用操作', align: 'center', toolbar: '#userbar_certificate3', fixed: "right" }
                 ]],
                 data: _data,
                 page: false
@@ -103,7 +103,8 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '560px']
+                , area: ['830px', '430px']
+                ,offset: '10px'
                 , shade: 0
                 , content: $("#notice1")
                 , btn: ['确认报考']
@@ -164,10 +165,10 @@
             loading: true,
             text: { none: "暂无数据" },
             cols: [[
-                { type: 'numbers' },
+                { type: 'numbers', title: '序号',width: 60 },
                 { field: 'Name', width: 300, title: '课程名称', align: 'center' },
-                { field: 'Price', width: 200, title: '购买价格', align: 'center' },
-                { field: 'Category', width: 245, title: '类型', align: 'center' }
+                { field: 'Price', width: 150, title: '购买价格', align: 'center' },
+                { field: 'Category', title: '类型', align: 'center' }
             ]],
             data: _data,
             page: false,

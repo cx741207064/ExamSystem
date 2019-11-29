@@ -1,5 +1,8 @@
 ﻿var baoshuihost = "http://tybscppublish.kjcytk.com"
+//var baoshuihost = "http://localhost:8022"
 var diannaozhanghost = "https://ssl.jinglue.cn"
+//var diannaozhanghost = "http://192.168.10.195:8071"
+
 var diannaozhangapihost = "http://114.55.38.113:8054"
 //var diannaozhangapihost = "http://localhost:8014"
 
@@ -104,7 +107,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
                 var url2 = diannaozhangapihost + "/Member/GetMobileAndIdentify?classid=" + data.orgClassId + "&OLSchoolUserId=" + data.OLSchoolUserId + "&OLSchoolId=" + item.OLSchoolId
                 $.ajax({ url: url2, type: "get" }).done(function (re) {
                     if (re.Data) {
-                        url = diannaozhanghost + "/DefaultIndex.aspx?SortId=" + item.OLSchoolId + "&CourseId=" + item.OLAccCourseId + "&mobile=" + re.Data.GdMobile + "&identify=" + re.Data.Identify
+                        url = diannaozhanghost + "/DefaultIndex.aspx?SortId=" + item.OLSchoolId + "&CourseId=" + item.OLAccCourseId + "&mobile=" + re.Data.GdMobile + "&identify=" + re.Data.Identify + "&StudentTicketId=" + data.StudentTicketId + "&studentid=" + data.OLSchoolUserId
                         window.open(url, "_blank")
                     }
                 })

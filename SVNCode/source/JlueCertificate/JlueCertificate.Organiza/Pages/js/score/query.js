@@ -23,18 +23,18 @@
             var _data = ret.Data.all
             table.render({
                 elem: '#userTables',
-                height: "488px",
+                //height: "488px",
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
                     { type: 'numbers' },
                     //{ field: 'id', width: 100, title: '序号', align: 'center' },
-                    { field: 'TicketNum',title: '准考证号', align: 'center' },
-                    { field: 'Name',title: '姓名', align: 'center' },
-                    { field: 'CategoryName',title: '证书类别', align: 'center' },
-                    { field: 'ExamSubject',  title: '考核级次', align: 'center' },
-                    { field: 'CreateTime',  title: '发证时间', align: 'center' },
-                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
+                    { field: 'TicketNum',title: '准考证号',width: 300, align: 'center' },
+                    { field: 'Name',title: '姓名',width: 140, align: 'center' },
+                    { field: 'CategoryName',title: '证书类别',width: 200, align: 'center' },
+                    { field: 'ExamSubject',  title: '考核级次',width: 100, align: 'center' },
+                    { field: 'CreateTime',  title: '发证时间',width: 250, align: 'center' },
+                    { width: 180, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
                 ]],
                 data: _data,
                 page: false,
@@ -117,7 +117,8 @@
             layer.open({
                 type: 2
                 , title: _title
-                , area: ['730px', '500px']
+                , area: ['730px', '430px']
+                ,offset: '10px'
                 , shade: 0
                 , content: ['querydetail.html?Id=' + data.Id + "&OLSchoolUserId=" + data.OLSchoolUserId, 'no']
                 , btn: []
@@ -138,7 +139,8 @@
             layer.open({
                 type: 2
                 , title: _title
-                , area: ['1000px', '500px']
+                , area: ['1000px', '430px']
+                ,offset: '10px'
                 , shade: 0
                 ,moveOut: true
                 , content: ['querynormaldetail.html?Id=' + data.Id + "&OLSchoolUserId=" + data.OLSchoolUserId, 'no']

@@ -38,6 +38,7 @@ namespace JlueCertificate.Entity.Respose
     {
         public long Id { get; set; }
         public string TicketNum { get; set; }
+        public string SerialNum { get; set; }
         public string CategoryName { get; set; }
         public string ExamSubject { get; set; }
         public string Name { get; set; }

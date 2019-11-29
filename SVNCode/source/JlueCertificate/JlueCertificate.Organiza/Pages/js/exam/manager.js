@@ -306,7 +306,8 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '450px']
+                , area: ['830px', '430px']
+                ,offset: '10px'
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
@@ -335,16 +336,17 @@
             table.render({
                 elem: '#userTables',
                 loading: true,
+                limit: 10000,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { field: 'id', title: '序号', align: 'center', width: 30 },
+                    { field: 'id', title: '序号', align: 'center', width: 60 },
                     { field: 'idnumber', title: '学籍号', align: 'center', width: 200 },
-                    { field: 'name', title: '姓名', align: 'center', width: 100 },
+                    { field: 'name', title: '姓名', align: 'center', width: 120 },
                     { field: 'cardid', title: '身份证号', align: 'left', width: 200 },
                     { field: 'telphone', title: '电话', align: 'left', width: 150 },
-                    { field: 'olschoolusername', title: '网校', align: 'left', width: 100 },
-                    { field: 'createtime', title: '报名时间', align: 'left', width: 250 },
-                    { width: 300, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
+                    { field: 'olschoolusername', title: '网校', align: 'left', width: 150 },
+                    { field: 'createtime', title: '报名时间', align: 'left', width: 150 },
+                    { width: 200, title: '常用操作', align: 'center', toolbar: '#userbar', fixed: "right" }
                 ]],
                 data: _data,
                 page: false,
@@ -542,7 +544,8 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: ['830px', '450px']
+                , area: ['830px', '430px']
+                ,offset: '10px'
                 , shade: 0
                 , content: $("#notice1")
                 , yes: function () {
