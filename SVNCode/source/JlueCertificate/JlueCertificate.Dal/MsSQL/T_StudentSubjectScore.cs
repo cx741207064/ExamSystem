@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Caching;
 
 namespace JlueCertificate.Dal.MsSQL
 {
@@ -66,7 +67,7 @@ namespace JlueCertificate.Dal.MsSQL
         {
             // var obj = db.Updateable<T_StudentSubjectScore>(sss).ExecuteCommand();
            // var obj = db.Updateable<T_StudentSubjectScore>().UpdateColumns(it => new { score = sss.score}).Where(it => it.studentticketid == sss.studentticketid).ExecuteCommand();
-            string sql = string.Format("UPDATE dbo.T_StudentSubjectScore SET score = '{0}' WHERE studentticketid = '{1}' AND sortid = '{2}'", sss.score,sss.studentticketid,sss.sortid);
+            string sql = string.Format("UPDATE dbo.T_StudentSubjectScore SET score = score + '{0}' WHERE studentticketid = '{1}' AND sortid = '{2}'", sss.score,sss.studentticketid,sss.sortid);
             Untity.HelperMsSQL.ExecuteQuery(sql);
             return 1;
         }
@@ -212,7 +213,7 @@ namespace JlueCertificate.Dal.MsSQL
         /// <summary>
         /// 获取视频平时成绩
         /// </summary>
-        public static decimal GetSPNormalScore(string classid,string OLSchoolUserId, string OLSchoolAOMid, string OLSchoolId)
+        public static decimal GetSPNormalScore(string classid, string OLSchoolUserId, string OLSchoolAOMid, string OLSchoolId)
         {
             decimal score = 0;
             Untity.HelperMethod p = new Untity.HelperMethod();
@@ -221,7 +222,17 @@ namespace JlueCertificate.Dal.MsSQL
                 + "&studentid=" + OLSchoolUserId
                 + "&AOMid=" + OLSchoolAOMid
                 + "&PublicMark=" + true;
-            string json = p.Get(fullpath);
+            string json;
+            Cache c = System.Web.HttpContext.Current.Cache;
+            if (c.Get(fullpath) == null)
+            {
+                json = p.Get(fullpath);
+                System.Web.HttpContext.Current.Cache.Insert(fullpath, json, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+            }
+            else
+            {
+                json = (string)c.Get(fullpath);
+            }
             Entity.Respose.GTXResult2 result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult2>(json);
             Entity.Respose.SPScore _spscore = Untity.HelperJson.DeserializeObject<Entity.Respose.SPScore>(result.data.ToString());
             if (_spscore != null)

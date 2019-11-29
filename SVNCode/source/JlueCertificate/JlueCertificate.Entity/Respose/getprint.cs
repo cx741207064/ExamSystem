@@ -41,5 +41,19 @@ namespace JlueCertificate.Entity.Respose
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
     }
-
+    public class getexamInfo
+    {
+        public int id { get; set; }
+        public string ExamName { get; set; }
+        public string ExamPlace { get; set; }
+        public string CentreName { get; set; }
+        public string ExamNum { get; set; }
+    }
+    public class getexamseatInfo
+    {
+        public int id { get; set; }
+        public string ExamRoomId { get; set; }
+        public string SeatNumber { get; set; }
+        public string TicketId { get; set; }
+    }
 }

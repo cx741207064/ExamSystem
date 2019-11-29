@@ -25,12 +25,9 @@ namespace JlueCertificate.Organiza
         {
             // 在出现未处理的错误时运行的代码
 
-            Exception erroy = Server.GetLastError();
-            string err = "出错页面是：" + Request.Url.ToString() + "<br>";
-            err += "异常信息：" + erroy.Message + "<br>";
-            err += "Source:" + erroy.Source + "<br>";
-            err += "StackTrace:" + erroy.StackTrace + "<br>";
-            Server.ClearError();
+            Exception error = Context.Error;
+            string result = "{\"Code\": -1,\"Data\": \"\",\"Msg\": \"" + error.Message + "\",\"Stamp\": \"\"}";
+            Response.Write(result);
 
         }
     }

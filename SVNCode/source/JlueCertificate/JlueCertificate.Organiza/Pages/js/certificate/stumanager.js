@@ -32,6 +32,7 @@
             table.render({
                 elem: '#Tables_certificate1',
                 height: ["200px"],
+                limit: 100,
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
@@ -52,6 +53,7 @@
                 elem: '#Tables_certificate2',
                 loading: true,
                 height: ["200px"],
+                limit: 100,
                 text: { none: "暂无数据" },
                 cols: [[
                     { type: 'numbers',title: '序号',width: 60 },
@@ -71,6 +73,7 @@
                 elem: '#Tables_certificate3',
                 height: ["200px"],
                 loading: true,
+                limit: 100,
                 text: { none: "暂无数据" },
                 cols: [[
                     { type: 'numbers',title: '序号' },

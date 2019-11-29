@@ -23,6 +23,22 @@ namespace JlueCertificate.Dal.MsSQL
         public DateTime ResultReleaseTime { get; set; }
         public DateTime createtime { get; set; }
         public string IsDel { get; set; }
+        //获取考场
+        public static List<Entity.Respose.getexamInfo> GetExamInfoModel()
+        {
+            string sql = string.Format("SELECT id, ExamName , ExamPlace,CentreName,ExamNum" +
+                                        " FROM T_ExamRoom where IsDel = 0");
+            List<Entity.Respose.getexamInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.Respose.getexamInfo>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list;
+            }
+        }
+
         //添加考场
         public static long Add(Entity.MsSQL.T_ExamRoom model,string postString)
         {
@@ -107,7 +123,13 @@ namespace JlueCertificate.Dal.MsSQL
             string sql = string.Format("UPDATE dbo.T_ExamRoom SET IsDel = 1 WHERE Id = '{0}' ", id);
             Untity.HelperMsSQL.ExecuteQuery(sql);
         }
+        public static List<Entity.MsSQL.T_ExamRoom> GetRomByid(string id)
+        {
+            string sqltext = "select * from T_ExamRoom where id='" + id + "'";
 
+            List<Entity.MsSQL.T_ExamRoom> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_ExamRoom>(sqltext);
+            return list;
+        }
         public static List<Entity.MsSQL.T_ExamRoom> GetListByPage(string _name, string page, string limit, ref long count)
         {
             string sql = "SELECT COUNT(*) FROM dbo.T_ExamRoom Where IsDel = 0 ";

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Web;
+using JlueCertificate;
 
 namespace JlueCertificate.Organiza.Handler
 {
@@ -33,6 +34,10 @@ namespace JlueCertificate.Organiza.Handler
                             #region Get处理
                             switch (action.ToLower())
                             {
+                                //获取座位
+                                case "getexamseatinfo": result = Logic.Organiz.ExamCenter.getexamseatInfo(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["ExamRoomId"])); break;
+                                //获取考场
+                                case "getexaminfo": result = Logic.Organiz.ExamCenter.getexamInfo(_uid, _pwd); break;
                                 //查询准考证考场信息
                                 case "getticketprintinfo": result = Logic.Organiz.ExamCenter.getticketprintInfo(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["TicketNum"])); break;
                                 case "getstudentid": result = Logic.Organiz.ExamCenter.getStudentId(_uid, _pwd); break;
@@ -49,6 +54,7 @@ namespace JlueCertificate.Organiza.Handler
                                 case "getticketprint": result = Logic.Organiz.ExamCenter.getticketprint(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["TicketNum"])); break;
                                 case "getexamroom":  result = Logic.Organiz.ExamCenter.getexamroom(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
                                       context.Request["page"], context.Request["limit"]); break;
+                                case "getexamroombyid": result = Logic.Organiz.ExamCenter.getexamroombyid(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["id"])); break;
                                 default:
                                     break;
                             }
@@ -71,8 +77,8 @@ namespace JlueCertificate.Organiza.Handler
                                 //添加考场
                                 case "addexamroom": result = Logic.Organiz.ExamCenter.addexamroom(_uid, _pwd, postString); break;
                                 //考场查询
-                                case "getexamroom": result = Logic.Organiz.ExamCenter.getexamroom(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
-                                    context.Request["page"], context.Request["limit"]); break;
+                                //case "getexamroom": result = Logic.Organiz.ExamCenter.getexamroom(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["name"]),
+                                //    context.Request["page"], context.Request["limit"]); break;
 
                                 case "addstudent": result = Logic.Organiz.ExamCenter.addstudent(_uid, _pwd, postString); break;
                                 case "updatestudent": result = Logic.Organiz.ExamCenter.updatestudent(_uid, _pwd, postString); break;

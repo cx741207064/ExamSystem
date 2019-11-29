@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JlueCertificate.Entity.Request;
 
 namespace JlueCertificate.Entity.Respose
 {
@@ -16,5 +17,10 @@ namespace JlueCertificate.Entity.Respose
         
         public string createtime { get; set; }
         public string IsDel { get; set; }
+        public List<addexamseat> Detailed
+        {
+            get;
+            set;
+        }
     }
 }

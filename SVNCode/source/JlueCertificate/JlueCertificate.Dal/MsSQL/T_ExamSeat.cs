@@ -17,6 +17,42 @@ namespace JlueCertificate.Dal.MsSQL
         public string ExamRoomId { get; set; }
         public string SeatNumber { get; set; }
         public string TicketId { get; set; }
+        //获取考场座位
+        public static List<Entity.Respose.getexamseatInfo> GetExamseatInfoModel(string ExamRoomId)
+        {
+            string sql = string.Format("SELECT id, ExamRoomId , SeatNumber,TicketId" +
+                                        " FROM T_ExamSeat where ExamRoomId = '{0}'", ExamRoomId);
+            List<Entity.Respose.getexamseatInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.Respose.getexamseatInfo>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list;
+            }
+        }
+        public static bool isSelect(Entity.MsSQL.T_ExamSeat model)
+        {
+            bool flag = false;
+            string sql = string.Format("SELECT id, ExamRoomId , SeatNumber,TicketId" +
+                                        " FROM T_ExamSeat where ExamRoomId = '{0}' AND SeatNumber = '{1}'", model.ExamRoomId,model.SeatNumber);
+            List<Entity.Respose.getexamseatInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.Respose.getexamseatInfo>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return flag;
+            }
+            else
+            {
+                Entity.Respose.getexamseatInfo result = list.FirstOrDefault();
+                if (result.TicketId!="") {
+                    flag = true;
+                    return flag;
+                }
+                    return flag;
+            }
+        }
+
         //查询考场座位
         public static bool Select(Entity.MsSQL.T_ExamSeat model)
         {

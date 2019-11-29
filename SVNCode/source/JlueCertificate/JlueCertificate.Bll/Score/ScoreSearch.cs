@@ -174,9 +174,19 @@ namespace JlueCertificate.Bll.Organiz
         }
         public static object addStudentSubjectScore(string postString, ref string error)
         {
+            object obj = new object();
             Dal.MsSQL.T_StudentSubjectScore sss = Untity.HelperJson.DeserializeObject<Dal.MsSQL.T_StudentSubjectScore>(postString);
             sss.id = Guid.NewGuid().ToString();
-            object obj = Dal.MsSQL.T_StudentSubjectScore.addStudentSubjectScore(sss).ToString();
+            var result = Dal.MsSQL.T_StudentSubjectScore.getIsexaminSubjectScore(postString);
+            if (result.Count() >= 1)
+            {
+                obj = "";
+            }
+            else
+            {
+                 obj = Dal.MsSQL.T_StudentSubjectScore.addStudentSubjectScore(sss).ToString();
+            }
+            
             return obj;
         }
 

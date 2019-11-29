@@ -93,7 +93,11 @@ namespace JlueCertificate.Entity.MsSQL
             set { _isdel = value; }
             get { return _isdel; }
         }
-
+        public List<T_ExamSeat> Detailed
+        {
+            get;
+            set;
+        }
         #endregion Model
 
     }

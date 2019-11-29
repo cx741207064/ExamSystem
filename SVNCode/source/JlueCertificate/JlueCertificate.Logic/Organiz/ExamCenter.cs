@@ -457,6 +457,46 @@ namespace JlueCertificate.Logic.Organiz
             }
             return Untity.HelperJson.SerializeObject(result);
         }
+        //获取考场
+        public static string getexamInfo(string _uid, string _pwd)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.getexamInfo(_uid, _pwd, ref error);
+                result.Msg = error;
+            }
+            catch (Exception ex)
+            {
+                result.Code = "-1";
+                result.Msg = ex.Message.ToString();
+            }
+            finally
+            {
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
+        //获取座位
+        public static string getexamseatInfo(string _uid, string _pwd,string ExamRoomId)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.getexamseatInfo(_uid, _pwd, ExamRoomId, ref error);
+                result.Msg = error;
+            }
+            catch (Exception ex)
+            {
+                result.Code = "-1";
+                result.Msg = ex.Message.ToString();
+            }
+            finally
+            {
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
         //查询考场
         //public static string getexamroom(string _uid, string _pwd, string _ticketnum)
         //{
@@ -477,6 +517,32 @@ namespace JlueCertificate.Logic.Organiz
         //    }
         //    return Untity.HelperJson.SerializeObject(result);
         //}
+        public static string getexamroombyid(string _uid, string _pwd, string id)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            long count = 0;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.getexamroombyid(_uid, _pwd, id,ref error);
+                // result.Data = Bll.Organiz.ExamCenter.getexamroom(_uid, _pwd, _ticketnum, ref error);
+                result.Stamp = count.ToString();
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    result.Code = "-1";
+                    result.Msg = error;
+                }
+            }
+
+            return Untity.HelperJson.SerializeObject(result);
+        }
         public static string getexamroom(string _uid, string _pwd, string _name, string page, string limit)
         {
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();

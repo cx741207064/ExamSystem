@@ -50,7 +50,16 @@
                 getSubjectsByCertId();
             }
             , yes: function () {
-                handelCertificate("add");
+                var startTime = $("#StartTime").val()
+                var endTime = $("#EndTime").val()
+                var startTimes = new Date(startTime).getTime();
+                var endTimes = new Date(endTime).getTime();
+                if(endTimes > startTimes){
+                    handelCertificate("add");
+                } else {
+                    top.layer.msg("证书结束时间要大于开始时间") 
+                }
+            
             }
             , end: function () {
 
@@ -406,7 +415,15 @@
                     $("#div_addsub").show();
                 }
                 , yes: function () {
-                    handelCertificate("edit");
+                    var startTime = $("#StartTime").val()
+                    var endTime = $("#EndTime").val()
+                    var startTimes = new Date(startTime).getTime();
+                    var endTimes = new Date(endTime).getTime();
+                    if(endTimes > startTimes){
+                        handelCertificate("edit");
+                    } else {
+                        top.layer.msg("证书结束时间要大于开始时间") 
+                    } 
                 }
                 , end: function () {
 

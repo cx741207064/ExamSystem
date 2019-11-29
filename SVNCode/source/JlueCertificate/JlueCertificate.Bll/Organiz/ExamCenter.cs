@@ -169,8 +169,16 @@ namespace JlueCertificate.Bll.Organiz
                     SeatNumber = Untity.HelperDataCvt.objToString(_examseat.SeatNumber),
                     TicketId = Untity.HelperDataCvt.objToString(_examseat.TicketId)
                 };
-                Dal.MsSQL.T_ExamSeat.Update(_model).ToString();
-                return "1";
+                bool flag = Dal.MsSQL.T_ExamSeat.isSelect(_model);
+                if (flag)
+                {
+                    error = "考场座位号已绑定，不能再次绑定！";
+                    return "-1";
+                }
+                else {
+                    Dal.MsSQL.T_ExamSeat.Update(_model).ToString();
+                    return "1";
+                }
             }
             else
             {
@@ -677,6 +685,20 @@ namespace JlueCertificate.Bll.Organiz
             result = Dal.MsSQL.T_StudentTicket.GetTicketPrintInfoModel(_ticketnum);
             return result;
         }
+        //获取考场
+        public static object getexamInfo(string _uid, string _pwd, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            List<Entity.Respose.getexamInfo> result = Dal.MsSQL.T_ExamRoom.GetExamInfoModel();
+            return result;
+        }
+        //获取座位
+        public static object getexamseatInfo(string _uid, string _pwd, string ExamRoomId, ref string error)
+        {
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            List<Entity.Respose.getexamseatInfo> result = Dal.MsSQL.T_ExamSeat.GetExamseatInfoModel(ExamRoomId);
+            return result;
+        }
         private static List<Entity.Respose.getexamroom> ConvertExamRoomToResponse(List<Entity.MsSQL.T_ExamRoom> list)
         {
             List<Entity.Respose.getexamroom> result = new List<Entity.Respose.getexamroom>();
@@ -694,6 +716,12 @@ namespace JlueCertificate.Bll.Organiz
                     createtime = ii.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
                 });
             });
+            return result;
+        }
+        //查询考场通过id获得
+        public static object getexamroombyid(string _uid, string _pwd, string id, ref string error)
+        {
+            List<Entity.MsSQL.T_ExamRoom> result = Dal.MsSQL.T_ExamRoom.GetRomByid(id);
             return result;
         }
         //查询考场

@@ -108,7 +108,7 @@
         if (ret.Code == "0") {
             var _htmlp = '';
             $.each(ret.Data.all, function (i, p) {
-                _htmlp += '<option desc=\'' + JSON.stringify(p) + '\' value=\'' + p.AOMid + '\'>' + p.Sort_Name + '</option>';
+                _htmlp += '<option desc=\'' + JSON.stringify(p) + '\' value=\'' + p.AOMid + '\'>' + p.Sort_Name +'-'+ p.AOMid + '</option>';
             })
             $("#OLSchoolId").html(_htmlp);
             form.render('select');

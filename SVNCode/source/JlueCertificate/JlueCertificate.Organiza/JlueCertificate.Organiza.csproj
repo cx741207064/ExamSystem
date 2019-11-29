@@ -294,6 +294,7 @@
     <Content Include="Pages\html\model\C693D950962A963CD0FB4A880DD6154E.html" />
     <Content Include="Pages\html\panel\password.html" />
     <Content Include="Pages\html\panel\personal.html" />
+    <Content Include="Pages\html\room\roomlist.html" />
     <Content Include="Pages\html\score\query.html" />
     <Content Include="Pages\html\score\querydetail.html" />
     <Content Include="Pages\html\score\querynormaldetail.html" />
@@ -351,6 +352,9 @@
     <Content Include="Pages\js\main.js" />
     <Content Include="Pages\js\model\C693D950962A963CD0FB4A880DD6154E.js" />
     <Content Include="Pages\js\mypanel.js" />
+    <Content Include="Pages\js\room\querydetail.js" />
+    <Content Include="Pages\js\room\querynormaldetail.js" />
+    <Content Include="Pages\js\room\roomlist.js" />
     <Content Include="Pages\js\score\query.js" />
     <Content Include="Pages\js\score\querydetail.js" />
     <Content Include="Pages\js\score\querynormaldetail.js" />
