@@ -44,7 +44,7 @@ var Vue2 = new Vue({
                 }
             }).then(function (d) {
                 if (d.Code == 0) {
-                    Vue2.openSuccess("颁发成功")
+                    Vue2.openSuccess(d.Msg)
                 }
                 else {
                     Vue2.openError("颁发失败")

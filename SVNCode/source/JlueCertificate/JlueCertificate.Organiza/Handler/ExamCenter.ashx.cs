@@ -34,6 +34,8 @@ namespace JlueCertificate.Organiza.Handler
                             #region Get处理
                             switch (action.ToLower())
                             {
+                                //判断准考证是否绑定座位
+                                case "isbountseat": result = Logic.Organiz.ExamCenter.isbountseat(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["TicketNum"])); break;
                                 //获取座位
                                 case "getexamseatinfo": result = Logic.Organiz.ExamCenter.getexamseatInfo(_uid, _pwd, HttpContextSecurity.HttpContextParam(context.Request["ExamRoomId"])); break;
                                 //获取考场

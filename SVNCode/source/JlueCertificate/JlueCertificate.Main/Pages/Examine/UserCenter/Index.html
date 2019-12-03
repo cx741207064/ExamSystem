@@ -178,18 +178,25 @@
         <div class="bg-text">
             <p class="title">人才评价考试平台</p>
             <ul id="subjects">
-                <template v-for="item in subjects">
-                    <li>
-                    <span class="text-left">科目{{item.index}}：</span>
+                <li>
+                    <span class="text-left">科目一：</span>
                     <span class="text-right">
-                        <input type="button" class="btn-vf" v-bind:nodeid="item.index" v-bind:value="item.Name" v-on:click="tips(item,$event)" v-bind:dateisvalid="dateIsValid" />
+                        <input type="button"  value="综合版会计实务" id="zhbkjsw" dateisvalid="true" class="btn-vf">
                     </span>
-                    </li>
-                </template>
+                </li>
+                <li>
+                    <span class="text-left">科目二：</span>
+                    <span class="text-right">
+                        <input type="button"  value="电脑账" dateisvalid="true"  id="dnz" class="btn-vf">
+                    </span>
+                </li>
+                <li>
+                    <span class="text-left">科目三：</span>
+                    <span class="text-right">
+                        <input type="button" value="报税" dateisvalid="true" id="bs" class="btn-vf">
+                    </span>
+                </li>
             </ul>
-            <span class="text-submit">
-                <input type="button" value="确认提交" class="submitexam" />
-            </span>
         </div>
 
     </div>

@@ -45,7 +45,7 @@
       "id": "11",
       "pid": "0",
       "title": "成绩查询",
-      "icon": "&#xe8a0;",
+      "icon": "&#xe667;",
       "url": "html/score/query.html",
       "spread": false,
       "children": []

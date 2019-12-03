@@ -81,8 +81,19 @@ namespace JlueCertificate.Repository
             Untity.HelperHandleResult result = new Untity.HelperHandleResult();
 
             string SerialNum = "ZS" + DateTime.Now.Ticks;
-            db.Updateable<T_StudentTicket>().SetColumns(it => new T_StudentTicket() { SerialNum = SerialNum }).Where(it => it.CertificateId == certificateId && it.StudentId == studentId).ExecuteCommand();
-            long BigIdentity = db.Insertable(new T_CertifiSerial() { CertificateId = certificateId, State = "1", SerialNum = SerialNum, IssueDate = DateTime.Now, CreateTime = DateTime.Now, IsDel = "0" }).ExecuteReturnBigIdentity();
+            var state = Dal.MsSQL.T_StudentTicket.GetTicketState(studentId, certificateId);
+
+            if (state==""||state==null)
+            {
+                db.Updateable<T_StudentTicket>().SetColumns(it => new T_StudentTicket() { SerialNum = SerialNum }).Where(it => it.CertificateId == certificateId && it.StudentId == studentId).ExecuteCommand();
+                long BigIdentity = db.Insertable(new T_CertifiSerial() { CertificateId = certificateId, State = "1", SerialNum = SerialNum, IssueDate = DateTime.Now, CreateTime = DateTime.Now, IsDel = "0" }).ExecuteReturnBigIdentity();
+                result.Msg = "颁发成功";
+            }
+            else
+            {
+                result.Msg = "证书已颁发";
+            }
+           
             return Untity.HelperJson.SerializeObject(result);
 
         }

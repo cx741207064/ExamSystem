@@ -586,6 +586,7 @@
             , area: ['830px', '200px']
             , shade: 0
             , content: $("#notice2")
+            , move: false
             , yes: function () {
 
             }

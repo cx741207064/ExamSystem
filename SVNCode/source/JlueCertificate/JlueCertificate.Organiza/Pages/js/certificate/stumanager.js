@@ -8,10 +8,14 @@
 		common = layui.common;
     var curnum = 1;
     var limitcount = 10;
-
+    var layerIndex = '';
+    var examinee = ''
     var signstate = true;
+    var roomid =""
+    var seatid =""
+    var w = ""
     getCertificate();
-
+    getExamRoomList()
     $("#btnquery").on("click", function () {
         getCertificate();
     })
@@ -98,6 +102,17 @@
     function get_fail(ret) {
         top.layer.msg("服务器异常", { icon: 5 });
     }
+    //监听考场号下拉框
+    form.on('select(testareanum)', function(data){
+        console.log(data.value); //得到被选中的值
+        var examRoomId = data.value
+        roomid = data.value
+        $("#setnum").html("")
+        getSeatList(examRoomId)
+    }); 
+    form.on('select(setnum)',function(data){
+        seatid = data.value
+    })
     //监听工具条
     table.on('tool(Tables_certificate1)', function (obj) {
         var data = obj.data;
@@ -179,11 +194,44 @@
             }
         });
     }
-
+    
     table.on('tool(Tables_certificate2)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'edit') {
-            window.open('ticketprint.html?TicketNum=' + escape(data.TicketNum));
+        if (obj.event === 'edit') {     
+            examinee = data.TicketNum
+            var isconnectUrl = '/Handler/ExamCenter.ashx?action=isbountseat&TicketNum=' + examinee
+            Params.Ajax(isconnectUrl, "get","", checkexamseat_success, get_fail);
+            // layer.open({
+            //     type: 1
+            //     , title: "绑定考场座位号"
+            //     , area: ['630px', '350px']
+            //     , shade: 0
+            //     , content: $("#notice2")
+            //     , btn: ['确认绑定']
+            //     , success: function (layero, index) {
+            //         layerIndex = index;
+            //         console.log(layerIndex)
+            //         form.render('select');
+            //     }
+            //     , yes: function () {
+            //         if(roomid =="" || seatid ==""){
+            //             top.layer.msg("请先选择考场号或座位号")
+            //         } else {
+            //             //w = window.open();
+            //             var params = {
+            //                 examroomid: roomid,
+            //                 seatnumber: seatid,
+            //                 ticketid: examinee
+            //             }
+            //             Params.Ajax("/Handler/ExamCenter.ashx?action=updateexamseat", "post", params, saveexamseat_success, get_fail);
+            //         }
+            //     }
+            //     , end: function () {
+    
+            //     }
+            //     , zIndex: layer.zIndex
+            // });
+            //window.open('ticketprint.html?TicketNum=' + escape(examinee));
         }
         if (obj.event === 'del') {
             layer.confirm('确定取消报名么', function (index) {
@@ -191,7 +239,20 @@
             });
         }
     });
-
+    //点击绑定座位号弹窗里的确认绑定按钮
+    // $(".conform-btn").click(function(){
+    //     if(roomid =="" || seatid ==""){
+    //         top.layer.msg("请先选择考场号或座位号")
+    //     } else {
+    //         //w = window.open();
+    //         var params = {
+    //             examroomid: roomid,
+    //             seatnumber: seatid,
+    //             ticketid: examinee
+    //         }
+    //         Params.Ajax("/Handler/ExamCenter.ashx?action=updateexamseat", "post", params, saveexamseat_success, get_fail);
+    //     }
+    // })
     function cancel_success(ret) {
         if (ret.Code == 0) {
             top.layer.msg("取消成功", { icon: 1 });
@@ -213,4 +274,112 @@
             window.open('certifiprint.html?SerialNum=' + escape(data.SerialNum));
         }
     });
+
+    //获取考场列表
+    function getExamRoomList() {
+        var unsignupurl = "/Handler/ExamCenter.ashx?action=getexaminfo";
+        Params.Ajax(unsignupurl, "get", "", getExamRoomList_success, get_fail);
+    }
+    //获取座位号列表
+    function getSeatList(id) {
+        var unsignupurl = "/Handler/ExamCenter.ashx?action=getexamseatinfo&ExamRoomId=" + id;
+        Params.Ajax(unsignupurl, "get", "", getSeatList_success, get_fail);
+    }
+    function getSeatList_success(ret){
+        console.log(ret)
+        if(ret.Code == "0"){
+            var data = ret.Data
+            console.log(data)
+            var html = '<option value=""></option>'
+            for(var i=0;i<data.length;i++){
+                html += '<option value="'+ data[i].SeatNumber + '">'+ data[i].SeatNumber  +  '</option>'
+            }
+            $("#setnum").append(html)
+            form.render('select');
+        }
+    }
+    function getExamRoomList_success(ret){
+        console.log(ret)
+        if(ret.Code == "0"){
+            var data = ret.Data
+            var html = ''
+            for(var i = 0;i<data.length;i++){
+               html += '<option value="'+ data[i].id + '">'+ data[i].ExamNum  +  '</option>' 
+            }
+            $("#testareanum").append(html)
+            form.render('select');
+        } else {
+            top.layer.msg(ret.Msg)
+        }
+    }
+    function get_fail(ret) {
+        top.layer.msg("服务器异常", { icon: 5 });
+    }
+    function saveexamseat_success(ret){
+        if(ret.Code == "0"){
+            top.layer.msg("保存成功",function(){
+                layer.close(layerIndex)
+                //w.location.href = 'ticketprint.html?TicketNum=' + escape(examinee)
+                layer.open({
+                    type: 2,
+                    content: 'ticketprint.html?TicketNum=' + escape(examinee),
+                    area: ['1000px', '550px'],
+                    offset: '2px'
+
+                })
+                //window.open('ticketprint.html?TicketNum=' + escape(examinee));
+            })
+        } else {
+            top.layer.msg(ret.Msg,function(){
+                layer.close(layerIndex)
+                //window.open('ticketprint.html?TicketNum=' + escape(examinee));
+                //w.location.href = 'ticketprint.html?TicketNum=' + escape(examinee)
+            })
+        }
+    }
+    //检查准考证是否绑定座位
+    function checkexamseat_success(ret) {
+        if(ret.Code == "0"){
+            layer.open({
+                type: 2,
+                content: 'ticketprint.html?TicketNum=' + escape(examinee),
+                area: ['1000px', '550px'],
+                offset: '2px'
+
+            })
+        } else if (ret.Code == "-1"){
+            layer.open({
+                type: 1
+                , title: "绑定考场座位号"
+                , area: ['630px', '350px']
+                , shade: 0
+                , content: $("#notice2")
+                , btn: ['确认绑定']
+                , success: function (layero, index) {
+                    layerIndex = index;
+                    console.log(layerIndex)
+                    form.render('select');
+                }
+                , yes: function () {
+                    if(roomid =="" || seatid ==""){
+                        top.layer.msg("请先选择考场号或座位号")
+                    } else {
+                        //w = window.open();
+                        var params = {
+                            examroomid: roomid,
+                            seatnumber: seatid,
+                            ticketid: examinee
+                        }
+                        Params.Ajax("/Handler/ExamCenter.ashx?action=updateexamseat", "post", params, saveexamseat_success, get_fail);
+                    }
+                }
+                , end: function () {
+    
+                }
+                , zIndex: layer.zIndex
+            });
+        } else {
+            top.layer.msg(ret.Msg)
+        }
+    }
 });

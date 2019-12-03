@@ -497,6 +497,29 @@ namespace JlueCertificate.Logic.Organiz
             }
             return Untity.HelperJson.SerializeObject(result);
         }
+        //判断是否绑定座位
+        public static string isbountseat(string _uid, string _pwd, string _ticketnum)
+        {
+            Untity.HelperHandleResult result = new Untity.HelperHandleResult();
+            string error = string.Empty;
+            try
+            {
+                result.Data = Bll.Organiz.ExamCenter.isbountseat(_uid, _pwd, _ticketnum, ref error);
+                if (result.Data.ToString()!="0") {
+                    result.Code = "-1";
+                }
+                result.Msg = error;
+            }
+            catch (Exception ex)
+            {
+                result.Code = "-1";
+                result.Msg = ex.Message.ToString();
+            }
+            finally
+            {
+            }
+            return Untity.HelperJson.SerializeObject(result);
+        }
         //查询考场
         //public static string getexamroom(string _uid, string _pwd, string _ticketnum)
         //{

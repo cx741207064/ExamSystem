@@ -139,7 +139,14 @@ namespace JlueCertificate.Dal.MsSQL
                 return Convert.ToInt64(obj);
             }
         }
-
+        public static string GetTicketState(string studentid, string certificateid)
+        {
+            string sql = string.Format("SELECT SerialNum FROM dbo.T_StudentTicket WHERE IsDel = 0 AND dbo.T_StudentTicket.StudentId = '{0}' AND dbo.T_StudentTicket.CertificateId='{1}' ", studentid, certificateid);
+            object obj = Untity.HelperMsSQL.ExecuteScalar(sql);
+           
+            return Convert.ToString(obj);
+            
+        }
         public static long Add(Entity.MsSQL.T_StudentTicket model)
         {
             StringBuilder strSql = new StringBuilder();

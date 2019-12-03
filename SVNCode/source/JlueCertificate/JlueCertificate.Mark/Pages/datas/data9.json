@@ -43,35 +43,35 @@
 		"icon": "&#xe64b;",
 		"url": "",
 		"spread": false,
-		"children": [
-			{
-				"id": "8",
-				"pid": "6",
-				"title": "后台证书管理",
-				"icon": "&#xe621;",
-				"url": "html/certificate/backmanager.html",
-				"spread": false,
-				"children":[]
-			},
-			{
-				"id": "9",
-				"pid": "6",
-				"title": "后台课程管理",
-				"icon": "&#xe705;",
-				"url": "html/certificate/subjectmanager.html",
-				"spread": false,
-				"children":[]
-			},
-			{
-				"id": "10",
-				"pid": "6",
-				"title": "证书颁发",
-				"icon": "&#xe621;",
-				"url": "html/IssueCertificate.html",
-				"spread": false,
-				"children":[]
-			}
-		]
+    "children": [
+      {
+        "id": "9",
+        "pid": "6",
+        "title": "后台课程管理",
+        "icon": "&#xe705;",
+        "url": "html/certificate/subjectmanager.html",
+        "spread": false,
+        "children": []
+      },
+      {
+        "id": "8",
+        "pid": "6",
+        "title": "后台证书管理",
+        "icon": "&#xe621;",
+        "url": "html/certificate/backmanager.html",
+        "spread": false,
+        "children": []
+      },
+      {
+        "id": "10",
+        "pid": "6",
+        "title": "证书颁发",
+        "icon": "&#xe621;",
+        "url": "html/IssueCertificate.html",
+        "spread": false,
+        "children": []
+      }
+    ]
 	}, {
 		"id": "6",
 		"pid": "0",

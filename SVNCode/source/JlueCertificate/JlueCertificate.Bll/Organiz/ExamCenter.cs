@@ -105,7 +105,7 @@ namespace JlueCertificate.Bll.Organiz
                     SeatNum = Untity.HelperDataCvt.objToString(_examroom.SeatNum),
                     ResultReleaseTime = _examroom.ResultReleaseTime
                 };
-                Dal.MsSQL.T_ExamRoom.Update(_model).ToString();
+                Dal.MsSQL.T_ExamRoom.Update(_model,postString).ToString();
                 return "1";
             }
             else
@@ -574,28 +574,35 @@ namespace JlueCertificate.Bll.Organiz
 
                         foreach (var item in _CertifisAll)
                         {
-                            if (item.StartTime > DateTime.Now)
+                            try
+                            {
+                                if (item.StartTime > DateTime.Now)
+                                {
+                                    continue;
+                                }
+                                if (item.EndTime < DateTime.Now && !string.IsNullOrEmpty(Untity.HelperDataCvt.DateTimeToStr(item.EndTime)))
+                                {
+                                    continue;
+                                }
+                                Entity.Respose.studentcertifi _item1 = result.signup.Where(ii => ii.CertifiId == item.Id.ToString()).FirstOrDefault();
+                                if (_item1 != null)
+                                {
+                                    continue;
+                                }
+                                Entity.Respose.studentcertifi _item2 = result.hold.Where(ii => ii.CertifiId == item.Id.ToString()).FirstOrDefault();
+                                if (_item2 != null)
+                                {
+                                    continue;
+                                }
+                                Entity.Respose.studentcertifi _model = ConvertStudentCertifiToResponse(item, null, null, _CertifiSubjectsAll, _SubjectsAll);
+                                if (_model != null)
+                                {
+                                    result.unsignup.Add(_model);
+                                }
+                            }
+                            catch
                             {
                                 continue;
-                            }
-                            if (item.EndTime < DateTime.Now && !string.IsNullOrEmpty(Untity.HelperDataCvt.DateTimeToStr(item.EndTime)))
-                            {
-                                continue;
-                            }
-                            Entity.Respose.studentcertifi _item1 = result.signup.Where(ii => ii.CertifiId == item.Id.ToString()).FirstOrDefault();
-                            if (_item1 != null)
-                            {
-                                continue;
-                            }
-                            Entity.Respose.studentcertifi _item2 = result.hold.Where(ii => ii.CertifiId == item.Id.ToString()).FirstOrDefault();
-                            if (_item2 != null)
-                            {
-                                continue;
-                            }
-                            Entity.Respose.studentcertifi _model = ConvertStudentCertifiToResponse(item, null, null, _CertifiSubjectsAll, _SubjectsAll);
-                            if (_model != null)
-                            {
-                                result.unsignup.Add(_model);
                             }
                         }
                     }
@@ -691,6 +698,18 @@ namespace JlueCertificate.Bll.Organiz
             result = Dal.MsSQL.T_StudentTicket.GetTicketPrintInfoModel(_ticketnum);
             return result;
         }
+        //判断是否绑定座位
+        public static object isbountseat(string _uid, string _pwd, string _ticketnum, ref string error)
+        {
+            Entity.Respose.getexamseatInfo result = new Entity.Respose.getexamseatInfo();
+            Entity.MsSQL.T_Organiza _orga = Dal.MsSQL.T_Organiza.GetModel(_uid, _pwd);
+            bool flag = Dal.MsSQL.T_ExamSeat.isSelectSeat(_ticketnum);
+            if (flag)
+            {
+                return "0";
+            }
+            return "-1";
+        }
         //获取考场
         public static object getexamInfo(string _uid, string _pwd, ref string error)
         {
@@ -727,7 +746,7 @@ namespace JlueCertificate.Bll.Organiz
         //查询考场通过id获得
         public static object getexamroombyid(string _uid, string _pwd, string id, ref string error)
         {
-            List<Entity.MsSQL.T_ExamRoom> result = Dal.MsSQL.T_ExamRoom.GetRomByid(id);
+            Entity.MsSQL.T_ExamRoom result = Dal.MsSQL.T_ExamRoom.GetRomByid(id);
             return result;
         }
         //查询考场

@@ -74,7 +74,7 @@ namespace JlueCertificate.Dal.MsSQL
             }
         }
         //修改考场
-        public static bool Update(Entity.MsSQL.T_ExamRoom model)
+        public static bool Update(Entity.MsSQL.T_ExamRoom model,string postString)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update T_ExamRoom set ");
@@ -110,6 +110,51 @@ namespace JlueCertificate.Dal.MsSQL
             int rows = Untity.HelperMsSQL.ExecuteQuery(strSql.ToString(), parameters);
             if (rows > 0)
             {
+                JArray Seats = JArray.Parse(JObject.Parse(postString)["detal"].ToString());
+                StringBuilder SeatSQL = new StringBuilder();
+                SeatSQL.Append("insert into T_ExamSeat(");
+                SeatSQL.Append("ExamRoomId,SeatNumber,TicketId)");
+                SeatSQL.Append(" values (");
+                SeatSQL.Append("@ExamRoomId,@SeatNumber,@TicketId)");
+                for (int i = 0; i < Seats.Count; i++)
+                {
+                    string sql = string.Format("select count(*) from T_ExamSeat  where ExamRoomId='{0}' AND SeatNumber='{1}'", JObject.Parse(postString)["Id"].ToString(), Seats[i]["SeatNumber"]);
+                    bool flag = Untity.HelperMsSQL.ExecuteQuerySelect(sql);
+                    if (!flag)
+                    {
+                        SqlParameter[] parametersSeat = {
+                        new SqlParameter("@ExamRoomId", SqlDbType.VarChar,50),
+                        new SqlParameter("@SeatNumber", SqlDbType.VarChar,50),
+                        new SqlParameter("@TicketId", SqlDbType.VarChar,50)};
+                        parametersSeat[0].Value = JObject.Parse(postString)["Id"].ToString();
+                        parametersSeat[1].Value = Seats[i]["SeatNumber"];
+                        parametersSeat[2].Value = "";
+                        object objSeat = Untity.HelperMsSQL.ExecuteScalar(SeatSQL.ToString(), parametersSeat);
+                        if (objSeat != null)
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+                if (JObject.Parse(postString)["del"] != null)
+                {
+                    JArray DelSeats = JArray.Parse(JObject.Parse(postString)["del"].ToString());
+                    StringBuilder DelSeatSQL = new StringBuilder();
+                    DelSeatSQL.Append("delete from T_ExamSeat");
+                    DelSeatSQL.Append(" where id = @Id");
+                    for (int k = 0; k < DelSeats.Count; k++)
+                    {
+                        SqlParameter[] parametersSeat = {
+                            new SqlParameter("@Id", SqlDbType.VarChar,50)};
+                        parametersSeat[0].Value = DelSeats[k]["Id"];
+                        object objSeat = Untity.HelperMsSQL.ExecuteScalar(DelSeatSQL.ToString(), parametersSeat);
+                        if (objSeat != null)
+                        {
+                            return false;
+                        }
+                    }
+                }
                 return true;
             }
             else
@@ -123,12 +168,20 @@ namespace JlueCertificate.Dal.MsSQL
             string sql = string.Format("UPDATE dbo.T_ExamRoom SET IsDel = 1 WHERE Id = '{0}' ", id);
             Untity.HelperMsSQL.ExecuteQuery(sql);
         }
-        public static List<Entity.MsSQL.T_ExamRoom> GetRomByid(string id)
+        public static Entity.MsSQL.T_ExamRoom GetRomByid(string id)
         {
             string sqltext = "select * from T_ExamRoom where id='" + id + "'";
-
+            string sqldetiltext = "select A.id,A.SeatNumber,B.TicketNum as TicketId from T_ExamSeat A left join T_StudentTicket B on A.Ticketid = B.TicketNum where A.ExamRoomId ='" + id + "'";
             List<Entity.MsSQL.T_ExamRoom> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_ExamRoom>(sqltext);
-            return list;
+            if (list.Count > 0)
+            {
+                List<Entity.MsSQL.T_ExamSeat> listdetail = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_ExamSeat>(sqldetiltext);
+
+                list[0].Detailed = listdetail;
+                return list[0];
+            }
+            return null;
+            
         }
         public static List<Entity.MsSQL.T_ExamRoom> GetListByPage(string _name, string page, string limit, ref long count)
         {

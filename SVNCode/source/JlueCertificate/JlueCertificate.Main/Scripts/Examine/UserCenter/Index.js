@@ -50,7 +50,16 @@ layui.use(['jquery', 'layer', 'form'], function () {
     function PageIni_error(ret) {
         layer.msg("请求错误", { icon: 1, time: 1000 });
     }
-
+    function getItemByCate(data,key)
+    {
+        for(var mm=0;mm<data.subjects.length;mm++)
+        {
+            if(data.subjects[mm].Category==key)
+            {
+                return data.subjects[mm];
+            }
+        }
+    }
     function ExamSubjectsInit(data) {
         var startTime = new Date(data.certificateStartTime)
         var endTime = new Date(data.certificateEndTime)
@@ -66,33 +75,19 @@ layui.use(['jquery', 'layer', 'form'], function () {
             e.index = NumberToChinese(i + 1)
         })
 
-        var Vue1 = new Vue({
-            el: '#subjects',
-            data: data,
-            mounted: function () {
-            },
-            updated: function () {
-                form.render()
-            },
-            methods: {
-                tips: function (item, event) {
-                    var dom = event.target
-                    var $this = this
-                    if (dom.getAttribute("dateIsValid")) {
-                        var url = "/json/SubjectType.json"
-                        $.ajax({ type: "get", url: url, dataType: "json" }).success(function (ret) {
-                            subjectTypeCallBack($this.$data, item, ret)
-                        })
-                    }
-                    else {
-                        layer.tips("当前时间不在允许考试的时间范围内(" + data.certificateStartTime + "至" + data.certificateEndTime + ")", dom, { tips: 1, time: 0, area: 'auto', maxWidth: 500 })
-                        $("#loaderT").unbind()
-                    }
-                }
-            }
+        var url = "/json/SubjectType.json"
+        $.ajax({ type: "get", url: url, dataType: "json" }).success(function (ret) {
+            var zhbkjsw=getItemByCate(data,"题库");
+            var dnz=getItemByCate(data,"实操-电脑账");
+            var bs=getItemByCate(data,"实操-报税");
+            $("#zhbkjsw").click(function () { subjectTypeCallBack(data, zhbkjsw, ret) });
+            $("#dnz").click(function () { subjectTypeCallBack(data, dnz, ret) });
+            $("#bs").click(function () { subjectTypeCallBack(data, bs, ret) });
         })
     }
-
+    //data:
+    //item:
+    //ret:
     function subjectTypeCallBack(data, item, ret) {
         var url
         layer.alert('开始【' + item.Name + '】考试？', { icon: 0 }, function (index) {

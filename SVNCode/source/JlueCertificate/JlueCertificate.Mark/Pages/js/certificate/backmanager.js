@@ -305,7 +305,7 @@
     }
     function handelsubject_success(ret) {
         if (ret.Code == 0) {
-            if (ret.Data == 1) {
+            if (ret.Data == "课程不能删除！") {
                 top.layer.msg("该课程不能删除", { icon: 0 });
             } else  {
                 top.layer.msg("操作成功", { icon: 1 });

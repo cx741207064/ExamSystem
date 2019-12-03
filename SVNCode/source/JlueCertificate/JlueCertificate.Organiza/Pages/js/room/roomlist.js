@@ -7,9 +7,14 @@
         laypage = layui.laypage,
         laydate = layui.laydate,
         common = layui.common;
-    restlist = [{ "SeatNumber": "1" }, { "SeatNumber": "2" }, { "SeatNumber": "3" }];
+        editlayer = {};
+        DetailedList = [];
+        addRowlayer = {};
+        restlist = [];
+        deleteDetailedList = [];
     var curnum = 1;
     var limitcount = 10;
+    getroomlistBykeyWord();//加载考场列表
     $("#btnquery").on("click", function () {
         getroomlistBykeyWord();
     });
@@ -22,24 +27,19 @@
         $("#zws").val("");
         $("#cjgbsj").val("");
         var _title = "添加考场";
-        layer.open({
+        var addIndex=layer.open({
             type: 1
             , title: _title
-            , area: ['750px', '650px']
+            , area: ['750px', '430px']
+            ,offset: '5px'
             , shade: 0
             , content: $("#notice1")
-            , yes: function () {
-
-            }
-            , end: function () {
-
-            }
             , zIndex: layer.zIndex
         });
         table.render({
             elem: '#SeatTables',
-            height:360,
-            toolbar: 'default',
+            limit: 100,
+            height: 360,
             text: { none: "暂无数据" },
             cols: [[
                 { type: 'checkbox', fixed: 'left' },
@@ -47,7 +47,7 @@
             ]],
             page: false,
             data: restlist
-        });
+        })
     })
     $("#btnsave").on("click",function(){
 
@@ -86,11 +86,73 @@
         }
         Params.Ajax("/Handler/ExamCenter.ashx?action=addexamroom", "post", _data, bangding_success, bangding_fail);
     });
-    function bangding_success()
+    function bangding_success(ret)
     {
+        if (ret.Code == "0") {
+            top.layer.msg("操作成功！");
+            layer.close(addIndex);
+        }
+        else {
+            top.layer.msg();
+        }
     }
     function bangding_fail()
     {
+        top.layer.msg("操作失败！");
+    }
+   
+    $("#editfrom_save").on("click", function () {
+
+        var _data = {
+            Id: $("#editfrom_id").val(),
+            ExamName: $("#editfrom_kdmc").val(),
+            ExamPlace: $("#editfrom_kcdz").val(),
+            CentreName: $("#editfrom_kcmc").val(),
+            ExamNum: $("#editfrom_kch").val(),
+            SeatNum: $("#editfrom_zws").val(),
+            ResultReleaseTime: $("#editfrom_cjgbsj").val(),
+            detal:DetailedList,
+            del: deleteDetailedList,
+        }
+        if (_data.ExamName.length == 0) {
+            top.layer.msg("考点名称不能为空！");
+            return
+        }
+        if (_data.ExamPlace.length == 0) {
+            top.layer.msg("考场地址不能为空！");
+            return
+        }
+        if (_data.CentreName.length == 0) {
+            top.layer.msg("考场名称不能为空！");
+            return
+        }
+        if (_data.ExamNum.length == 0) {
+            top.layer.msg("考场号不能为空！");
+            return
+        }
+        if (_data.SeatNum.length == 0) {
+            top.layer.msg("座位数不能为空！");
+            return
+        }
+        if (_data.ResultReleaseTime.length == 0) {
+            top.layer.msg("成绩公布时间不能为空！");
+            return
+        }
+        Params.Ajax("/Handler/ExamCenter.ashx?action=updateexamroom", "post", _data, editbangding_success, editbangding_fail);
+    });
+    function editbangding_success(ret) {
+        if (ret.Code == "0") {
+            DetailedList.length = 0;
+            deleteDetailedList.length = 0;
+            top.layer.msg("操作成功！");
+            layer.close(editlayer);
+        }
+        else {
+            top.layer.msg(ret.Msg);
+        }
+    }
+    function editbangding_fail() {
+        top.layer.msg("操作失败！");
     }
     $("#btnquery").on("click", function () {
         getroomlistBykeyWord();
@@ -115,15 +177,76 @@
             data: restlist
         })
     })
-    $("#addrow").on("click", function () {
+    
+    $("#deleditrow").on("click", function () {
+        let checkListValue = table.checkStatus('editfrom_SeatTables');
+        for(var i=0;i<checkListValue.data.length;i++)
+        {
+            deleteDetailedList.push(checkListValue.data[i]);
+            DetailedList = DetailedList.filter(function (item) {
+                return item.Id != checkListValue.data[i].Id;
 
+            });
+
+        }
+        table.render({
+            elem: '#editfrom_SeatTables',
+            height: 360,
+            limit: 100,
+            toolbar: 'default',
+            text: { none: "暂无数据" },
+            cols: [[
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'Id', width: 80, title: '编码' },
+                { field: 'SeatNumber', title: '座位号码', width: 150, align: 'center' }
+            ]],
+            page: false,
+            data: DetailedList
+        });
     })
-    $("#delrow").on("click", function () {
-  
+    
+    $("#addRow_btnsave").on("click", function () {
+        var SeatNumberinfo = $("#edit_add_kdmc").val();
+        for (var i = 0; i < DetailedList.length;i++)
+        {
+            if (SeatNumberinfo == DetailedList[i].SeatNumber)
+            {
+                top.layer.msg("座位号重复！");
+                return;
+            }
+        }
+        let info = { "Id": null, "ExamRoomId": null, "SeatNumber": SeatNumberinfo, "TicketId": "", "LAY_TABLE_INDEX": 25 };
+        DetailedList.push(info);
+        layer.close(addRowlayer);
+        getroomlistBykeyWord();
+        table.render({
+            elem: '#editfrom_SeatTables',
+            height: 360,
+            limit: 100,
+            toolbar: 'default',
+            text: { none: "暂无数据" },
+            cols: [[
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'Id', width: 80, title: '编码' },
+                { field: 'SeatNumber', title: '座位号码', width: 150, align: 'center' }
+            ]],
+            page: false,
+            data: DetailedList
+        });
+    })
+    $("#addeditrow").on("click", function () {
+        addRowlayer = layer.open({
+            type: 1
+            , title: "添加行"
+            , area: ['400px', '200px']
+            , shade: 0
+            , content: $("#addRownotice")
+            , zIndex: layer.zIndex
+        });
     })
     function getroomlistBykeyWord() {
         var roomname = $("#condes input[name='roomname']").val();
-        var url = "/Handler/ExamCenter.ashx?action=getexamroom&name=" + roomname+ "&page=1&limit=" + limitcount;
+        var url = "/Handler/ExamCenter.ashx?action=getexamroom&name=" + roomname + "&page=" + curnum + "&limit=" + limitcount;
         Params.Ajax(url, "get", "", getroomlistback, get_failback);
     }
     function get_failback(ret)
@@ -190,27 +313,28 @@
                 //向服务端发送删除指令
             });
         } else if(layEvent === 'edit'){
-            var url = "/Handler/ExamCenter.ashx?action=deleteexamroom";
-            Params.Ajax(url, "post", data,getroombyid,get_failback);
+            var url = "/Handler/ExamCenter.ashx?action=getexamroombyid&id=" + data.id;
+            Params.Ajax(url, "get", "",getroombyid,get_failback);
            
         }
     });
     function getroombyid(ret)
     {
-        
-        $("#editfrom_kdmc").val("");
-        $("#editfrom_kcmc").val("");
-        $("#editfrom_kcdz").val("");
-        $("#editfrom_kch").val("");
-        $("#editfrom_zws").val("");
-        $("#editfrom_cjgbsj").val("");
-        var _title = "添加考场";
-        layer.open({
+        $("#editfrom_id").val(ret.Data.Id);
+        $("#editfrom_kdmc").val(ret.Data.ExamName);
+        $("#editfrom_kcmc").val(ret.Data.CentreName);
+        $("#editfrom_kcdz").val(ret.Data.ExamPlace);
+        $("#editfrom_kch").val(ret.Data.ExamNum);
+        $("#editfrom_zws").val(ret.Data.SeatNum);
+        $("#editfrom_cjgbsj").val(ret.Data.ResultReleaseTime);
+        var _title = "修改考场";
+        editlayer=layer.open({
             type: 1
             , title: _title
-            , area: ['750px', '650px']
+            , area: ['750px', '430px']
+            ,offset: '10px'
             , shade: 0
-            , content: $("#notice1")
+            , content: $("#editfrom")
             , yes: function () {
 
             }
@@ -219,17 +343,20 @@
             }
             , zIndex: layer.zIndex
         });
+        DetailedList = ret.Data.Detailed;
         table.render({
-            elem: '#SeatTables',
-            height:360,
+            elem: '#editfrom_SeatTables',
+            height: 360,
+            limit:100,
             toolbar: 'default',
             text: { none: "暂无数据" },
             cols: [[
                 { type: 'checkbox', fixed: 'left' },
+                { field: 'Id', width: 80, title: '编码' },
                 { field: 'SeatNumber', title: '座位号码', width: 150, align: 'center' }
             ]],
             page: false,
-            data: restlist
+            data: DetailedList
         });
     }
     function delroomback(ret)

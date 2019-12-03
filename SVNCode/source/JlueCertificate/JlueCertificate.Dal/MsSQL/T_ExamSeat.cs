@@ -52,6 +52,23 @@ namespace JlueCertificate.Dal.MsSQL
                     return flag;
             }
         }
+        //判断座位是否绑定
+        public static bool isSelectSeat(string _ticketnum)
+        {
+            bool flag = false;
+            string sql = string.Format("SELECT id, ExamRoomId , SeatNumber,TicketId" +
+                                        " FROM T_ExamSeat where TicketId = '{0}'", _ticketnum);
+            List<Entity.Respose.getexamseatInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.Respose.getexamseatInfo>(sql);
+            if (list == null || list.Count == 0)
+            {
+                return flag;
+            }
+            else
+            {
+                    flag = true;
+                    return flag;
+            }
+        }
 
         //查询考场座位
         public static bool Select(Entity.MsSQL.T_ExamSeat model)

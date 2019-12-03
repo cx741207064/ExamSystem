@@ -23,8 +23,8 @@
         Params.Ajax(unsignupurl, "get", "", getcertifiprint_success, get_fail);
     }
     function getcertifiprintInfo(){
-        //var printInfoUrl = "/Handler/ExamCenter.ashx?action=getticketprintinfo&TicketNum=" + escape(Params.getParamsFormUrl("TicketNum"));
-        var printInfoUrl = "/Handler/ExamCenter.ashx?action=getticketprintinfo&TicketNum=ZKH180510165121233";
+        var printInfoUrl = "/Handler/ExamCenter.ashx?action=getticketprintinfo&TicketNum=" + escape(Params.getParamsFormUrl("TicketNum"));
+        //var printInfoUrl = "/Handler/ExamCenter.ashx?action=getticketprintinfo&TicketNum=ZKH180510165121233";
         Params.Ajax(printInfoUrl, "get", "", getcertifiprintInfo_success, get_fail);
     }
     function getcertifiprint_success(ret) {
@@ -50,13 +50,25 @@
                 top.layer.msg(ret.Msg, { icon: 5 });
             }
             console.log(ret.Data)
-            //var yearMonth = ret.Data.
-            // $("#HeaderUrl").attr("src", ret.Data.HeaderUrl);
-            // $("#StartTime").val(ret.Data.StartTime);
-            // $("#TicketNum").val(ret.Data.TicketNum);
-            // $("#Name").val(ret.Data.Name);
-            // $("#Sex").val(ret.Data.Sex);
-            // $("#CardId").val(ret.Data.CardId);
+            var yearMonth = ret.Data.StartTime.slice(0,10)
+            var starttime = ret.Data.StartTime.slice(11,16)
+            var endtime = ret.Data.EndTime.slice(11,16)
+            var examtime = starttime + "-" + endtime
+            var openday = ret.Data.ResultReleaseTime.slice(0,10)
+            console.log(yearMonth)
+            console.log(starttime)
+            console.log(endtime)
+            console.log(examtime)
+            $("#ExamSchool").val(ret.Data.ExamName);
+            $("#ExamAddress").val(ret.Data.ExamPlace);
+            $("#ExamLevel").val(ret.Data.ExamSubject);
+            $("#CentreName").val(ret.Data.CentreName);
+            $("#ExamSubject").val(ret.Data.CategoryName);
+            $("#ExamDate").val(yearMonth);
+            $("#ExamTime").val(examtime);
+            $("#ExamHallNum").val(ret.Data.ExamNum);
+            $("#SeatNum").val(ret.Data.SeatNumber);
+            $("#PublishDate").val(openday)
         }
         else {
             top.layer.msg(ret.Msg, { icon: 5 });

@@ -125,6 +125,13 @@
             OLPaperID: $("#OLPaperID").val(),
         };
         console.log(_data.Catagory)
+        if (_data.Category == "题库") {
+            if (_data.OLPaperID=="") {
+                top.layer.msg("对应网校试卷不能为空", { icon: 2 });
+                return
+            } 
+        }
+        debugger
         if (_data.Name.length == 0) {
             top.layer.msg("课程名称不能为空", { icon: 2 });
             return
@@ -159,7 +166,7 @@
     function handelsubject_success(ret) {
         if (ret.Code == 0) {
             if (ret.Data == 1) {
-                top.layer.msg("该课程不能删除", { icon: 0 });
+                top.layer.msg("有证书绑定该课程，不能删除！", { icon: 0 });
                 setTimeout(function () {
                     layer.closeAll();
                 }, 1500)

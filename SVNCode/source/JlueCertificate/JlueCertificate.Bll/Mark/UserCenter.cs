@@ -522,7 +522,7 @@ namespace JlueCertificate.Bll.Mark
                 }
                 else
                 {
-                    return "1";
+                    return "课程不能删除！";
                 }
               
             }
