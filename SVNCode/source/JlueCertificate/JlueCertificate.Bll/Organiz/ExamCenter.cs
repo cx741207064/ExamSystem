@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Entity.Enum;
+using JlueCertificate.Repository;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -428,6 +429,11 @@ namespace JlueCertificate.Bll.Organiz
                     {
                         List<Entity.Respose.allcertifisubject> _sublist = new List<Entity.Respose.allcertifisubject>();
                         _sublist = Dal.MsSQL.T_CertifiSubject.GetAllListByCertId(Untity.HelperDataCvt.objToString(_certificate.Id));
+                        if (_sublist.Count == 0)
+                        {
+                            error = "证书没有配置课程，无法报名";
+                            return "-1";
+                        }
                         string ids = string.Join(",", _sublist.Select(ii => ii.OLSchoolAOMid.ToString()).ToList());
                         if (ids != "" && !(Dal.MsSQL.T_Subject.IsBuyAll(_orga, ids, _student.OLSchoolUserName, ref error)))
                         {
@@ -531,7 +537,7 @@ namespace JlueCertificate.Bll.Organiz
                 List<Entity.Respose.unsignupcertificate> _allunsign = new List<Entity.Respose.unsignupcertificate>();
                 if (!string.IsNullOrEmpty(studentid))
                 {
-                    Entity.MsSQL.T_Student _student = Dal.MsSQL.T_Student.GetModel(studentid);
+                    Entity.MsSQL.T_Student _student = OrganizaRepository.Singleton.GetStudentModel(studentid);
                     if (_student != null)
                     {
                         if (_orga.Id != _student.OrgaId)

@@ -56,6 +56,10 @@
       <Project>{8441cd8e-944c-4cde-9772-326b69ef7a31}</Project>
       <Name>JlueCertificate.Dal</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JlueCertificate.Entity\JlueCertificate.Entity.csproj">
+      <Project>{cfacfee6-a3de-494d-8030-fffd1309446e}</Project>
+      <Name>JlueCertificate.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JlueCertificate.Untity\JlueCertificate.Untity.csproj">
       <Project>{41645e03-b246-46fb-955a-d78fc517607f}</Project>
       <Name>JlueCertificate.Untity</Name>

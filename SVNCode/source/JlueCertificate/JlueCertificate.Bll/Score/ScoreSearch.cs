@@ -47,13 +47,20 @@ namespace JlueCertificate.Bll.Organiz
                         _accountform += b.Name + "平时成绩+";
                         return b;
                     }).ToList();
-                videoNormalAverageScore = videoNormalScore / videoscoredetail.Count();
-                if (_accountform.EndsWith("+"))
+                if (videoscoredetail.Count() > 0)
+                {
+                    videoNormalAverageScore = videoNormalScore / videoscoredetail.Count();
+                    if (_accountform.EndsWith("+"))
+                    {
+                        _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                    }
+                    _accountform += "）/ " + videoscoredetail.Count() + " * " + certifimodel.NormalResult + "% + ";
+                }
+                else
                 {
                     _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                    _accountform += "0 * " + certifimodel.NormalResult + "% + ";
                 }
-                _accountform += "）/ " + videoscoredetail.Count() + " * " + certifimodel.NormalResult + "% + ";
-
                 //计算考试科目平均成绩
                 decimal examScore = 0;
                 decimal examAverageScore = 0;
@@ -65,12 +72,20 @@ namespace JlueCertificate.Bll.Organiz
                         _accountform += b.Name + "考试成绩+";
                         return b;
                     }).ToList();
-                examAverageScore = examScore / notvideoscoredetail.Count();
-                if (_accountform.EndsWith("+"))
+                if (notvideoscoredetail.Count() > 0)
+                {
+                    examAverageScore = examScore / notvideoscoredetail.Count();
+                    if (_accountform.EndsWith("+"))
+                    {
+                        _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                    }
+                    _accountform += "）/ " + notvideoscoredetail.Count() + " * " + certifimodel.ExamResult + "%";
+                }
+                else
                 {
                     _accountform = _accountform.Substring(0, _accountform.Length - 1);
+                    _accountform += "0 * " + certifimodel.ExamResult + "%";
                 }
-                _accountform += "）/ " + notvideoscoredetail.Count() + " * " + certifimodel.ExamResult + "%";
 
                 //总得分，平时，考试
                 double _scoresum = 0;

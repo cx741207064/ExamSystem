@@ -1,0 +1,3 @@
+考试中心系统：http://192.168.1.115:7001/Pages/Examine/Login.html
+后台阅卷系统：http://192.168.1.115:7002/Pages/login.html  账号：张三 密码：111
+机构报名系统：http://192.168.1.115:7003/Pages/login.html  账号：财管协 密码：111111

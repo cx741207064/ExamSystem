@@ -87,5 +87,18 @@ namespace JlueCertificate.Repository
 
         }
 
+        public Entity.MsSQL.T_Student GetStudentModel(string studentid)
+        {
+            List<Entity.MsSQL.T_Student> list = db.Queryable<Entity.MsSQL.T_Student>().Where(t => t.Id == studentid).ToList();
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list.FirstOrDefault();
+            }
+        }
+
     }
 }

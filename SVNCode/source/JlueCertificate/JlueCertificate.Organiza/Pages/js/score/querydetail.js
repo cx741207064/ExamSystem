@@ -66,6 +66,11 @@
     }
 
     function get_fail(ret) {
-        layer.msg("服务器异常");
+        if(ret.responseJSON.Msg){
+            layer.msg(ret.responseJSON.Msg);
+        }
+        else{
+            layer.msg("服务器异常");
+        }
     }
 });

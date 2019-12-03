@@ -258,7 +258,7 @@
             return
         }
         if (_data.cardid.length == 0) {
-            top.layer.msg("省份证号不能为空");
+            top.layer.msg("身份证号不能为空");
             return
         }
         if (_data.telphone.length == 0) {

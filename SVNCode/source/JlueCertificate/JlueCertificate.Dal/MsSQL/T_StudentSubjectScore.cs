@@ -279,6 +279,10 @@ namespace JlueCertificate.Dal.MsSQL
                 + "&OLAccCourseId=" + OLAccCourseId;
             string json = p.Get(fullpath);
             Entity.Respose.GTXResult result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult>(json);
+            if (result.Data == null)
+            {
+                throw new Exception("未取得课程(SortId:" + OLSchoolId + ")的数据,请确认是否已购买");
+            }
             List<Entity.Respose.HKJScore> _sorts = Untity.HelperJson.DeserializeObject<List<Entity.Respose.HKJScore>>(result.Data.ToString());
             if (_sorts.Count > 0)
             {
@@ -296,7 +300,14 @@ namespace JlueCertificate.Dal.MsSQL
             var list = getStudentSubjectExamScore(OLSchoolUserId, sortid, StudentTicketId).FirstOrDefault();
             if (list != null)
             {
-                score = Convert.ToDecimal(list.score);
+                if (list.score == null || list.score == "")
+                {
+                    score = 0M;
+                }
+                else
+                {
+                    score = Convert.ToDecimal(list.score);
+                }
             }
             return score;
         }
