@@ -99,7 +99,7 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
                 }
                 else if (sub.Category == global.SubjectType.baoshui) {
                     //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
-                    url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "_1&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId + "&StudentTicketId=" + stu.StudentTicketId
+                    url = global.baoshuihost + "/QuestionMainPingCe.aspx?userid=" + stu.OLSchoolUserId + "_1&username=" + stu.OLSchoolUserName + "&classid=" + stu.ClassId + "&courseid=" + sub.OLSchoolCourseId + "&sortid=" + sub.OLSchoolId + "&StudentTicketId=" + stu.StudentTicketId + "&Name=" + sub.Name
                     window.open(url, "报税阅卷")
                 }
                 else if (sub.Category == global.SubjectType.diannaozhang) {
@@ -108,7 +108,10 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
                         var Data = ret.Data
                         if (Data) {
                             var token = $.md5(new Date().getDate() + Data.Identify.toUpperCase())
+                           // var diannaozhanghost = "http://192.168.1.115:8069";
+                          //  url = diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token + "&StudentTicketId=" + stu.StudentTicketId + "&OLSchoolId=" + sub.OLSchoolId + "&isexam=1"
                             url = global.diannaozhanghost + "/Pages/Electronic/index.html?CourseId=" + sub.OLAccCourseId + "&identify=" + Data.Identify + "&userid=" + stu.OLSchoolUserId + "&token=" + token + "&StudentTicketId=" + stu.StudentTicketId + "&OLSchoolId=" + sub.OLSchoolId + "&isexam=1"
+
                             window.open(url, "diannaozhang")
                         }
                     })
@@ -137,8 +140,10 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
 
 Vue.prototype.global =
     {
-        baoshuihost: "http://tybscppublish.kjcytk.com",
-        diannaozhanghost: "http://jluepracticeautobookscore.kjcytk.com",
+        //baoshuihost: "http://tybscppublish.kjcytk.com",
+        baoshuihost = "http://192.168.10.195:8022",
+        // diannaozhanghost: "http://jluepracticeautobookscore.kjcytk.com",
+        diannaozhanghost = "http://192.168.1.115:8069",
         identifyhost: "http://114.55.38.113:8054",
         SubjectType:
         {

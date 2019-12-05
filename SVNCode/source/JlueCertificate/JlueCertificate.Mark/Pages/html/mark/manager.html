@@ -18,7 +18,13 @@
     <link rel="stylesheet" type="text/css" href="../../css/user.css" media="all">
     <style>
         .layui-form-checkbox span{
-            width:145px !important;
+            width:220px !important;
+        }
+        .layui-input-block2{
+            margin-left: 50px !important;
+        }
+        .layui-input-inline1{
+            width: 300px !important;
         }
     </style>
 </head>
@@ -81,13 +87,13 @@
         </div>
 
         <div class="layui-form-item" id="vue1">
-            <div class="layui-input-block">
+            <div class="layui-input-block layui-input-block2">
                 <div class="layui-form-item">
                     <p style=" padding-top: 10px;">配置证书</p>
                 </div>
                 <template v-for="item in certificates">
                     <template v-if="true">
-                                    <div style="padding-right: 20px;padding-bottom: 20px; " class="layui-input-inline">
+                                    <div style="padding-right: 20px;padding-bottom: 20px; " class="layui-input-inline layui-input-inline1">
                                         <input type="checkbox" name="like[onestarA]"  v-bind:title="item.categoryName+'—'+item.examSubject" v-model="item.isChecked" v-bind:value="item.id">
                                         
                                     </div>

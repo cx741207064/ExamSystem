@@ -189,7 +189,7 @@
             layer.open({
                 type: 1
                 , title: _title
-                , area: [width, '430px']
+                , area: [width, '630px']
                 ,offset: '10px'
                 , shade: 0
                 , content: $("#notice1")

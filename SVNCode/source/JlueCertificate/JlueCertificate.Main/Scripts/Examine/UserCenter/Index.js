@@ -1,5 +1,6 @@
 ﻿//var baoshuihost = "http://tybscppublish.kjcytk.com"
 var baoshuihost = "http://192.168.1.115:8067"
+//var baoshuihost = "http://192.168.10.195:8022"
 //var diannaozhanghost = "https://ssl.jinglue.cn"
 var diannaozhanghost = "http://192.168.1.115:8068"
 
@@ -15,6 +16,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
         Params.Ajax("/Handler/UserCenter.ashx?action=userinfo", "get", "", PageIni_success, PageIni_error)
     }
     function PageIni_success(ret) {
+        
         ret = ret || JSON.parse(ret);
         if (ret.Code == 0) {
             if (Params.getCookieDis("examid").length > 0 && Params.getCookieDis("cardid").length > 0) {
@@ -22,7 +24,6 @@ layui.use(['jquery', 'layer', 'form'], function () {
                 setTimeout(function () {
                     $("#foot_span").html(new Date().getFullYear())
                     $("#loader").css("display", "none")
-                    $("#loaderT").css("display", "block")
                 }, 1000)
             }
             else {
@@ -60,11 +61,44 @@ layui.use(['jquery', 'layer', 'form'], function () {
             }
         }
     }
+    function getItemByCate2(data, key) {
+        var isfind=false;
+        for (var mm = 0; mm < data.subjects.length; mm++) {
+            if (data.subjects[mm].Category == key) {
+                if (isfind)
+                {
+                    return data.subjects[mm];
+                }
+                isfind = true;
+            }
+        }
+    }
     function ExamSubjectsInit(data) {
+        var study_url = 'http://cwrcpj.kjcytk.com/Member/DefaultLogin?UserName=' + data.OLSchoolUserName + '&UserPass=' + data.OLSchoolPWD + '123456';
+        $("#lamstuday").click(function () { window.open(study_url, "_blank") });
+        if (data.certificateLevel.indexOf("一星C") != -1) {//
+            $("#subjects").hide();
+            $("#subjectsyixing1").show();
+        }
+        else
+        {
+            $("#subjects").show();
+            $("#subjectsyixing1").hide();
+           
+        }
         var startTime = new Date(data.certificateStartTime)
         var endTime = new Date(data.certificateEndTime)
         var dateIsValid = startTime <= new Date() && endTime >= new Date()
         data.dateIsValid = dateIsValid
+        if (dateIsValid) {
+            $("#loaderT").show();
+            $("#studayView").hide();
+        }
+        else
+        {
+            $("#studayView").show();
+            $("#loaderT").hide();
+        }
         var subjects=data.subjects
         for(var i=subjects.length-1;i>=0;i--){
             if(subjects[i].Category=="视频"){
@@ -74,15 +108,18 @@ layui.use(['jquery', 'layer', 'form'], function () {
         data.subjects.forEach(function (e, i) {
             e.index = NumberToChinese(i + 1)
         })
-
         var url = "/json/SubjectType.json"
         $.ajax({ type: "get", url: url, dataType: "json" }).success(function (ret) {
-            var zhbkjsw=getItemByCate(data,"题库");
+            var zhbkjsw = getItemByCate(data, "题库");
+            var zhbkjsw2 = getItemByCate2(data, "题库");
             var dnz=getItemByCate(data,"实操-电脑账");
-            var bs=getItemByCate(data,"实操-报税");
+            var bs = getItemByCate(data, "实操-报税");
             $("#zhbkjsw").click(function () { subjectTypeCallBack(data, zhbkjsw, ret) });
             $("#dnz").click(function () { subjectTypeCallBack(data, dnz, ret) });
             $("#bs").click(function () { subjectTypeCallBack(data, bs, ret) });
+            $("#cnsx").click(function () { subjectTypeCallBack(data, zhbkjsw, ret) });
+            $("#cngw").click(function () { subjectTypeCallBack(data, zhbkjsw2, ret) });
+
         })
     }
     //data:
@@ -95,7 +132,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
 
             if (item.Category == ret.baoshui) {
                 //userid添加后缀"_1"区分考试成绩记录与平时成绩记录
-                url = baoshuihost + "/QuestionMainExam.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId + "&ExamLength=" + item.ExamLength
+                url = baoshuihost + "/QuestionMainExam.aspx?userid=" + data.OLSchoolUserId + "_1&username=" + data.OLSchoolUserName + "&classid=" + data.orgClassId + "&courseid=" + item.OLSchoolCourseId + "&sortid=" + item.OLSchoolId + "&StudentTicketId=" + data.StudentTicketId + "&ExamLength=" + item.ExamLength + "&Name=" + item.Name
                 window.open(url, "_blank")
             }
             else if (item.Category == ret.diannaozhang) {
@@ -108,7 +145,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
                 })
             }
             else if (item.Category == ret.tiku) {
-                url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
+                url = data.orgPath + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX" + "&ExamLength=" + item.ExamLength + "userid=" + data.OLSchoolUserId + "&StudentTicketId=" + data.StudentTicketId 
                 //url = "http://localhost:8360" + "/JLStudent/ChongCi/PaperActionCopy?username=" + data.OLSchoolUserName + "&password=" + data.OLSchoolPWD + "&name=" + data.studentName + "&CardId=" + data.CardId + "&ProvinceID=" + item.OLSchoolProvinceId + "&CourseSort=" + item.OLSchoolId + "&CourseID=" + item.OLSchoolCourseId + "&PaperID=" + item.OLPaperID + "&Sort_Name=" + item.OLSchoolName + "&Source=CGX"
                 window.open(url, "_blank")
             }

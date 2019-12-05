@@ -7,7 +7,8 @@
         laypage = layui.laypage,
         laydate = layui.laydate,
         common = layui.common;
-        editlayer = {};
+    editlayer = {};
+    addIndex = {};
         DetailedList = [];
         addRowlayer = {};
         restlist = [];
@@ -27,7 +28,7 @@
         $("#zws").val("");
         $("#cjgbsj").val("");
         var _title = "添加考场";
-        var addIndex=layer.open({
+         addIndex=layer.open({
             type: 1
             , title: _title
             , area: ['750px', '430px']
@@ -160,8 +161,8 @@
     $("#addrows").on("click", function () {
         let zws = $("#zws").val();
         restlist.length = 0;
-        for (let i = 0; i <= zws; i++) {
-            let info = { "SeatNumber":i };
+        for (let i = 0; i < zws; i++) {
+            let info = { "SeatNumber":i+1 };
             restlist.push(info);
         }
         table.render({
