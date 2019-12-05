@@ -130,7 +130,8 @@
                 loading: true,
                 text: { none: "暂无数据" },
                 cols: [[
-                    { field: 'ID', title: '序号', align: 'center' },
+                    //{ field: 'ID', title: '序号', align: 'center' },
+                    {type: 'numbers',title: '序号',align: 'center'},
                     { field: 'Name', title: '课程名称',width: 300, align: 'center' },
                     { field: 'Category', title: '类型',width: 140, align: 'center' },
                     { field: 'ExamLength', title: '考试时长',width: 100, align: 'center' },

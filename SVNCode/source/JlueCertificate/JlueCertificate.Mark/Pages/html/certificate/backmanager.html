@@ -182,7 +182,7 @@
                 <div class="layui-form-item" style="width: 380px;">
                     <label class="layui-form-label label1">考试时长</label>
                     <div class="layui-input-block layui-input-block1">
-                        <input name="ExamLength" id="ExamLength" class="layui-input" type="number" placeholder="请输入考试时长" lay-verify="required" autocomplete="off" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+                        <input name="ExamLength" id="ExamLength" class="layui-input" type="number" placeholder="请输入考试时长" lay-verify="required" autocomplete="off" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
                     </div>
                 </div>
             </div>

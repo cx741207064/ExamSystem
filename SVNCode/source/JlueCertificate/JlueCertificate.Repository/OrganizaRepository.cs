@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Dal.MsSQL;
+using JlueCertificate.Tool;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlSugar;
@@ -83,7 +84,7 @@ namespace JlueCertificate.Repository
             string SerialNum = "ZS" + DateTime.Now.Ticks;
             var state = Dal.MsSQL.T_StudentTicket.GetTicketState(studentId, certificateId);
 
-            if (state==""||state==null)
+            if (state == "" || state == null)
             {
                 db.Updateable<T_StudentTicket>().SetColumns(it => new T_StudentTicket() { SerialNum = SerialNum }).Where(it => it.CertificateId == certificateId && it.StudentId == studentId).ExecuteCommand();
                 long BigIdentity = db.Insertable(new T_CertifiSerial() { CertificateId = certificateId, State = "1", SerialNum = SerialNum, IssueDate = DateTime.Now, CreateTime = DateTime.Now, IsDel = "0" }).ExecuteReturnBigIdentity();
@@ -93,7 +94,7 @@ namespace JlueCertificate.Repository
             {
                 result.Msg = "证书已颁发";
             }
-           
+
             return Untity.HelperJson.SerializeObject(result);
 
         }
@@ -109,6 +110,26 @@ namespace JlueCertificate.Repository
             {
                 return list.FirstOrDefault();
             }
+        }
+
+        public JObject OpenLearningSystemCertificate(string UserName, string UserPass, Entity.MsSQL.T_Certificate certificate)
+        {
+            Dictionary<string, int> certificateNo = GetCertificateNo();
+            int Star = certificateNo.Where(a => (certificate.CategoryName + certificate.ExamSubject).IndexOf(a.Key) > 0).FirstOrDefault().Value;
+            byte[] b = Encoding.UTF8.GetBytes("chun815@tom.com".Substring(0, 8));
+            string str = string.Format("UserName={0}&UserPass={1}&Star={2}", UserName, UserPass, Star);
+            string en = PublicMethod.DesEncrypt(str, b, b);
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string requestUri = string.Format("http://cwrcpjhoutai.kjcytk.com/api/InterFace/AddUserCourse?sign={0}", en);
+            string resultString = HttpHelper.Singleton.HttpPost(requestUri, dic);
+            JObject result = JsonConvert.DeserializeObject<JObject>(resultString);
+            return result;
+        }
+
+        private Dictionary<string, int> GetCertificateNo()
+        {
+            Dictionary<string, int> certificateNo = new Dictionary<string, int>() { { "一星A", 1 }, { "一星B", 2 }, { "一星C", 3 }, { "二星A", 4 }, { "二星B1", 5 }, { "二星B2", 6 }, { "二星C1", 7 }, { "二星C2", 8 }, { "三星A", 9 }, { "三星B", 10 }, { "三星C", 11 } };
+            return certificateNo;
         }
 
     }

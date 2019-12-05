@@ -1,6 +1,7 @@
 ﻿using JlueCertificate.Entity.Enum;
 using JlueCertificate.Repository;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -440,6 +441,14 @@ namespace JlueCertificate.Bll.Organiz
                             error = error + ",无法报名";
                             return "-1";
                         }
+
+                        JObject olsc = OrganizaRepository.Singleton.OpenLearningSystemCertificate(_student.OLSchoolUserName, _student.OLSchoolPWD, _certificate);
+                        if (JToken.DeepEquals(olsc["code"], 0))
+                        {
+                            error = "开通学习平台账号失败，无法报名";
+                            return "-1";
+                        }
+
                         Entity.MsSQL.T_StudentTicket _model = new Entity.MsSQL.T_StudentTicket()
                         {
                             CertificateId = _signup.certificateid.ToString(),
@@ -576,10 +585,6 @@ namespace JlueCertificate.Bll.Organiz
                         {
                             try
                             {
-                                if (item.StartTime > DateTime.Now)
-                                {
-                                    continue;
-                                }
                                 if (item.EndTime < DateTime.Now && !string.IsNullOrEmpty(Untity.HelperDataCvt.DateTimeToStr(item.EndTime)))
                                 {
                                     continue;
