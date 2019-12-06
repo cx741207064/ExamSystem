@@ -108,39 +108,7 @@ namespace JlueCertificate.Bll.Organiz
                 result.accountform = _accountform;
 
                 decimal score = 0M;
-                switch (certifimodel.CategoryName)
-                {
-                    case "人才评价证书一星":
-                        switch (certifimodel.ExamSubject)
-                        {
-                            case "A":
-                            case "B":
-                            case "C":
-                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
-                                break;
-                        }
-                        break;
-                    case "人才评价证书二星":
-                        switch (certifimodel.ExamSubject)
-                        {
-                            case "A":
-                            case "B":
-                            case "C":
-                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
-                                break;
-                        }
-                        break;
-                    case "人才评价证书三星":
-                        switch (certifimodel.ExamSubject)
-                        {
-                            case "A":
-                            case "B":
-                            case "C":
-                                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
-                                break;
-                        }
-                        break;
-                }
+                score = int.Parse(certifimodel.NormalResult) / 100M * videoNormalAverageScore + int.Parse(certifimodel.ExamResult) / 100M * examAverageScore;
                 result.scoresum = Math.Round(score, 2).ToString();
             }
             else

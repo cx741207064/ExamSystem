@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -41,53 +43,81 @@ namespace JlueCertificate.Tool
             set;
         }
 
-        public string HttpGet(string requestUri)
+        public Task<HttpResponseResult> HttpGet(string requestUri)
         {
             var hrm = httpClient.GetAsync(requestUri);
             var result = hrm.ContinueWith(a =>
                  {
+                     HttpResponseResult hrr = new HttpResponseResult() { Code = -1 };
                      string stringResult = null;
+                     string msg = null;
                      switch (a.Status)
                      {
                          case TaskStatus.RanToCompletion:
-                             stringResult = a.Result.Content.ReadAsStringAsync().Result;
+                             if (a.Result.StatusCode == HttpStatusCode.OK)
+                             {
+                                 stringResult = a.Result.Content.ReadAsStringAsync().Result;
+                                 hrr.Code = 1;
+                                 hrr.Data = stringResult;
+                             }
+                             else
+                             {
+                                 msg = "远程服务器返回不正确";
+                             }
                              break;
                          case TaskStatus.Canceled:
-                             stringResult = "请求已取消";
+                             msg = "请求已取消";
                              break;
                          case TaskStatus.Faulted:
-                             stringResult = string.Format("远程服务器发生错误,URI:{0}", requestUri);
+                             msg = "服务器发生错误";
                              break;
                      }
-                     return stringResult;
+                     hrr.Message = msg;
+                     return hrr;
                  });
-            result.Wait();
-            return result.Result;
+            //result.Wait();
+            return result;
         }
 
-        public string HttpPost(string requestUri, Dictionary<string, string> dic)
+        public Task<HttpResponseResult> HttpPost(string requestUri, Dictionary<string, string> dic = null)
         {
+            if (dic == null)
+            {
+                dic = new Dictionary<string, string>();
+            }
             HttpContent httpContent = new FormUrlEncodedContent(dic);
             var hrm = httpClient.PostAsync(requestUri, httpContent);
             var result = hrm.ContinueWith(a =>
                 {
+                    HttpResponseResult hrr = new HttpResponseResult() { Code = -1 };
                     string stringResult = null;
+                    string msg = null;
                     switch (a.Status)
                     {
                         case TaskStatus.RanToCompletion:
-                            stringResult = a.Result.Content.ReadAsStringAsync().Result;
+                            if (a.Result.StatusCode == HttpStatusCode.OK)
+                            {
+                                stringResult = a.Result.Content.ReadAsStringAsync().Result;
+                                hrr.Code = 1;
+                                hrr.Data = stringResult;
+                            }
+                            else
+                            {
+                                msg = "远程服务器返回不正确";
+                            }
                             break;
                         case TaskStatus.Canceled:
-                            stringResult = "请求已取消";
+                            msg = "请求已取消";
                             break;
                         case TaskStatus.Faulted:
-                            stringResult = string.Format("远程服务器发生错误,URI:{0}", requestUri);
+                            msg = "服务器发生错误";
                             break;
                     }
-                    return stringResult;
+                    hrr.Message = msg;
+                    return hrr;
                 });
-            result.Wait();
-            return result.Result;
+            //result.Wait();
+            return result;
         }
 
     }

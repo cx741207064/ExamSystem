@@ -79,7 +79,7 @@ namespace JlueCertificate.Entity.Respose
 
     public class SPScore
     {
-        public decimal persent { get; set; }
+        public string persent { get; set; }
         public int count { get; set; }
         public int sum { get; set; }
     }

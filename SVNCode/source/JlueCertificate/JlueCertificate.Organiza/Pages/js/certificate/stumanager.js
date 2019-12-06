@@ -185,7 +185,7 @@
             cols: [[
                 { type: 'numbers', title: '序号',width: 60 },
                 { field: 'Name', width: 300, title: '课程名称', align: 'center' },
-                { field: 'Price', width: 150, title: '购买价格', align: 'center' },
+                // { field: 'Price', width: 150, title: '购买价格', align: 'center' },
                 { field: 'Category', title: '类型', align: 'center' }
             ]],
             data: _data,

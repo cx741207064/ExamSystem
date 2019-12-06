@@ -1,4 +1,5 @@
 ﻿using JlueCertificate.Entity.Enum;
+using JlueCertificate.Tool;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -106,6 +107,10 @@ namespace JlueCertificate.Dal.MsSQL
                 }
                 else if (item.Category == SubjectCategory.实操电脑账)
                 {
+                    if (string.IsNullOrEmpty(item.OLAccCourseId))
+                    {
+                        item.OLAccCourseId = "0";
+                    }
                     decimal normalscore = GetDNZNormalScore(classid, OLSchoolUserId, item.OLSchoolId, item.OLAccCourseId);
                     _score.NormalScore = normalscore.ToString();
                     decimal examscore = GetDNZExamScore(OLSchoolUserId, StudentTicketId, item.OLSchoolId);
@@ -226,7 +231,12 @@ namespace JlueCertificate.Dal.MsSQL
             Cache c = System.Web.HttpContext.Current.Cache;
             if (c.Get(fullpath) == null)
             {
-                json = p.Get(fullpath);
+                var hrr = HttpHelper.Singleton.HttpGet(fullpath);
+                json = hrr.Result.Data;
+                if (string.IsNullOrEmpty(json))
+                {
+                    return 0;
+                }
                 System.Web.HttpContext.Current.Cache.Insert(fullpath, json, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
             }
             else
@@ -237,7 +247,12 @@ namespace JlueCertificate.Dal.MsSQL
             Entity.Respose.SPScore _spscore = Untity.HelperJson.DeserializeObject<Entity.Respose.SPScore>(result.data.ToString());
             if (_spscore != null)
             {
-                score = _spscore.persent;
+                double d = double.Parse(_spscore.persent);
+                if (double.IsNaN(d))
+                {
+                    d = 0;
+                }
+                score = (decimal)d;
             }
             return score;
         }

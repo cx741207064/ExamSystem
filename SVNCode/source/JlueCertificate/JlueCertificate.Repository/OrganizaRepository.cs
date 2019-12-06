@@ -112,18 +112,17 @@ namespace JlueCertificate.Repository
             }
         }
 
-        public JObject OpenLearningSystemCertificate(string UserName, string UserPass, Entity.MsSQL.T_Certificate certificate)
+        public string OpenLearningSystemCertificate(string UserName, string UserPass, Entity.MsSQL.T_Certificate certificate)
         {
             Dictionary<string, int> certificateNo = GetCertificateNo();
             int Star = certificateNo.Where(a => (certificate.CategoryName + certificate.ExamSubject).IndexOf(a.Key) > 0).FirstOrDefault().Value;
             byte[] b = Encoding.UTF8.GetBytes("chun815@tom.com".Substring(0, 8));
             string str = string.Format("UserName={0}&UserPass={1}&Star={2}", UserName, UserPass, Star);
             string en = PublicMethod.DesEncrypt(str, b, b);
-            Dictionary<string, string> dic = new Dictionary<string, string>();
             string requestUri = string.Format("http://cwrcpjhoutai.kjcytk.com/api/InterFace/AddUserCourse?sign={0}", en);
-            string resultString = HttpHelper.Singleton.HttpPost(requestUri, dic);
-            JObject result = JsonConvert.DeserializeObject<JObject>(resultString);
-            return result;
+            var result = HttpHelper.Singleton.HttpPost(requestUri);
+            string Data = result.Result.Data;
+            return Data;
         }
 
         private Dictionary<string, int> GetCertificateNo()

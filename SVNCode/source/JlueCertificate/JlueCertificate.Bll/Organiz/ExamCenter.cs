@@ -442,10 +442,16 @@ namespace JlueCertificate.Bll.Organiz
                             return "-1";
                         }
 
-                        JObject olsc = OrganizaRepository.Singleton.OpenLearningSystemCertificate(_student.OLSchoolUserName, _student.OLSchoolPWD, _certificate);
-                        if (JToken.DeepEquals(olsc["code"], 0))
+                        string result = OrganizaRepository.Singleton.OpenLearningSystemCertificate(_student.OLSchoolUserName, _student.OLSchoolPWD, _certificate);
+                        if (result == null)
                         {
-                            error = "开通学习平台账号失败，无法报名";
+                            error = "开通学习平台账号失败";
+                            return "-1";
+                        }
+                        JObject olsc = JsonConvert.DeserializeObject<JObject>(result);
+                        if (JToken.DeepEquals(olsc["code"], 1))
+                        {
+                            error = "开通学习平台账号失败," + olsc["msg"];
                             return "-1";
                         }
 

@@ -124,7 +124,8 @@ namespace JlueCertificate.Dal.MsSQL
             HelperMethod p = new HelperMethod();
             string path = HelperAppSet.getAppSetting("olschoolpath");
             string fullpath = path + "/Member/GetOrgCourse?classid=9";
-            string json = HttpHelper.Singleton.HttpGet(fullpath);
+            var hrr = HttpHelper.Singleton.HttpGet(fullpath);
+            string json = hrr.Result.Data;
             Entity.Respose.GTXResult result = Untity.HelperJson.DeserializeObject<Entity.Respose.GTXResult>(json);
             return Untity.HelperJson.DeserializeObject<List<Entity.Respose.olschoolsubject>>(HelperDataCvt.objToString(result.Data));
         }
