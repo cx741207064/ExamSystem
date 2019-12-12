@@ -15,7 +15,7 @@ namespace JlueCertificate.Tool
         private HttpHelper()
         {
             httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(0, 0, 3);
+            //httpClient.Timeout = new TimeSpan(0, 0, 3);
         }
 
         private static object locker = new object();
@@ -48,7 +48,7 @@ namespace JlueCertificate.Tool
             var hrm = httpClient.GetAsync(requestUri);
             var result = hrm.ContinueWith(a =>
                  {
-                     HttpResponseResult hrr = new HttpResponseResult() { Code = -1 };
+                     HttpResponseResult hrr = new HttpResponseResult();
                      string stringResult = null;
                      string msg = null;
                      switch (a.Status)
@@ -57,13 +57,14 @@ namespace JlueCertificate.Tool
                              if (a.Result.StatusCode == HttpStatusCode.OK)
                              {
                                  stringResult = a.Result.Content.ReadAsStringAsync().Result;
-                                 hrr.Code = 1;
+                                 hrr.isSuccess = true;
                                  hrr.Data = stringResult;
                              }
                              else
                              {
                                  msg = "远程服务器返回不正确";
                              }
+                             hrr.Code = (int)a.Result.StatusCode;
                              break;
                          case TaskStatus.Canceled:
                              msg = "请求已取消";
@@ -89,7 +90,7 @@ namespace JlueCertificate.Tool
             var hrm = httpClient.PostAsync(requestUri, httpContent);
             var result = hrm.ContinueWith(a =>
                 {
-                    HttpResponseResult hrr = new HttpResponseResult() { Code = -1 };
+                    HttpResponseResult hrr = new HttpResponseResult();
                     string stringResult = null;
                     string msg = null;
                     switch (a.Status)
@@ -98,13 +99,14 @@ namespace JlueCertificate.Tool
                             if (a.Result.StatusCode == HttpStatusCode.OK)
                             {
                                 stringResult = a.Result.Content.ReadAsStringAsync().Result;
-                                hrr.Code = 1;
+                                hrr.isSuccess = true;
                                 hrr.Data = stringResult;
                             }
                             else
                             {
                                 msg = "远程服务器返回不正确";
                             }
+                            hrr.Code = (int)a.Result.StatusCode;
                             break;
                         case TaskStatus.Canceled:
                             msg = "请求已取消";

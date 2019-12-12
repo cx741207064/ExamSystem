@@ -112,17 +112,23 @@ namespace JlueCertificate.Repository
             }
         }
 
-        public string OpenLearningSystemCertificate(string UserName, string UserPass, Entity.MsSQL.T_Certificate certificate)
+        public HttpResponseResult OpenLearningSystemCertificate(string UserName, string UserPass, Entity.MsSQL.T_Certificate certificate)
         {
+            HttpResponseResult hrr = new HttpResponseResult();
             Dictionary<string, int> certificateNo = GetCertificateNo();
             int Star = certificateNo.Where(a => (certificate.CategoryName + certificate.ExamSubject).IndexOf(a.Key) > 0).FirstOrDefault().Value;
+            if (Star == 0)
+            {
+                hrr.Message = "证书格式不符合规范";
+                return hrr;
+            }
             byte[] b = Encoding.UTF8.GetBytes("chun815@tom.com".Substring(0, 8));
             string str = string.Format("UserName={0}&UserPass={1}&Star={2}", UserName, UserPass, Star);
             string en = PublicMethod.DesEncrypt(str, b, b);
             string requestUri = string.Format("http://cwrcpjhoutai.kjcytk.com/api/InterFace/AddUserCourse?sign={0}", en);
             var result = HttpHelper.Singleton.HttpPost(requestUri);
-            string Data = result.Result.Data;
-            return Data;
+            hrr = result.Result;
+            return hrr;
         }
 
         private Dictionary<string, int> GetCertificateNo()

@@ -46,6 +46,7 @@
     <Compile Include="Enum\CertificateRule.cs" />
     <Compile Include="Enum\CertState.cs" />
     <Compile Include="Enum\SubjectCategory.cs" />
+    <Compile Include="MsSQL\GetStudentInfo.cs" />
     <Compile Include="MsSQL\T_Certificate.cs" />
     <Compile Include="MsSQL\T_CertifiScheme.cs" />
     <Compile Include="MsSQL\T_CertifiSerial.cs" />

@@ -1,5 +1,6 @@
 ﻿using JlueCertificate.Entity.Enum;
 using JlueCertificate.Repository;
+using JlueCertificate.Tool;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -23,7 +24,7 @@ namespace JlueCertificate.Bll.Organiz
             return result;
         }
 
-        private static List<Entity.Respose.getstudent> ConvertStudentToResponse(List<Entity.MsSQL.T_Student> list)
+        private static List<Entity.Respose.getstudent> ConvertStudentToResponse(List<Entity.MsSQL.GetStudentInfo> list)
         {
             List<Entity.Respose.getstudent> result = new List<Entity.Respose.getstudent>();
             int i = 1;
@@ -48,7 +49,9 @@ namespace JlueCertificate.Bll.Organiz
                     zoneid = Untity.HelperDataCvt.objToString(ii.ZoneId),
                     createtime = ii.CreateTime.ToString("yyyy-MM-dd"),
                     olschoolusername = ii.OLSchoolUserName,
-                    UploadIDCardPath = ii.UploadIDCardPath.HasValues ? ii.UploadIDCardPath : null
+                    UploadIDCardPath = ii.UploadIDCardPath.HasValues ? ii.UploadIDCardPath : null,
+                    orgaid = ii.OrgaId.ToString(),
+                    organame = ii.OrgName
                 });
             });
             return result;
@@ -435,23 +438,25 @@ namespace JlueCertificate.Bll.Organiz
                             error = "证书没有配置课程，无法报名";
                             return "-1";
                         }
-                        string ids = string.Join(",", _sublist.Select(ii => ii.OLSchoolAOMid.ToString()).ToList());
-                        if (ids != "" && !(Dal.MsSQL.T_Subject.IsBuyAll(_orga, ids, _student.OLSchoolUserName, ref error)))
-                        {
-                            error = error + ",无法报名";
-                            return "-1";
-                        }
 
-                        string result = OrganizaRepository.Singleton.OpenLearningSystemCertificate(_student.OLSchoolUserName, _student.OLSchoolPWD, _certificate);
-                        if (result == null)
+                        ////判断网校课程是否已购买
+                        //string ids = string.Join(",", _sublist.Select(ii => ii.OLSchoolAOMid.ToString()).ToList());
+                        //if (ids != "" && !(Dal.MsSQL.T_Subject.IsBuyAll(_orga, ids, _student.OLSchoolUserName, ref error)))
+                        //{
+                        //    error = error + ",无法报名";
+                        //    return "-1";
+                        //}
+
+                        HttpResponseResult result = OrganizaRepository.Singleton.OpenLearningSystemCertificate(_student.OLSchoolUserName, _student.OLSchoolPWD, _certificate);
+                        if (result.isSuccess == false)
                         {
-                            error = "开通学习平台账号失败";
+                            error = "开通学习平台账号失败，" + result.Message;
                             return "-1";
                         }
-                        JObject olsc = JsonConvert.DeserializeObject<JObject>(result);
+                        JObject olsc = JsonConvert.DeserializeObject<JObject>(result.Data);
                         if (JToken.DeepEquals(olsc["code"], 1))
                         {
-                            error = "开通学习平台账号失败," + olsc["msg"];
+                            error = "开通学习平台账号失败，" + olsc["msg"];
                             return "-1";
                         }
 
@@ -512,14 +517,14 @@ namespace JlueCertificate.Bll.Organiz
                     long olcount = Dal.MsSQL.T_Student.GetOLSchoolUserCount(_student.Id, _bangding.olschoolusername, Untity.HelperDataCvt.objToString(_orga.Id));
                     if (olcount > 0)
                     {
-                        error = "此网校账号已经被其他学员绑定，无法报名";
+                        error = "此网校账号已经被其他学员绑定，无法绑定";
                         return olcount;
                     }
                     //验证账号合法性
                     Entity.Respose.OLUserResponse oluser = Dal.MsSQL.T_Student.getOLSchoolUserId(_orga, _bangding.olschoolusername, _bangding.olschoolpwd);
                     if (string.IsNullOrEmpty(oluser.id))
                     {
-                        error = oluser.msg + "，无法报名";
+                        error = oluser.msg + "，无法绑定";
                         return "-1";
                     }
                     //第一次绑定或修改绑定

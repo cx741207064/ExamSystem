@@ -7,6 +7,8 @@ namespace JlueCertificate.Tool
 {
     public class HttpResponseResult
     {
+        public bool isSuccess { get; set; }
+
         public int Code { get; set; }
 
         public string Message { get; set; }

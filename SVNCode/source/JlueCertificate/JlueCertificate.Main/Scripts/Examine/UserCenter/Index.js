@@ -1,8 +1,8 @@
-﻿//var baoshuihost = "http://tybscppublish.kjcytk.com"
-var baoshuihost = "http://192.168.1.115:8067"
+﻿var baoshuihost = "http://tybscppublish.kjcytk.com"
+//var baoshuihost = "http://192.168.1.115:8067"
 //var baoshuihost = "http://192.168.10.195:8022"
-//var diannaozhanghost = "https://ssl.jinglue.cn"
-var diannaozhanghost = "http://192.168.1.115:8068"
+var diannaozhanghost = "https://ssl.jinglue.cn"
+//var diannaozhanghost = "http://192.168.1.115:8068"
 
 var diannaozhangapihost = "http://114.55.38.113:8054"
 //var diannaozhangapihost = "http://localhost:8014"
@@ -74,7 +74,7 @@ layui.use(['jquery', 'layer', 'form'], function () {
         }
     }
     function ExamSubjectsInit(data) {
-        var study_url = 'http://cwrcpj.kjcytk.com/Member/DefaultLogin?UserName=' + data.OLSchoolUserName + '&UserPass=' + data.OLSchoolPWD + '123456';
+        var study_url = 'http://cwrcpj.kjcytk.com/Member/DefaultLogin?UserName=' + data.OLSchoolUserName + '&UserPass=' + data.OLSchoolPWD;
         $("#lamstuday").click(function () { window.open(study_url, "_blank") });
         if (data.certificateLevel.indexOf("一星C") != -1) {//
             $("#subjects").hide();

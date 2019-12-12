@@ -140,10 +140,10 @@ layui.use(['layer', 'laypage', 'form', 'table', 'common', 'upload', 'laydate'], 
 
 Vue.prototype.global =
     {
-        //baoshuihost: "http://tybscppublish.kjcytk.com",
-        baoshuihost = "http://192.168.10.195:8022",
-        // diannaozhanghost: "http://jluepracticeautobookscore.kjcytk.com",
-        diannaozhanghost = "http://192.168.1.115:8069",
+        baoshuihost: "http://tybscppublish.kjcytk.com",
+        //baoshuihost: "http://192.168.1.115:8067",
+        diannaozhanghost: "http://jluepracticeautobookscore.kjcytk.com",
+        //diannaozhanghost: "http://192.168.1.115:8069",
         identifyhost: "http://114.55.38.113:8054",
         SubjectType:
         {

@@ -124,7 +124,7 @@ namespace JlueCertificate.Dal.MsSQL
             }
         }
 
-        public static List<Entity.MsSQL.T_Student> GetListByPage(long _orgaid, string _name, string _cardid, string page, string limit, ref long count)
+        public static List<Entity.MsSQL.GetStudentInfo> GetListByPage(long _orgaid, string _name, string _cardid, string page, string limit, ref long count)
         {
             string sql = "SELECT COUNT(*) FROM dbo.T_Student Where IsDel = 0 ";
             string sqlCondetion = "";
@@ -146,15 +146,15 @@ namespace JlueCertificate.Dal.MsSQL
             long _page = Untity.HelperDataCvt.strToLong(page, 1);
             long _limit = Untity.HelperDataCvt.strToLong(limit, 10);
             string sqltext = "select * from ( SELECT ROW_NUMBER()OVER(ORDER BY tempcolumn) temprownumber,* FROM ";
-            sqltext += string.Format("(SELECT TOP {0} tempcolumn = 0,* FROM dbo.T_Student  Where IsDel = 0 ", _page * _limit);
+            sqltext += string.Format("(SELECT TOP {0} tempcolumn = 0,st.*,og.Name as OrgName FROM dbo.T_Student st join T_Organiza og on st.OrgaId=og.Id Where st.IsDel = 0 ", _page * _limit);
             sqltext += sqlCondetion;
-            sqltext += " ORDER BY CreateTime desc) t  ";
+            sqltext += " ORDER BY st.CreateTime desc) t  ";
             sqltext += string.Format(") tt where temprownumber>{0} ORDER BY tt.temprownumber asc ", (_page - 1) * _limit);
-            List<Entity.MsSQL.T_Student> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Student>(sqltext);
+            List<Entity.MsSQL.GetStudentInfo> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.GetStudentInfo>(sqltext);
 
             if (list == null || list.Count == 0)
             {
-                return new List<Entity.MsSQL.T_Student>();
+                return new List<Entity.MsSQL.GetStudentInfo>();
             }
             else
             {

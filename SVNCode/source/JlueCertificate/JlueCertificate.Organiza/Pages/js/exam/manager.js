@@ -342,6 +342,7 @@
                     { field: 'id', title: '序号', align: 'center', width: 60 },
                     { field: 'idnumber', title: '学籍号', align: 'center', width: 200 },
                     { field: 'name', title: '姓名', align: 'center', width: 120 },
+                    { field: 'organame', title: '所属机构', align: 'center', width: 120 },
                     { field: 'cardid', title: '身份证号', align: 'left', width: 200 },
                     { field: 'telphone', title: '电话', align: 'left', width: 150 },
                     { field: 'olschoolusername', title: '网校', align: 'left', width: 150 },
