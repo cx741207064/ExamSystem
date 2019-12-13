@@ -137,10 +137,12 @@ layui.use(['jquery', 'layer', 'form'], function () {
             }
             else if (item.Category == ret.diannaozhang) {
                 var url2 = diannaozhangapihost + "/Member/GetMobileAndIdentify?classid=" + data.orgClassId + "&OLSchoolUserId=" + data.OLSchoolUserId + "&OLSchoolId=" + item.OLSchoolId
-                $.ajax({ url: url2, type: "get" }).done(function (re) {
+                $.ajax({ url: url2, type: "get", async: false }).done(function (re) {
                     if (re.Data) {
                         url = diannaozhanghost + "/DefaultIndex.aspx?SortId=" + item.OLSchoolId + "&CourseId=" + item.OLAccCourseId + "&mobile=" + re.Data.GdMobile + "&identify=" + re.Data.Identify + "&StudentTicketId=" + data.StudentTicketId + "&studentid=" + data.OLSchoolUserId + "&ExamLength=" + item.ExamLength
-                        window.open(url, "_blank")
+                        //window.open(url, "_blank")
+                        var open = window.open("_blank");
+                        open.location = url;
                     }
                 })
             }

@@ -333,7 +333,7 @@
     <Content Include="Pages\images\photo\admin.png" />
     <Content Include="Pages\images\print\certifi.jpg" />
     <Content Include="Pages\images\print\certifi1.jpg" />
-    <Content Include="Pages\images\print\ticket.jpg" />
+    <Content Include="Pages\images\print\ticket.png" />
     <Content Include="Pages\images\temp-bg.jpg" />
     <Content Include="Pages\images\user.jpg" />
     <Content Include="Pages\index.html" />

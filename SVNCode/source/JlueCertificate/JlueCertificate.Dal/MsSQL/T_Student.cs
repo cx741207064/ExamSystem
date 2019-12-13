@@ -84,7 +84,7 @@ namespace JlueCertificate.Dal.MsSQL
         
         public static Entity.MsSQL.T_Student GetModelByCardId(string _cardid)
         {
-            string sql = string.Format("SELECT * FROM dbo.T_Student WHERE CardId = '{0}' ", _cardid);
+            string sql = string.Format("SELECT * FROM dbo.T_Student WHERE IsDel=0 and CardId = '{0}' ", _cardid);
             List<Entity.MsSQL.T_Student> list = Untity.HelperMsSQL.ExecuteQueryToList<Entity.MsSQL.T_Student>(sql);
             if (list == null || list.Count == 0)
             {

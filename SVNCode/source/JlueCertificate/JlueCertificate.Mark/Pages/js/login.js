@@ -8,7 +8,7 @@ layui.use(['jquery','common','layer','form','larryMenu'],function(){
 
     var mar_top = ($(document).height()-$('#larry_login').height())/2.5;
     $('#larry_login').css({ 'margin-top': mar_top });
-    common.larryCmsSuccess('账号：张三 密码：111  输入正确后直接登录!', '后台帐号登录提示', 20);
+    //common.larryCmsSuccess('账号：张三 密码：111  输入正确后直接登录!', '后台帐号登录提示', 20);
     var placeholder = '';
     $("#larry_form input[type='text'],#larry_form input[type='password']").on('focus',function(){
           placeholder = $(this).attr('placeholder');
