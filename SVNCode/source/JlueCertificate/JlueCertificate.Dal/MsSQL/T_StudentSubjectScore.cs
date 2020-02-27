@@ -68,7 +68,7 @@ namespace JlueCertificate.Dal.MsSQL
         {
             // var obj = db.Updateable<T_StudentSubjectScore>(sss).ExecuteCommand();
            // var obj = db.Updateable<T_StudentSubjectScore>().UpdateColumns(it => new { score = sss.score}).Where(it => it.studentticketid == sss.studentticketid).ExecuteCommand();
-            string sql = string.Format("UPDATE dbo.T_StudentSubjectScore SET score = score + '{0}' WHERE studentticketid = '{1}' AND sortid = '{2}'", sss.score,sss.studentticketid,sss.sortid);
+            string sql = string.Format("UPDATE dbo.T_StudentSubjectScore SET score = '{0}' WHERE studentticketid = '{1}' AND sortid = '{2}'", sss.score,sss.studentticketid,sss.sortid);
             Untity.HelperMsSQL.ExecuteQuery(sql);
             return 1;
         }

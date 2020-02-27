@@ -50,10 +50,7 @@ namespace JlueCertificate.Bll.Organiz
                 if (videoscoredetail.Count() > 0)
                 {
                     videoNormalAverageScore = videoNormalScore / videoscoredetail.Count();
-                    if (_accountform.EndsWith("+"))
-                    {
-                        _accountform = _accountform.Substring(0, _accountform.Length - 1);
-                    }
+                    _accountform = _accountform.TrimEnd('+');
                     _accountform += "）/ " + videoscoredetail.Count() + " * " + certifimodel.NormalResult + "% + ";
                 }
                 else
@@ -75,10 +72,7 @@ namespace JlueCertificate.Bll.Organiz
                 if (notvideoscoredetail.Count() > 0)
                 {
                     examAverageScore = examScore / notvideoscoredetail.Count();
-                    if (_accountform.EndsWith("+"))
-                    {
-                        _accountform = _accountform.Substring(0, _accountform.Length - 1);
-                    }
+                    _accountform = _accountform.TrimEnd('+');
                     _accountform += "）/ " + notvideoscoredetail.Count() + " * " + certifimodel.ExamResult + "%";
                 }
                 else
